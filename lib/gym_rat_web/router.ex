@@ -9,10 +9,6 @@ defmodule GymRatWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/", GymRatWeb do
     pipe_through :browser # Use the default browser stack
 
@@ -20,7 +16,6 @@ defmodule GymRatWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", GymRatWeb do
-  #   pipe_through :api
-  # end
+  forward "/graphql", Absinthe.Plug, schema: GymRatWeb.GraphQL.Schema
+  forward "/graphiql", Absinthe.Plug.GraphiQL, schema: GymRatWeb.GraphQL.Schema
 end
