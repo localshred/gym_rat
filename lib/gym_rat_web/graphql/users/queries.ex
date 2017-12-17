@@ -1,8 +1,6 @@
 defmodule GymRatWeb.GraphQL.Users.Queries do
   use Absinthe.Schema.Notation
 
-  import_types GymRatWeb.GraphQL.Users.Types
-
   object :user_response do
     field :user, non_null(:user)
   end
@@ -12,7 +10,14 @@ defmodule GymRatWeb.GraphQL.Users.Queries do
   end
 
   object :users_queries do
-    field :users, non_null(:users_response)
-    field :user, non_null(:user_response)
+    field :users, non_null(:users_response) do
+      arg :query, non_null(:get_records_input)
+      # TODO resolve
+    end
+
+    field :user, non_null(:user_response) do
+      arg :query, non_null(:get_record_input)
+      # TODO resolve
+    end
   end
 end
