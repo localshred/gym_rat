@@ -19,6 +19,15 @@ defmodule GymRatWeb.Graphql.Grades.Types do
     value :hard, description: "Hard for the grade"
   end
 
+  @desc "Input type for supplying a grade to a query or mutation"
+  input_object :grade_input do
+    field :system, non_null(:grade_system)
+    field :major, non_null(:string)
+    field :minor, :string
+    field :tiny, :string
+    field :difficulty, :grade_difficulty
+  end
+
   @desc "A grade that may be assigned to a route or boulder problem"
   object :grade do
     field :system, non_null(:grade_system)

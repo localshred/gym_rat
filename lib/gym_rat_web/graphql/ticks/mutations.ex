@@ -4,7 +4,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
   input_object :create_tick_input do
     field :user_id, non_null(:integer)
     field :route_id, non_null(:integer)
-    field :user_grade, :grade
+    field :user_grade, :grade_input
     field :number_tries, :integer
     field :rating, :tick_rating
     field :send_type, non_null(:send_type)
@@ -18,7 +18,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
   input_object :update_tick_input do
     field :user_id, non_null(:integer)
     field :route_id, non_null(:integer)
-    field :user_grade, :grade
+    field :user_grade, :grade_input
     field :number_tries, :integer
     field :rating, :tick_rating
     field :send_type, non_null(:send_type)

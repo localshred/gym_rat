@@ -1,14 +1,6 @@
 defmodule GymRatWeb.Graphql.Routes.Mutations do
   use Absinthe.Schema.Notation
 
-  input_object :grade_input do
-    field :system, non_null(:grade_system)
-    field :major, non_null(:string)
-    field :minor, :string
-    field :tiny, :string
-    field :difficulty, :grade_difficulty
-  end
-
   input_object :create_route_input do
     field :area_id, non_null(:integer)
     field :setter_id, non_null(:integer)

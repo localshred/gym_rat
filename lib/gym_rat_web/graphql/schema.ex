@@ -19,12 +19,12 @@ defmodule GymRatWeb.Graphql.Schema do
   import_types GymRatWeb.Graphql.Ticks.Queries
   import_types GymRatWeb.Graphql.Users.Queries
 
-  # import_types GymRatWeb.Graphql.Areas.Mutations
-  # import_types GymRatWeb.Graphql.Gyms.Mutations
-  # import_types GymRatWeb.Graphql.HoldPlacements.Mutations
-  # import_types GymRatWeb.Graphql.Holds.Mutations
-  # import_types GymRatWeb.Graphql.Routes.Mutations
-  # import_types GymRatWeb.Graphql.Ticks.Mutations
+  import_types GymRatWeb.Graphql.Areas.Mutations
+  import_types GymRatWeb.Graphql.Gyms.Mutations
+  import_types GymRatWeb.Graphql.HoldPlacements.Mutations
+  import_types GymRatWeb.Graphql.Holds.Mutations
+  import_types GymRatWeb.Graphql.Routes.Mutations
+  import_types GymRatWeb.Graphql.Ticks.Mutations
   import_types GymRatWeb.Graphql.Users.Mutations
 
   query do
@@ -38,12 +38,12 @@ defmodule GymRatWeb.Graphql.Schema do
   end
 
   mutation do
-    # import_fields :areas_mutations
-    # import_fields :gyms_mutations
-    # import_fields :hold_placements_mutations
-    # import_fields :holds_mutations
-    # import_fields :routes_mutations
-    # import_fields :ticks_mutations
+    import_fields :areas_mutations
+    import_fields :gyms_mutations
+    import_fields :hold_placements_mutations
+    import_fields :holds_mutations
+    import_fields :routes_mutations
+    import_fields :ticks_mutations
     import_fields :users_mutations
   end
 end
