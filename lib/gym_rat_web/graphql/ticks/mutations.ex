@@ -2,7 +2,13 @@ defmodule GymRatWeb.GraphQL.Ticks.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :create_tick_input do
-    # TODO
+    field :user_id, non_null(:integer)
+    field :route_id, non_null(:integer)
+    field :user_grade, :grade
+    field :number_tries, :integer
+    field :rating, :tick_rating
+    field :send_type, non_null(:send_type)
+    field :sent_on, non_null(:utc_timestamp)
   end
 
   object :create_tick_response do
@@ -10,7 +16,13 @@ defmodule GymRatWeb.GraphQL.Ticks.Mutations do
   end
 
   input_object :update_tick_input do
-    # TODO
+    field :user_id, non_null(:integer)
+    field :route_id, non_null(:integer)
+    field :user_grade, :grade
+    field :number_tries, :integer
+    field :rating, :tick_rating
+    field :send_type, non_null(:send_type)
+    field :sent_on, non_null(:utc_timestamp)
   end
 
   object :update_tick_response do

@@ -2,7 +2,8 @@ defmodule GymRatWeb.GraphQL.Areas.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :create_area_input do
-    # TODO
+    field :gym_id, non_null(:integer)
+    field :name, non_null(:string)
   end
 
   object :create_area_response do
@@ -10,7 +11,7 @@ defmodule GymRatWeb.GraphQL.Areas.Mutations do
   end
 
   input_object :update_area_input do
-    # TODO
+    field :name, non_null(:string)
   end
 
   object :update_area_response do

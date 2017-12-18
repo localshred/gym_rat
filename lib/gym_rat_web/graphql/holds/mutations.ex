@@ -2,7 +2,13 @@ defmodule GymRatWeb.GraphQL.Holds.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :create_hold_input do
-    # TODO
+    field :maker, non_null(:string)
+    field :color, non_null(:string)
+    field :size, non_null(:string)
+    field :count, :integer
+    field :material, :material
+    field :features, :string
+    field :primary_use, :hold_type
   end
 
   object :create_hold_response do
@@ -10,7 +16,13 @@ defmodule GymRatWeb.GraphQL.Holds.Mutations do
   end
 
   input_object :update_hold_input do
-    # TODO
+    field :maker, :string
+    field :color, :string
+    field :count, :integer
+    field :size, :string
+    field :material, :material
+    field :features, :string
+    field :primary_use, :hold_type
   end
 
   object :update_hold_response do

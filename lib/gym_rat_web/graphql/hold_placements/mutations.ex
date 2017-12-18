@@ -1,8 +1,17 @@
 defmodule GymRatWeb.GraphQL.HoldPlacements.Mutations do
   use Absinthe.Schema.Notation
 
+  input_object :grid_coordinate_input do
+    field :x, non_null(:integer)
+    field :y, non_null(:integer)
+  end
+
   input_object :create_hold_placement_input do
-    # TODO
+    field :route_id, :integer
+    field :hold_id, :integer
+    field :grid_coordinate, :grid_coordinate_input
+    field :is_start, :boolean
+    field :is_finish, :boolean
   end
 
   object :create_hold_placement_response do
@@ -10,7 +19,10 @@ defmodule GymRatWeb.GraphQL.HoldPlacements.Mutations do
   end
 
   input_object :update_hold_placement_input do
-    # TODO
+    field :hold_id, :integer
+    field :grid_coordinate, :grid_coordinate_input
+    field :is_start, :boolean
+    field :is_finish, :boolean
   end
 
   object :update_hold_placement_response do
