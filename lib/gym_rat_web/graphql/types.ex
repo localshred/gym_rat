@@ -1,6 +1,12 @@
 defmodule GymRatWeb.GraphQL.Types do
   use Absinthe.Schema.Notation
 
+  scalar :utc_timestamp do
+    description "Time (in ISOz format)"
+    parse fn x -> x end
+    serialize fn x -> x end
+  end
+
   input_object :get_record_input do
     field :id, non_null(:id)
   end

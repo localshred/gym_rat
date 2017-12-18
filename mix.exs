@@ -20,7 +20,7 @@ defmodule GymRat.Mixfile do
   def application do
     [
       mod: {GymRat.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :timex]
     ]
   end
 
@@ -44,6 +44,7 @@ defmodule GymRat.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:poison, "~> 3.1.0"},
       {:postgrex, ">= 0.0.0"},
+      {:timex, "~> 3.0"},
     ]
   end
 
