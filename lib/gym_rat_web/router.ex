@@ -16,6 +16,6 @@ defmodule GymRatWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  forward "/graphql", Absinthe.Plug, schema: GymRatWeb.GraphQL.Schema
-  forward "/graphiql", Absinthe.Plug.GraphiQL, schema: GymRatWeb.GraphQL.Schema
+  forward "/graphql", Absinthe.Plug, schema: GymRatWeb.Graphql.Schema
+  forward "/graphiql", Absinthe.Plug.GraphiQL, schema: GymRatWeb.Graphql.Schema
 end
