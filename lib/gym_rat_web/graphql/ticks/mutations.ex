@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Ticks.Mutations do
+defmodule GymRatWeb.Graphql.Ticks.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :create_tick_input do

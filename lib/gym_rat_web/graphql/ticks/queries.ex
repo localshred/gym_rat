@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Ticks.Queries do
+defmodule GymRatWeb.Graphql.Ticks.Queries do
   use Absinthe.Schema.Notation
 
   object :tick_response do

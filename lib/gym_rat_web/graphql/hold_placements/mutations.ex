@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.HoldPlacements.Mutations do
+defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :grid_coordinate_input do

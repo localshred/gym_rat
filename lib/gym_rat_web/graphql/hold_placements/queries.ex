@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.HoldPlacements.Queries do
+defmodule GymRatWeb.Graphql.HoldPlacements.Queries do
   use Absinthe.Schema.Notation
 
   object :hold_placement_response do

@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Holds.Types do
+defmodule GymRatWeb.Graphql.Holds.Types do
   use Absinthe.Schema.Notation
 
   enum :material do

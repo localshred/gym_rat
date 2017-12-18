@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Grades.Types do
+defmodule GymRatWeb.Graphql.Grades.Types do
   use Absinthe.Schema.Notation
 
   enum :grade_system do

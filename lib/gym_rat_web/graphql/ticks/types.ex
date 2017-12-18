@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Ticks.Types do
+defmodule GymRatWeb.Graphql.Ticks.Types do
   use Absinthe.Schema.Notation
 
   enum :tick_rating do

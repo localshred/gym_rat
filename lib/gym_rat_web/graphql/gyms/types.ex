@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Gyms.Types do
+defmodule GymRatWeb.Graphql.Gyms.Types do
   use Absinthe.Schema.Notation
 
   object :gym do

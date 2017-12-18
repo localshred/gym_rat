@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Types do
+defmodule GymRatWeb.Graphql.Types do
   use Absinthe.Schema.Notation
 
   scalar :utc_timestamp do

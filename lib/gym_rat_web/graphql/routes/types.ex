@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Routes.Types do
+defmodule GymRatWeb.Graphql.Routes.Types do
   use Absinthe.Schema.Notation
 
   @desc "Breakdown of grades that may be assigned or derived for a route"

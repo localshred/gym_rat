@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Routes.Mutations do
+defmodule GymRatWeb.Graphql.Routes.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :grade_input do

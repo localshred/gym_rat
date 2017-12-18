@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Areas.Mutations do
+defmodule GymRatWeb.Graphql.Areas.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :create_area_input do

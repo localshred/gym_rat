@@ -1,4 +1,4 @@
-defmodule GymRatWeb.GraphQL.Holds.Mutations do
+defmodule GymRatWeb.Graphql.Holds.Mutations do
   use Absinthe.Schema.Notation
 
   input_object :create_hold_input do
