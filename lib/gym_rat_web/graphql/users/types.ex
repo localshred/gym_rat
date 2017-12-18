@@ -6,7 +6,9 @@ defmodule GymRatWeb.GraphQL.Users.Types do
     field :name, :string
     field :username, non_null(:string)
     field :email, non_null(:string)
-    field :avatar, non_null(:avatar)
+    field :avatar, non_null(:avatar) do
+      resolve fn parent, _args, _info -> { :ok, parent } end
+    end
   end
 
   object :avatar do
@@ -18,9 +20,10 @@ defmodule GymRatWeb.GraphQL.Users.Types do
 
   def resolve_avatar_url(user, args, _resolution) do
     user
-    |> Map.get('email')
+    |> Map.get(:email)
     |> gravatar_hash()
     |> gravatar_url(args)
+    |> (fn url -> { :ok, url } end).()
   end
 
   def gravatar_hash(email) do
@@ -32,9 +35,10 @@ defmodule GymRatWeb.GraphQL.Users.Types do
   end
 
   def gravatar_url(email_hash, args) do
-    "https://www.gravatar.com/avatar/#{email_hash}?d=retro&r=pg&s=#{gravatar_size(args.size)}"
+    "https://www.gravatar.com/avatar/#{email_hash}?d=retro&r=pg&s=#{gravatar_size(Map.get(args, :size))}"
   end
 
   def gravatar_size(size) when size in 1..2048, do: size
+  def gravatar_size(_), do: 35
   def gravatar_size, do: 35
 end
