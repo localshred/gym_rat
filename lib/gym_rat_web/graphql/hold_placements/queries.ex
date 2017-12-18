@@ -6,7 +6,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Queries do
   end
 
   object :hold_placements_response do
-    field :hold_placement, :hold_placement |> non_null |> list_of |> non_null
+    field :hold_placements, :hold_placement |> non_null |> list_of |> non_null
   end
 
   object :hold_placements_queries do

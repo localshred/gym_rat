@@ -6,7 +6,7 @@ defmodule GymRatWeb.Graphql.Areas.Queries do
   end
 
   object :areas_response do
-    field :area, :area |> non_null |> list_of |> non_null
+    field :areas, :area |> non_null |> list_of |> non_null
   end
 
   object :areas_queries do

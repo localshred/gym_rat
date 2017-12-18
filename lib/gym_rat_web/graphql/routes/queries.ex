@@ -6,7 +6,7 @@ defmodule GymRatWeb.Graphql.Routes.Queries do
   end
 
   object :routes_response do
-    field :route, :route |> non_null |> list_of |> non_null
+    field :routes, :route |> non_null |> list_of |> non_null
   end
 
   object :routes_queries do

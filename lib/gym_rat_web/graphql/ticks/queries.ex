@@ -6,7 +6,7 @@ defmodule GymRatWeb.Graphql.Ticks.Queries do
   end
 
   object :ticks_response do
-    field :tick, :tick |> non_null |> list_of |> non_null
+    field :ticks, :tick |> non_null |> list_of |> non_null
   end
 
   object :ticks_queries do
