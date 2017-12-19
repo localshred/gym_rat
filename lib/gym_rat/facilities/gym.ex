@@ -1,7 +1,7 @@
-defmodule GymRat.Physical.Gym do
+defmodule GymRat.Facilities.Gym do
   use Ecto.Schema
   import Ecto.Changeset
-  alias GymRat.Physical.Gym
+  alias GymRat.Facilities.Gym
 
 
   schema "gyms" do

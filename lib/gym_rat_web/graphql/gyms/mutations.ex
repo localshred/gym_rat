@@ -1,7 +1,7 @@
 defmodule GymRatWeb.Graphql.Gyms.Mutations do
   use Absinthe.Schema.Notation
 
-  alias GymRat.Physical
+  alias GymRat.Facilities
   alias GymRat.Lore
   alias GymRat.Graphql
 
@@ -46,23 +46,23 @@ defmodule GymRatWeb.Graphql.Gyms.Mutations do
   def create_gym(args, _context) do
     args
     |> Lore.prop(:gym)
-    |> Physical.create_gym()
+    |> Facilities.create_gym()
     |> Graphql.db_result_to_response(:gym)
   end
 
   def delete_gym(args, _context) do
     args
     |> Lore.path([:query, :id])
-    |> Physical.get_gym()
-    |> Graphql.delete_record(&Physical.delete_gym/1)
+    |> Facilities.get_gym()
+    |> Graphql.delete_record(&Facilities.delete_gym/1)
   end
 
   def update_gym(args, _context)  do
     try do
       args
       |> Lore.path([:query, :id])
-      |> Physical.get_gym!()
-      |> Physical.update_gym(args.update)
+      |> Facilities.get_gym!()
+      |> Facilities.update_gym(args.update)
       |> Graphql.db_result_to_response(:gym)
     rescue exception ->
       Lore.error("Unable to update gym")

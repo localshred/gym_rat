@@ -2,7 +2,7 @@ defmodule GymRatWeb.Graphql.Gyms.Queries do
   use Absinthe.Schema.Notation
 
   alias GymRat.Lore
-  alias GymRat.Physical
+  alias GymRat.Facilities
 
   object :gym_response do
     field :gym, :gym
@@ -28,7 +28,7 @@ defmodule GymRatWeb.Graphql.Gyms.Queries do
   def get_gym(args, _context) do
     args
     |> Lore.path([:query, :id])
-    |> Physical.get_gym()
+    |> Facilities.get_gym()
     |> Lore.assoc_prop(:gym)
     |> Lore.ok()
   end
@@ -37,7 +37,7 @@ defmodule GymRatWeb.Graphql.Gyms.Queries do
     args
     |> Lore.path([:query, :ids])
     |> Lore.default_to([])
-    |> Physical.list_gyms()
+    |> Facilities.list_gyms()
     |> Lore.default_to([])
     |> Lore.assoc_prop(:gyms)
     |> Lore.ok()
