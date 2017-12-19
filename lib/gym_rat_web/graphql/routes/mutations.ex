@@ -1,6 +1,10 @@
 defmodule GymRatWeb.Graphql.Routes.Mutations do
   use Absinthe.Schema.Notation
 
+  alias GymRat.Graphql
+  alias GymRat.Lore
+  alias GymRat.RouteManagement
+
   input_object :create_route_input do
     field :area_id, non_null(:integer)
     field :setter_id, non_null(:integer)
@@ -30,18 +34,44 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
   object :routes_mutations do
     field :create_route, non_null(:create_route_response) do
       arg :query, non_null(:create_route_input)
-      # TODO resolve
+      resolve &create_route/2
     end
 
     field :delete_route, non_null(:delete_record_response) do
       arg :query, non_null(:get_record_input)
-      # TODO resolve
+      resolve &delete_route/2
     end
 
     field :update_route, non_null(:update_route_response) do
       arg :query, non_null(:get_record_input)
       arg :update, non_null(:update_route_input)
-      # TODO resolve
+      resolve &update_route/2
+    end
+  end
+
+  def create_route(args, _context) do
+    args
+    |> Lore.prop(:route)
+    |> RouteManagement.create_route()
+    |> Graphql.db_result_to_response(:route)
+  end
+
+  def delete_route(args, _context) do
+    args
+    |> Lore.path([:query, :id])
+    |> RouteManagement.get_route()
+    |> Graphql.delete_record(&RouteManagement.delete_route/1)
+  end
+
+  def update_route(args, _context)  do
+    try do
+      args
+      |> Lore.path([:query, :id])
+      |> RouteManagement.get_route!()
+      |> RouteManagement.update_route(args.update)
+      |> Graphql.db_result_to_response(:route)
+    rescue exception ->
+      Lore.error("Unable to update route")
     end
   end
 end

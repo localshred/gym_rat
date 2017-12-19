@@ -1,6 +1,10 @@
 defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   use Absinthe.Schema.Notation
 
+  alias GymRat.Graphql
+  alias GymRat.Lore
+  alias GymRat.RouteManagement
+
   input_object :grid_coordinate_input do
     field :x, non_null(:integer)
     field :y, non_null(:integer)
@@ -32,19 +36,44 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   object :hold_placements_mutations do
     field :create_hold_placement, non_null(:create_hold_placement_response) do
       arg :query, non_null(:create_hold_placement_input)
-      # TODO resolve
+      resolve &create_hold_placement/2
     end
 
     field :delete_hold_placement, non_null(:delete_record_response) do
       arg :query, non_null(:get_record_input)
-      # TODO resolve
+      resolve &delete_hold_placement/2
     end
 
     field :update_hold_placement, non_null(:update_hold_placement_response) do
       arg :query, non_null(:get_record_input)
       arg :update, non_null(:update_hold_placement_input)
-      # TODO resolve
+      resolve &update_hold_placement/2
+    end
+  end
+
+  def create_hold_placement(args, _context) do
+    args
+    |> Lore.prop(:hold_placement)
+    |> RouteManagement.create_hold_placement()
+    |> Graphql.db_result_to_response(:hold_placement)
+  end
+
+  def delete_hold_placement(args, _context) do
+    args
+    |> Lore.path([:query, :id])
+    |> RouteManagement.get_hold_placement()
+    |> Graphql.delete_record(&RouteManagement.delete_hold_placement/1)
+  end
+
+  def update_hold_placement(args, _context)  do
+    try do
+      args
+      |> Lore.path([:query, :id])
+      |> RouteManagement.get_hold_placement!()
+      |> RouteManagement.update_hold_placement(args.update)
+      |> Graphql.db_result_to_response(:hold_placement)
+    rescue exception ->
+      Lore.error("Unable to update hold placement")
     end
   end
 end
-

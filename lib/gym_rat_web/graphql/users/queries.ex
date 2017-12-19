@@ -1,6 +1,9 @@
 defmodule GymRatWeb.Graphql.Users.Queries do
   use Absinthe.Schema.Notation
 
+  alias GymRat.Accounts
+  alias GymRat.Lore
+
   object :user_response do
     field :user, non_null(:user)
   end
@@ -10,34 +13,32 @@ defmodule GymRatWeb.Graphql.Users.Queries do
   end
 
   object :users_queries do
-    field :users, non_null(:users_response) do
-      arg :query, non_null(:get_records_input)
-      resolve fn (_args, _resolution) ->
-        {:ok, %{
-          users: [
-            %{
-              id: "123",
-              name: "BJ Neilsen",
-              username: "localshred",
-              email: "bj.neilsen@gmail.com"
-            }
-          ]
-        }}
-      end
-    end
-
     field :user, non_null(:user_response) do
       arg :query, non_null(:get_record_input)
-      resolve fn (_args, _resolution) ->
-        {:ok, %{
-          user: %{
-            id: "123",
-            name: "BJ Neilsen",
-            username: "localshred",
-            email: "bj.neilsen@gmail.com"
-          }
-        }}
-      end
+      resolve &get_user/2
     end
+
+    field :users, non_null(:users_response) do
+      arg :query, non_null(:get_records_input)
+      resolve &list_users/2
+    end
+  end
+
+  def get_user(args, _context) do
+    args
+    |> Lore.path([:query, :id])
+    |> Accounts.get_user()
+    |> Lore.assoc_prop(:user)
+    |> Lore.ok()
+  end
+
+  def list_users(args, _context) do
+    args
+    |> Lore.path([:query, :ids])
+    |> Lore.default_to([])
+    |> Accounts.list_users()
+    |> Lore.default_to([])
+    |> Lore.assoc_prop(:users)
+    |> Lore.ok()
   end
 end

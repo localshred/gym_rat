@@ -2,8 +2,8 @@ defmodule GymRatWeb.Graphql.Gyms.Mutations do
   use Absinthe.Schema.Notation
 
   alias GymRat.Facilities
-  alias GymRat.Lore
   alias GymRat.Graphql
+  alias GymRat.Lore
 
   input_object :create_gym_input do
     field :name, non_null(:string)
@@ -68,5 +68,4 @@ defmodule GymRatWeb.Graphql.Gyms.Mutations do
       Lore.error("Unable to update gym")
     end
   end
-
 end

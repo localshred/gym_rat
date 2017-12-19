@@ -1,6 +1,10 @@
 defmodule GymRatWeb.Graphql.Ticks.Mutations do
   use Absinthe.Schema.Notation
 
+  alias GymRat.Climbing
+  alias GymRat.Graphql
+  alias GymRat.Lore
+
   input_object :create_tick_input do
     field :user_id, non_null(:integer)
     field :route_id, non_null(:integer)
@@ -32,18 +36,44 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
   object :ticks_mutations do
     field :create_tick, non_null(:create_tick_response) do
       arg :query, non_null(:create_tick_input)
-      # TODO resolve
+      resolve &create_tick/2
     end
 
     field :delete_tick, non_null(:delete_record_response) do
       arg :query, non_null(:get_record_input)
-      # TODO resolve
+      resolve &delete_tick/2
     end
 
     field :update_tick, non_null(:update_tick_response) do
       arg :query, non_null(:get_record_input)
       arg :update, non_null(:update_tick_input)
-      # TODO resolve
+      resolve &update_tick/2
+    end
+  end
+
+  def create_tick(args, _context) do
+    args
+    |> Lore.prop(:tick)
+    |> Climbing.create_tick()
+    |> Graphql.db_result_to_response(:tick)
+  end
+
+  def delete_tick(args, _context) do
+    args
+    |> Lore.path([:query, :id])
+    |> Climbing.get_tick()
+    |> Graphql.delete_record(&Climbing.delete_tick/1)
+  end
+
+  def update_tick(args, _context)  do
+    try do
+      args
+      |> Lore.path([:query, :id])
+      |> Climbing.get_tick!()
+      |> Climbing.update_tick(args.update)
+      |> Graphql.db_result_to_response(:tick)
+    rescue exception ->
+      Lore.error("Unable to update tick")
     end
   end
 end
