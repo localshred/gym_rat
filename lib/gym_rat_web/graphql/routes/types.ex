@@ -17,7 +17,7 @@ defmodule GymRatWeb.Graphql.Routes.Types do
     field :ticks, :tick |> non_null |> list_of |> non_null
     field :set_on, non_null(:utc_timestamp)
     field :expires_on, :utc_timestamp
-    field :created_at, non_null(:utc_timestamp)
+    field :inserted_at, non_null(:utc_timestamp)
     field :updated_at, non_null(:utc_timestamp)
   end
 end

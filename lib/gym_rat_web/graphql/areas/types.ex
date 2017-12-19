@@ -6,7 +6,7 @@ defmodule GymRatWeb.Graphql.Areas.Types do
     field :gym, non_null(:gym)
     field :name, non_null(:string)
     field :order, :integer
-    field :created_at, non_null(:utc_timestamp)
+    field :inserted_at, non_null(:utc_timestamp)
     field :updated_at, non_null(:utc_timestamp)
   end
 end

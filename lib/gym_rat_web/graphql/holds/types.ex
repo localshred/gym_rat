@@ -22,7 +22,7 @@ defmodule GymRatWeb.Graphql.Holds.Types do
     field :material, :material
     field :features, :string
     field :primary_use, :hold_type
-    field :created_at, non_null(:utc_timestamp)
+    field :inserted_at, non_null(:utc_timestamp)
     field :updated_at, non_null(:utc_timestamp)
   end
 end
