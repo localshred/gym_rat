@@ -28,47 +28,45 @@ defmodule GymRatWeb.Graphql.Gyms.Mutations do
   object :gyms_mutations do
     field :create_gym, non_null(:create_gym_response) do
       arg :gym, non_null(:create_gym_input)
-
-      resolve fn
-        (args, _context) ->
-          args
-          |> Lore.prop(:gym)
-          |> Physical.create_gym()
-          |> Graphql.db_result_to_response(:gym)
-      end
+      resolve &create_gym/2
     end
 
     field :delete_gym, non_null(:delete_record_response) do
       arg :query, non_null(:get_record_input)
-
-      resolve fn
-        (args, _context) ->
-          args
-          |> Lore.path([:query, :id])
-          |> Physical.get_gym()
-          |> Graphql.delete_record(&Physical.delete_gym/1)
-      end
+      resolve &delete_gym/2
     end
 
     field :update_gym, non_null(:update_gym_response) do
       arg :query, non_null(:get_record_input)
       arg :update, non_null(:update_gym_input)
-
-      resolve fn
-        (args, _context) ->
-          try do
-            args
-            |> Lore.path([:query, :id])
-            |> Lore.inspect(:id)
-            |> Physical.get_gym!()
-            |> Lore.inspect(:gym)
-            |> Physical.update_gym(args.update)
-            |> Graphql.db_result_to_response(:gym)
-          rescue exception ->
-            Lore.error("Unable to update gym")
-          end
-      end
+      resolve &update_gym/2
     end
   end
-end
 
+  def create_gym(args, _context) do
+    args
+    |> Lore.prop(:gym)
+    |> Physical.create_gym()
+    |> Graphql.db_result_to_response(:gym)
+  end
+
+  def delete_gym(args, _context) do
+    args
+    |> Lore.path([:query, :id])
+    |> Physical.get_gym()
+    |> Graphql.delete_record(&Physical.delete_gym/1)
+  end
+
+  def update_gym(args, _context)  do
+    try do
+      args
+      |> Lore.path([:query, :id])
+      |> Physical.get_gym!()
+      |> Physical.update_gym(args.update)
+      |> Graphql.db_result_to_response(:gym)
+    rescue exception ->
+      Lore.error("Unable to update gym")
+    end
+  end
+
+end

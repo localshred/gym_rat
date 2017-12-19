@@ -16,33 +16,32 @@ defmodule GymRatWeb.Graphql.Gyms.Queries do
 
     field :gym, non_null(:gym_response) do
       arg :query, non_null(:get_record_input)
-
-      resolve fn
-        (args, _context) ->
-          args
-          |> Lore.inspect(:args)
-          |> Lore.path([:query, :id])
-          |> Lore.inspect(:id)
-          |> Physical.get_gym()
-          |> Lore.assoc_prop(:gym)
-          |> Lore.ok()
-      end
+      resolve &get_gym/2
     end
 
     field :gyms, non_null(:gyms_response) do
       arg :query, non_null(:get_records_input)
-
-      resolve fn (args, _context) ->
-        args
-        |> Lore.path([:query, :ids])
-        |> Lore.default_to([])
-        |> Physical.list_gyms()
-        |> Lore.default_to([])
-        |> Lore.assoc_prop(:gyms)
-        |> Lore.ok()
-      end
+      resolve &list_gyms/2
     end
-
   end
+
+  def get_gym(args, _context) do
+    args
+    |> Lore.path([:query, :id])
+    |> Physical.get_gym()
+    |> Lore.assoc_prop(:gym)
+    |> Lore.ok()
+  end
+
+  def list_gyms(args, _context) do
+    args
+    |> Lore.path([:query, :ids])
+    |> Lore.default_to([])
+    |> Physical.list_gyms()
+    |> Lore.default_to([])
+    |> Lore.assoc_prop(:gyms)
+    |> Lore.ok()
+  end
+
 
 end
