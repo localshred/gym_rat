@@ -24,7 +24,7 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
 
   object :areas_mutations do
     field :create_area, non_null(:create_area_response) do
-      arg :query, non_null(:create_area_input)
+      arg :area, non_null(:create_area_input)
       resolve &create_area/2
     end
 
@@ -35,7 +35,7 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
 
     field :update_area, non_null(:update_area_response) do
       arg :query, non_null(:get_record_input)
-      arg :update, non_null(:update_area_input)
+      arg :area, non_null(:update_area_input)
       resolve &update_area/2
     end
   end

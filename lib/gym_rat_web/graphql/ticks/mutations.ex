@@ -35,7 +35,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
 
   object :ticks_mutations do
     field :create_tick, non_null(:create_tick_response) do
-      arg :query, non_null(:create_tick_input)
+      arg :tick, non_null(:create_tick_input)
       resolve &create_tick/2
     end
 
@@ -46,7 +46,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
 
     field :update_tick, non_null(:update_tick_response) do
       arg :query, non_null(:get_record_input)
-      arg :update, non_null(:update_tick_input)
+      arg :tick, non_null(:update_tick_input)
       resolve &update_tick/2
     end
   end

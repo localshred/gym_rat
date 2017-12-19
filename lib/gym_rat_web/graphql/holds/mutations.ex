@@ -35,7 +35,7 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
 
   object :holds_mutations do
     field :create_hold, non_null(:create_hold_response) do
-      arg :query, non_null(:create_hold_input)
+      arg :hold, non_null(:create_hold_input)
       resolve &create_hold/2
     end
 
@@ -46,7 +46,7 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
 
     field :update_hold, non_null(:update_hold_response) do
       arg :query, non_null(:get_record_input)
-      arg :update, non_null(:update_hold_input)
+      arg :hold, non_null(:update_hold_input)
       resolve &update_hold/2
     end
   end

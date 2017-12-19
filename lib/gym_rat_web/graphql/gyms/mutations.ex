@@ -38,7 +38,7 @@ defmodule GymRatWeb.Graphql.Gyms.Mutations do
 
     field :update_gym, non_null(:update_gym_response) do
       arg :query, non_null(:get_record_input)
-      arg :update, non_null(:update_gym_input)
+      arg :gym, non_null(:update_gym_input)
       resolve &update_gym/2
     end
   end

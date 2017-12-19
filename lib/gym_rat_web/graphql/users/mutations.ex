@@ -25,7 +25,7 @@ defmodule GymRatWeb.Graphql.Users.Mutations do
 
   object :users_mutations do
     field :create_user, non_null(:create_user_response) do
-      arg :query, non_null(:create_user_input)
+      arg :user, non_null(:create_user_input)
       resolve &create_user/2
     end
 
@@ -36,8 +36,8 @@ defmodule GymRatWeb.Graphql.Users.Mutations do
 
     field :update_user, non_null(:update_user_response) do
       arg :query, non_null(:get_record_input)
-      arg :update, non_null(:update_user_input)
-      # TODO resolve
+      arg :user, non_null(:update_user_input)
+      resolve &update_user/2
     end
   end
 

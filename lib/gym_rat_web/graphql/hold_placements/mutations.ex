@@ -35,7 +35,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
 
   object :hold_placements_mutations do
     field :create_hold_placement, non_null(:create_hold_placement_response) do
-      arg :query, non_null(:create_hold_placement_input)
+      arg :hold_placement, non_null(:create_hold_placement_input)
       resolve &create_hold_placement/2
     end
 
@@ -46,7 +46,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
 
     field :update_hold_placement, non_null(:update_hold_placement_response) do
       arg :query, non_null(:get_record_input)
-      arg :update, non_null(:update_hold_placement_input)
+      arg :hold_placement, non_null(:update_hold_placement_input)
       resolve &update_hold_placement/2
     end
   end

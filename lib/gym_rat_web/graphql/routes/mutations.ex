@@ -33,7 +33,7 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
 
   object :routes_mutations do
     field :create_route, non_null(:create_route_response) do
-      arg :query, non_null(:create_route_input)
+      arg :route, non_null(:create_route_input)
       resolve &create_route/2
     end
 
@@ -44,7 +44,7 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
 
     field :update_route, non_null(:update_route_response) do
       arg :query, non_null(:get_record_input)
-      arg :update, non_null(:update_route_input)
+      arg :route, non_null(:update_route_input)
       resolve &update_route/2
     end
   end
