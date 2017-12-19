@@ -1,7 +1,10 @@
+console:
+	iex -S mix
+
 deps:
 	mix deps.get
 
 server:
 	iex -S mix phx.server
 
-.PHONY: deps server
+.PHONY: console deps server
