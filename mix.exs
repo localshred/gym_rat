@@ -34,6 +34,7 @@ defmodule GymRat.Mixfile do
   defp deps do
     [
       {:absinthe, "~> 1.4.0"},
+      {:absinthe_ecto, "~> 0.1.3"},
       {:absinthe_plug, "~> 1.4"},
       {:cowboy, "~> 1.0"},
       {:gettext, "~> 0.11"},
