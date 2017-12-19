@@ -1,6 +1,10 @@
 defmodule GymRatWeb.Graphql.Users.Mutations do
   use Absinthe.Schema.Notation
 
+  alias GymRat.Accounts
+  alias GymRat.Graphql
+  alias GymRat.Lore
+
   input_object :create_user_input do
     field :name, :string
     field :username, non_null(:string)
