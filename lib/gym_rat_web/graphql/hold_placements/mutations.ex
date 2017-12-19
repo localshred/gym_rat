@@ -11,9 +11,9 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   end
 
   input_object :create_hold_placement_input do
-    field :route_id, :integer
-    field :hold_id, :integer
-    field :grid_coordinate, :grid_coordinate_input
+    field :route_id, non_null(:id)
+    field :hold_id, non_null(:id)
+    field :grid_coordinate, non_null(:grid_coordinate_input)
     field :is_start, :boolean
     field :is_finish, :boolean
   end
@@ -23,7 +23,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   end
 
   input_object :update_hold_placement_input do
-    field :hold_id, :integer
+    field :hold_id, :id
     field :grid_coordinate, :grid_coordinate_input
     field :is_start, :boolean
     field :is_finish, :boolean

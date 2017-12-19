@@ -6,8 +6,8 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
   alias GymRat.RouteManagement
 
   input_object :create_route_input do
-    field :area_id, non_null(:integer)
-    field :setter_id, non_null(:integer)
+    field :area_id, non_null(:id)
+    field :setter_id, non_null(:id)
     field :color, non_null(:string)
     field :grade, non_null(:grade_input)
     field :set_on, non_null(:utc_timestamp)
@@ -19,8 +19,8 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
   end
 
   input_object :update_route_input do
-    field :area_id, :integer
-    field :setter_id, :integer
+    field :area_id, :id
+    field :setter_id, :id
     field :color, :string
     field :grade, :grade_input
     field :set_on, :utc_timestamp

@@ -15,8 +15,8 @@ defmodule GymRatWeb.Graphql.Users.Mutations do
 
   input_object :update_user_input do
     field :name, :string
-    field :username, non_null(:string)
-    field :email, non_null(:string)
+    field :username, :string
+    field :email, :string
   end
 
   object :update_user_response do
