@@ -22,6 +22,42 @@ defmodule GymRat.Accounts do
   end
 
   @doc """
+  Gets a list of users by the given IDs.
+
+  ## Examples
+
+      iex> list_users([123, 456])
+      [%User{id: 123}, %User{id: 456}]
+
+      iex> list_user([])
+      []
+
+  """
+  def list_users(ids) when is_list(ids) and length(ids) > 0 do
+    User
+    |> where([user], user.id in ^ids)
+    |> Repo.all
+  end
+
+  def list_users([]) do
+    Repo.all(User)
+  end
+
+  @doc """
+  Gets a single user or nil if no user exists for the given id
+
+  ## Examples
+
+      iex> get_user(123)
+      %User{}
+
+      iex> get_user(456)
+      nil
+
+  """
+  def get_user(id), do: Repo.get(User, id)
+
+  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.

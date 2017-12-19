@@ -22,6 +22,42 @@ defmodule GymRat.Inventory do
   end
 
   @doc """
+  Gets a list of holds by the given IDs.
+
+  ## Examples
+
+      iex> list_holds([123, 456])
+      [%Hold{id: 123}, %Hold{id: 456}]
+
+      iex> list_hold([])
+      []
+
+  """
+  def list_holds(ids) when is_list(ids) and length(ids) > 0 do
+    Hold
+    |> where([hold], hold.id in ^ids)
+    |> Repo.all
+  end
+
+  def list_holds([]) do
+    Repo.all(Hold)
+  end
+
+  @doc """
+  Gets a single hold or nil if no hold exists for the given id.
+
+  ## Examples
+
+      iex> get_hold(123)
+      %Hold{}
+
+      iex> get_hold(456)
+      nil
+
+  """
+  def get_hold(id), do: Repo.get(Hold, id)
+
+  @doc """
   Gets a single hold.
 
   Raises `Ecto.NoResultsError` if the Hold does not exist.

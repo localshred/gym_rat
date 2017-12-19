@@ -22,6 +22,42 @@ defmodule GymRat.Climbing do
   end
 
   @doc """
+  Gets a list of ticks by the given IDs.
+
+  ## Examples
+
+      iex> list_ticks([123, 456])
+      [%Tick{id: 123}, %Tick{id: 456}]
+
+      iex> list_ticks([])
+      []
+
+  """
+  def list_ticks(ids) when is_list(ids) and length(ids) > 0 do
+    Tick
+    |> where([tick], tick.id in ^ids)
+    |> Repo.all
+  end
+
+  def list_ticks([]) do
+    Repo.all(Tick)
+  end
+
+  @doc """
+  Gets a single tick or nil if no tick exists for the given id.
+
+  ## Examples
+
+      iex> get_tick(123)
+      %Tick{}
+
+      iex> get_tick(456)
+      nil
+
+  """
+  def get_tick(id), do: Repo.get(Tick, id)
+
+  @doc """
   Gets a single tick.
 
   Raises `Ecto.NoResultsError` if the Tick does not exist.

@@ -22,6 +22,42 @@ defmodule GymRat.Facilities do
   end
 
   @doc """
+  Gets a list of areas by the given IDs.
+
+  ## Examples
+
+      iex> list_areas([123, 456])
+      [%Area{id: 123}, %Area{id: 456}]
+
+      iex> list_area([])
+      []
+
+  """
+  def list_areas(ids) when is_list(ids) and length(ids) > 0 do
+    Area
+    |> where([area], area.id in ^ids)
+    |> Repo.all
+  end
+
+  def list_areas([]) do
+    Repo.all(Area)
+  end
+
+  @doc """
+  Gets a single area or nil if no area exists for that id.
+
+  ## Examples
+
+      iex> get_area(123)
+      %Area{}
+
+      iex> get_area(456)
+      nil
+
+  """
+  def get_area(id), do: Repo.get(Area, id)
+
+  @doc """
   Gets a single area.
 
   Raises `Ecto.NoResultsError` if the Area does not exist.

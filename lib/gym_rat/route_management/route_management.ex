@@ -22,6 +22,42 @@ defmodule GymRat.RouteManagement do
   end
 
   @doc """
+  Gets a list of hold_placements by the given IDs.
+
+  ## Examples
+
+      iex> list_hold_placements([123, 456])
+      [%HoldPlacement{id: 123}, %HoldPlacement{id: 456}]
+
+      iex> list_hold_placement([])
+      []
+
+  """
+  def list_hold_placements(ids) when is_list(ids) and length(ids) > 0 do
+    HoldPlacement
+    |> where([hold_placement], hold_placement.id in ^ids)
+    |> Repo.all
+  end
+
+  def list_hold_placements([]) do
+    Repo.all(HoldPlacement)
+  end
+
+  @doc """
+  Gets a single hold_placement or nil if no hold placement exists for the given id.
+
+  ## Examples
+
+      iex> get_hold_placement(123)
+      %HoldPlacement{}
+
+      iex> get_hold_placement(456)
+      nil
+
+  """
+  def get_hold_placement(id), do: Repo.get(HoldPlacement, id)
+
+  @doc """
   Gets a single hold_placement.
 
   Raises `Ecto.NoResultsError` if the Hold placement does not exist.
@@ -116,6 +152,42 @@ defmodule GymRat.RouteManagement do
   def list_routes do
     Repo.all(Route)
   end
+
+  @doc """
+  Gets a list of routes by the given IDs.
+
+  ## Examples
+
+      iex> list_routes([123, 456])
+      [%Route{id: 123}, %Route{id: 456}]
+
+      iex> list_route([])
+      []
+
+  """
+  def list_routes(ids) when is_list(ids) and length(ids) > 0 do
+    Route
+    |> where([route], route.id in ^ids)
+    |> Repo.all
+  end
+
+  def list_routes([]) do
+    Repo.all(Route)
+  end
+
+  @doc """
+  Gets a single route or nil if no route exists for the given id.
+
+  ## Examples
+
+      iex> get_route(123)
+      %Route{}
+
+      iex> get_route(456)
+      nil
+
+  """
+  def get_route(id), do: Repo.get(Route, id)
 
   @doc """
   Gets a single route.
