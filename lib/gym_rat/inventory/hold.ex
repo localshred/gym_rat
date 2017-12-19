@@ -5,6 +5,8 @@ defmodule GymRat.RouteManagement.Hold do
 
 
   schema "holds" do
+    has_many :hold_placements, GymRat.Inventory.HoldPlacement
+
     field :color, :string
     field :count, :integer
     field :features, :string

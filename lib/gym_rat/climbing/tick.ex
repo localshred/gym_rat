@@ -5,13 +5,14 @@ defmodule GymRat.Climbing.Tick do
 
 
   schema "ticks" do
+    belongs_to :user, GymRat.Accounts.User
+    belongs_to :route, GymRat.RouteManagement.Route
+
+    field :user_grade_id, :integer # TODO
     field :number_tries, :integer
     field :rating, :integer
-    field :route_id, :integer
     field :send_type, :string
     field :sent_on, :time
-    field :user_grade_id, :integer
-    field :user_id, :integer
 
     timestamps()
   end

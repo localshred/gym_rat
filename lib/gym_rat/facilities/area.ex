@@ -1,13 +1,15 @@
-defmodule GymRat.RouteManagement.Area do
+defmodule GymRat.Facilities.Area do
   use Ecto.Schema
   import Ecto.Changeset
-  alias GymRat.RouteManagement.Area
 
+  alias GymRat.Facilities.Area
 
   schema "areas" do
-    field :gym_id, :integer
-    field :name, :string
-    field :order, :integer
+    belongs_to :gym, GymRat.Facilities.Gym
+    has_many :routes, GymRat.RouteManagement.Route
+
+    field :name, :string, null: false
+    field :order, :integer, null: false, default: 0
 
     timestamps()
   end
@@ -16,6 +18,6 @@ defmodule GymRat.RouteManagement.Area do
   def changeset(%Area{} = area, attrs) do
     area
     |> cast(attrs, [:gym_id, :name, :order])
-    |> validate_required([:gym_id, :name, :order])
+    |> validate_required([:gym_id, :name])
   end
 end

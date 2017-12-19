@@ -6,7 +6,7 @@ defmodule GymRat.Facilities do
   import Ecto.Query, warn: false
   alias GymRat.Repo
 
-  alias GymRat.RouteManagement.Area
+  alias GymRat.Facilities.Area
 
   @doc """
   Returns the list of areas.

@@ -5,12 +5,14 @@ defmodule GymRat.RouteManagement.Route do
 
 
   schema "routes" do
-    field :area_id, :integer
+    belongs_to :area, Ecto.Facilities.Area
+    belongs_to :setter, Ecto.Accounts.User
+    has_many :hold_placements, Ecto.RouteManagement.HoldPlacement
+
+    field :grade_id, :integer # TODO
     field :color, :string
     field :expires_on, :time
-    field :grade_id, :integer
-    field :set_onetime, :string
-    field :setter_id, :integer
+    field :set_on, :time
 
     timestamps()
   end

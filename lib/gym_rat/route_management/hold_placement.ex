@@ -5,12 +5,13 @@ defmodule GymRat.RouteManagement.HoldPlacement do
 
 
   schema "hold_placements" do
+    belongs_to :hold, GymRat.Inventory.Hold
+    belongs_to :route, GymRat.RouteManagement.Route
+
     field :grid_coordinate_x, :integer
     field :grid_coordinate_y, :integer
-    field :hold_id, :integer
     field :is_finish, :boolean, default: false
     field :is_start, :boolean, default: false
-    field :route_id, :integer
 
     timestamps()
   end
