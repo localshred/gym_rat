@@ -26,18 +26,44 @@ defmodule GymRatWeb.Graphql.Users.Mutations do
   object :users_mutations do
     field :create_user, non_null(:create_user_response) do
       arg :query, non_null(:create_user_input)
-      # TODO resolve
+      resolve &create_user/2
     end
 
     field :delete_user, non_null(:delete_record_response) do
       arg :query, non_null(:get_record_input)
-      # TODO resolve
+      resolve &delete_user/2
     end
 
     field :update_user, non_null(:update_user_response) do
       arg :query, non_null(:get_record_input)
       arg :update, non_null(:update_user_input)
       # TODO resolve
+    end
+  end
+
+  def create_user(args, _context) do
+    args
+    |> Lore.prop(:user)
+    |> Accounts.create_user()
+    |> Graphql.db_result_to_response(:user)
+  end
+
+  def delete_user(args, _context) do
+    args
+    |> Lore.path([:query, :id])
+    |> Accounts.get_user()
+    |> Graphql.delete_record(&Accounts.delete_user/1)
+  end
+
+  def update_user(args, _context)  do
+    try do
+      args
+      |> Lore.path([:query, :id])
+      |> Accounts.get_user!()
+      |> Accounts.update_user(args.update)
+      |> Graphql.db_result_to_response(:user)
+    rescue exception ->
+      Lore.error("Unable to update user")
     end
   end
 end
