@@ -12,7 +12,7 @@ defmodule GymRatWeb.Graphql.Types do
   end
 
   input_object :get_records_input do
-    field :id, :id |> non_null |> list_of |> non_null
+    field :ids, :id |> non_null |> list_of
   end
 
   object :delete_record_response do

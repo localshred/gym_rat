@@ -6,10 +6,7 @@ defmodule GymRatWeb.Graphql.Gyms.Types do
     field :name, non_null(:string)
     field :website, non_null(:string)
     field :address, :string
-    field :facebook_url, :string
-    field :twitter_username, :string
-    field :instagram_username, :string
-    field :created_at, non_null(:utc_timestamp)
+    field :inserted_at, non_null(:utc_timestamp)
     field :updated_at, non_null(:utc_timestamp)
   end
 end
