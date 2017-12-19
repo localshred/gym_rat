@@ -8,6 +8,7 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
   input_object :create_area_input do
     field :gym_id, non_null(:id)
     field :name, non_null(:string)
+    field :order, :integer
   end
 
   object :create_area_response do
@@ -16,6 +17,7 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
 
   input_object :update_area_input do
     field :name, :string
+    field :order, :integer
   end
 
   object :update_area_response do
