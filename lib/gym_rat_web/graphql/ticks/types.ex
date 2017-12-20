@@ -1,5 +1,6 @@
 defmodule GymRatWeb.Graphql.Ticks.Types do
   use Absinthe.Schema.Notation
+  use Absinthe.Ecto, repo: GymRat.Repo
 
   enum :tick_rating do
     description "An optional user rating for a tick"
@@ -19,8 +20,8 @@ defmodule GymRatWeb.Graphql.Ticks.Types do
 
   object :tick do
     field :id, non_null(:id)
-    field :user, non_null(:user)
-    field :route, non_null(:route)
+    field :user, non_null(:user), resolve: assoc(:user)
+    field :route, non_null(:route), resolve: assoc(:route)
     field :user_grade, :grade
     field :number_tries, :integer
     field :rating, :tick_rating

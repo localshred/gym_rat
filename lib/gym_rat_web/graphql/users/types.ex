@@ -1,5 +1,6 @@
 defmodule GymRatWeb.Graphql.Users.Types do
   use Absinthe.Schema.Notation
+  use Absinthe.Ecto, repo: GymRat.Repo
 
   object :user do
     field :id, non_null(:id)
@@ -9,6 +10,7 @@ defmodule GymRatWeb.Graphql.Users.Types do
     field :avatar, non_null(:avatar) do
       resolve fn parent, _args, _info -> { :ok, parent } end
     end
+    field :ticks, :tick |> non_null |> list_of, resolve: assoc(:ticks)
   end
 
   object :avatar do

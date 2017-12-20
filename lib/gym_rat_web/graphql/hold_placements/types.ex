@@ -1,5 +1,6 @@
 defmodule GymRatWeb.Graphql.HoldPlacements.Types do
   use Absinthe.Schema.Notation
+  use Absinthe.Ecto, repo: GymRat.Repo
 
   object :grid_coordinate do
     field :x, non_null(:string) do
@@ -16,8 +17,8 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Types do
 
   object :hold_placement do
     field :id, non_null(:id)
-    field :route, non_null(:route)
-    field :hold, non_null(:hold)
+    field :route, non_null(:route), resolve: assoc(:route)
+    field :hold, non_null(:hold), resolve: assoc(:hold)
     field :grid_coordinate, :grid_coordinate do
       resolve fn (hold_placement, _args, _context) ->
         hold_placement

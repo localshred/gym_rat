@@ -5,10 +5,10 @@ defmodule GymRat.RouteManagement.Route do
   alias GymRat.RouteManagement.Route
 
   schema "routes" do
-    belongs_to :area, Ecto.Facilities.Area
-    belongs_to :setter, Ecto.Accounts.User
-    has_many :hold_placements, Ecto.RouteManagement.HoldPlacement
+    belongs_to :area, GymRat.Facilities.Area
     belongs_to :setter, GymRat.Accounts.User
+    has_many :ticks, GymRat.Climbing.Tick
+    has_many :hold_placements, GymRat.RouteManagement.HoldPlacement
 
     field :grade_id, :integer # TODO
     field :name, :text
