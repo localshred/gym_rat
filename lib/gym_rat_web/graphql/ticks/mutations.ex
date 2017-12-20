@@ -72,7 +72,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
       |> Climbing.get_tick!()
       |> Climbing.update_tick(args.update)
       |> Graphql.db_result_to_response(:tick)
-    rescue exception ->
+    rescue _exception ->
       Lore.error("Unable to update tick")
     end
   end

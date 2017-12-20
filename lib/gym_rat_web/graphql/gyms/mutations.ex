@@ -64,7 +64,7 @@ defmodule GymRatWeb.Graphql.Gyms.Mutations do
       |> Facilities.get_gym!()
       |> Facilities.update_gym(args.update)
       |> Graphql.db_result_to_response(:gym)
-    rescue exception ->
+    rescue _exception ->
       Lore.error("Unable to update gym")
     end
   end

@@ -72,7 +72,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
       |> RouteManagement.get_hold_placement!()
       |> RouteManagement.update_hold_placement(args.update)
       |> Graphql.db_result_to_response(:hold_placement)
-    rescue exception ->
+    rescue _exception ->
       Lore.error("Unable to update hold placement")
     end
   end

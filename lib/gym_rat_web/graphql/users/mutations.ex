@@ -66,7 +66,7 @@ defmodule GymRatWeb.Graphql.Users.Mutations do
       |> Accounts.get_user!()
       |> Accounts.update_user(args.update)
       |> Graphql.db_result_to_response(:user)
-    rescue exception ->
+    rescue _exception ->
       Lore.error("Unable to update user")
     end
   end

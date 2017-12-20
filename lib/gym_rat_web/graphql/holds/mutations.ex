@@ -72,7 +72,7 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
       |> Inventory.get_hold!()
       |> Inventory.update_hold(args.update)
       |> Graphql.db_result_to_response(:hold)
-    rescue exception ->
+    rescue _exception ->
       Lore.error("Unable to update hold")
     end
   end

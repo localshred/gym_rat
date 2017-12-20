@@ -63,7 +63,7 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
       |> Facilities.get_area!()
       |> Facilities.update_area(args.update)
       |> Graphql.db_result_to_response(:area)
-    rescue exception ->
+    rescue _exception ->
       Lore.error("Unable to update area")
     end
   end

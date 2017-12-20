@@ -72,7 +72,7 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
       |> RouteManagement.get_route!()
       |> RouteManagement.update_route(args.update)
       |> Graphql.db_result_to_response(:route)
-    rescue exception ->
+    rescue _exception ->
       Lore.error("Unable to update route")
     end
   end
