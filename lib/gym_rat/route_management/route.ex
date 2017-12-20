@@ -23,6 +23,8 @@ defmodule GymRat.RouteManagement.Route do
   def changeset(%Route{} = route, attrs) do
     route
     |> cast(attrs, [:area_id, :setter_id, :name, :color, :grade_id, :set_on, :expires_on])
+    |> foreign_key_constraint(:area_id)
+    |> foreign_key_constraint(:setter_id)
     |> validate_required([:area_id, :setter_id, :color, :set_on, :expires_on])
   end
 end

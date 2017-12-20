@@ -18,6 +18,7 @@ defmodule GymRat.Facilities.Area do
   def changeset(%Area{} = area, attrs) do
     area
     |> cast(attrs, [:gym_id, :name, :order])
+    |> foreign_key_constraint(:gym_id)
     |> validate_required([:gym_id, :name])
   end
 end

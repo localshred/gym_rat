@@ -20,6 +20,8 @@ defmodule GymRat.RouteManagement.HoldPlacement do
   def changeset(%HoldPlacement{} = hold_placement, attrs) do
     hold_placement
     |> cast(attrs, [:route_id, :hold_id, :grid_coordinate_x, :grid_coordinate_y, :is_start, :is_finish])
+    |> foreign_key_constraint(:route_id)
+    |> foreign_key_constraint(:hold_id)
     |> validate_required([:route_id, :hold_id, :grid_coordinate_x, :grid_coordinate_y, :is_start, :is_finish])
   end
 end

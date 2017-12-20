@@ -21,6 +21,8 @@ defmodule GymRat.Climbing.Tick do
   def changeset(%Tick{} = tick, attrs) do
     tick
     |> cast(attrs, [:user_id, :route_id, :user_grade_id, :number_tries, :rating, :send_type, :ticked_at])
+    |> foreign_key_constraint(:route_id)
+    |> foreign_key_constraint(:user_id)
     |> validate_required([:user_id, :route_id, :user_grade_id, :number_tries, :rating, :send_type, :ticked_at])
   end
 end
