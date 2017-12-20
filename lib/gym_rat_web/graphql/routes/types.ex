@@ -12,6 +12,7 @@ defmodule GymRatWeb.Graphql.Routes.Types do
     field :id, non_null(:id)
     field :area, non_null(:area)
     field :setter, non_null(:user)
+    field :name, :string
     field :color, non_null(:string)
     field :grades, non_null(:route_grades)
     field :ticks, :tick |> non_null |> list_of |> non_null
