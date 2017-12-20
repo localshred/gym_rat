@@ -12,7 +12,7 @@ defmodule GymRat.Climbing.Tick do
     field :number_tries, :integer
     field :rating, :integer
     field :send_type, :string
-    field :sent_on, :time
+    field :ticked_at, :utc_datetime
 
     timestamps()
   end
@@ -20,7 +20,7 @@ defmodule GymRat.Climbing.Tick do
   @doc false
   def changeset(%Tick{} = tick, attrs) do
     tick
-    |> cast(attrs, [:user_id, :route_id, :user_grade_id, :number_tries, :rating, :send_type, :sent_on])
-    |> validate_required([:user_id, :route_id, :user_grade_id, :number_tries, :rating, :send_type, :sent_on])
+    |> cast(attrs, [:user_id, :route_id, :user_grade_id, :number_tries, :rating, :send_type, :ticked_at])
+    |> validate_required([:user_id, :route_id, :user_grade_id, :number_tries, :rating, :send_type, :ticked_at])
   end
 end

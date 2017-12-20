@@ -1,7 +1,9 @@
 defmodule GymRatWeb.Graphql.Schema do
   use Absinthe.Schema
 
+  import_types GymRatWeb.Graphql.Scalars.UtcTimestamp
   import_types GymRatWeb.Graphql.Types
+
   import_types GymRatWeb.Graphql.Areas.Types
   import_types GymRatWeb.Graphql.Grades.Types
   import_types GymRatWeb.Graphql.Gyms.Types

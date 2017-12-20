@@ -1,8 +1,8 @@
 defmodule GymRat.RouteManagement.Route do
   use Ecto.Schema
   import Ecto.Changeset
-  alias GymRat.RouteManagement.Route
 
+  alias GymRat.RouteManagement.Route
 
   schema "routes" do
     belongs_to :area, Ecto.Facilities.Area
@@ -11,9 +11,10 @@ defmodule GymRat.RouteManagement.Route do
     belongs_to :setter, GymRat.Accounts.User
 
     field :grade_id, :integer # TODO
+    field :name, :text
     field :color, :string
-    field :expires_on, :time
-    field :set_on, :time
+    field :expires_on, :utc_datetime
+    field :set_on, :utc_datetime
 
     timestamps()
   end
