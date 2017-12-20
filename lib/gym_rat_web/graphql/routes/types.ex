@@ -12,7 +12,7 @@ defmodule GymRatWeb.Graphql.Routes.Types do
   object :route do
     field :id, non_null(:id)
     field :area, non_null(:area), resolve: assoc(:area)
-    field :setter, non_null(:user), resolve: assoc(:user)
+    field :setter, non_null(:user), resolve: assoc(:setter)
     field :name, :string
     field :color, non_null(:string)
     field :grades, non_null(:route_grades)
