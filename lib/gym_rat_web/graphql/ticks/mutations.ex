@@ -12,7 +12,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
     field :number_tries, :integer
     field :rating, :tick_rating
     field :send_type, non_null(:send_type)
-    field :sent_on, non_null(:utc_timestamp)
+    field :ticked_at, non_null(:utc_timestamp)
   end
 
   object :create_tick_response do
@@ -26,7 +26,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
     field :number_tries, :integer
     field :rating, :tick_rating
     field :send_type, :send_type
-    field :sent_on, :utc_timestamp
+    field :ticked_at, :utc_timestamp
   end
 
   object :update_tick_response do

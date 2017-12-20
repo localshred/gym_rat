@@ -25,7 +25,7 @@ defmodule GymRatWeb.Graphql.Ticks.Types do
     field :number_tries, :integer
     field :rating, :tick_rating
     field :send_type, non_null(:send_type)
-    field :sent_on, non_null(:utc_timestamp)
+    field :ticked_at, non_null(:utc_timestamp)
     field :inserted_at, non_null(:utc_timestamp)
     field :updated_at, non_null(:utc_timestamp)
   end
