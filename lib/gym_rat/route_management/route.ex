@@ -11,7 +11,7 @@ defmodule GymRat.RouteManagement.Route do
     has_many :hold_placements, GymRat.RouteManagement.HoldPlacement
 
     field :grade_id, :integer # TODO
-    field :name, :text
+    field :name, :string
     field :color, :string
     field :expires_on, :utc_datetime
     field :set_on, :utc_datetime
