@@ -1,11 +1,11 @@
-defmodule GymRat.RouteManagement.Hold do
+defmodule GymRat.Inventory.Hold do
   use Ecto.Schema
   import Ecto.Changeset
-  alias GymRat.RouteManagement.Hold
+  alias GymRat.Inventory.Hold
 
 
   schema "holds" do
-    has_many :hold_placements, GymRat.Inventory.HoldPlacement
+    has_many :hold_placements, GymRat.RouteManagement.HoldPlacement
 
     field :color, :string
     field :count, :integer

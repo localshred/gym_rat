@@ -4,7 +4,7 @@ defmodule GymRat.FacilitiesTest do
   alias GymRat.Facilities
 
   describe "areas" do
-    alias GymRat.RouteManagement.Area
+    alias GymRat.Facilities.Area
 
     @valid_attrs %{gym_id: 42, name: "some name", order: 42}
     @update_attrs %{gym_id: 43, name: "some updated name", order: 43}
@@ -14,35 +14,35 @@ defmodule GymRat.FacilitiesTest do
       {:ok, area} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> RouteManagement.create_area()
+        |> Facilities.create_area()
 
       area
     end
 
     test "list_areas/0 returns all areas" do
       area = area_fixture()
-      assert RouteManagement.list_areas() == [area]
+      assert Facilities.list_areas() == [area]
     end
 
     test "get_area!/1 returns the area with given id" do
       area = area_fixture()
-      assert RouteManagement.get_area!(area.id) == area
+      assert Facilities.get_area!(area.id) == area
     end
 
     test "create_area/1 with valid data creates a area" do
-      assert {:ok, %Area{} = area} = RouteManagement.create_area(@valid_attrs)
+      assert {:ok, %Area{} = area} = Facilities.create_area(@valid_attrs)
       assert area.gym_id == 42
       assert area.name == "some name"
       assert area.order == 42
     end
 
     test "create_area/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = RouteManagement.create_area(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Facilities.create_area(@invalid_attrs)
     end
 
     test "update_area/2 with valid data updates the area" do
       area = area_fixture()
-      assert {:ok, area} = RouteManagement.update_area(area, @update_attrs)
+      assert {:ok, area} = Facilities.update_area(area, @update_attrs)
       assert %Area{} = area
       assert area.gym_id == 43
       assert area.name == "some updated name"
@@ -51,19 +51,19 @@ defmodule GymRat.FacilitiesTest do
 
     test "update_area/2 with invalid data returns error changeset" do
       area = area_fixture()
-      assert {:error, %Ecto.Changeset{}} = RouteManagement.update_area(area, @invalid_attrs)
-      assert area == RouteManagement.get_area!(area.id)
+      assert {:error, %Ecto.Changeset{}} = Facilities.update_area(area, @invalid_attrs)
+      assert area == Facilities.get_area!(area.id)
     end
 
     test "delete_area/1 deletes the area" do
       area = area_fixture()
-      assert {:ok, %Area{}} = RouteManagement.delete_area(area)
-      assert_raise Ecto.NoResultsError, fn -> RouteManagement.get_area!(area.id) end
+      assert {:ok, %Area{}} = Facilities.delete_area(area)
+      assert_raise Ecto.NoResultsError, fn -> Facilities.get_area!(area.id) end
     end
 
     test "change_area/1 returns a area changeset" do
       area = area_fixture()
-      assert %Ecto.Changeset{} = RouteManagement.change_area(area)
+      assert %Ecto.Changeset{} = Facilities.change_area(area)
     end
   end
 

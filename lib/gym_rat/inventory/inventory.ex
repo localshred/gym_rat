@@ -1,12 +1,12 @@
 defmodule GymRat.Inventory do
   @moduledoc """
-  The RouteManagement context.
+  The Inventory context.
   """
 
   import Ecto.Query, warn: false
   alias GymRat.Repo
 
-  alias GymRat.RouteManagement.Hold
+  alias GymRat.Inventory.Hold
 
   @doc """
   Returns the list of holds.
