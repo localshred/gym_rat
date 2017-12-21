@@ -37,6 +37,7 @@ defmodule GymRat.Mixfile do
       {:absinthe_ecto, "~> 0.1.3"},
       {:absinthe_plug, "~> 1.4"},
       {:cowboy, "~> 1.0"},
+      {:ex_machina, "~> 2.1", only: :test},
       {:gettext, "~> 0.11"},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_ecto, "~> 3.2"},
