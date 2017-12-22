@@ -23,13 +23,12 @@ defmodule GymRat.TestFactories.RouteManagement do
 
       def route_factory do
         %GymRat.RouteManagement.Route{
-          setter: build(:user),
           area: build(:area),
           color: "red",
-          set_on: DateTime.from_unix!(1_513_802_726_000, :milliseconds),
           expires_on: DateTime.from_unix!(1_515_802_726_000, :milliseconds),
-          # TODO make a real association
-          grade_id: 42
+          grade: build(:grade),
+          set_on: DateTime.from_unix!(1_513_802_726_000, :milliseconds),
+          setter: build(:user)
         }
       end
     end

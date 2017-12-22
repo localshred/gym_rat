@@ -73,10 +73,10 @@ defmodule GymRat.RouteManagementTest do
     @update_attrs %{
       grid_coordinate_x: 43,
       grid_coordinate_y: 43,
-      hold_id: 43,
+      hold_id: nil,
       is_finish: false,
       is_start: false,
-      route_id: 43
+      route_id: nil
     }
     @invalid_attrs %{
       grid_coordinate_x: nil,
@@ -170,12 +170,12 @@ defmodule GymRat.RouteManagementTest do
     alias GymRat.RouteManagement.Route
 
     @update_attrs %{
-      area_id: 43,
+      area_id: nil,
       color: "some updated color",
       expires_on: from_unix(1_513_802_726_000),
-      grade_id: 43,
+      grade_id: nil,
       set_on: from_unix(1_515_802_726_000),
-      setter_id: 43
+      setter_id: nil
     }
     @invalid_attrs %{
       area_id: nil,
@@ -219,16 +219,17 @@ defmodule GymRat.RouteManagementTest do
     end
 
     test "update_route/2 with valid data updates the route" do
+      grade = insert(:grade)
       setter = insert(:user)
       area = insert(:area)
       route = insert(:route)
-      attributes = %{@update_attrs | area_id: area.id, setter_id: setter.id}
+      attributes = %{@update_attrs | area_id: area.id, grade_id: grade.id, setter_id: setter.id}
       assert {:ok, route} = RouteManagement.update_route(route, attributes)
       assert %Route{} = route
       assert route.area_id == area.id
       assert route.color == "some updated color"
       assert route.expires_on == from_unix(1_513_802_726_000)
-      assert route.grade_id == 43
+      assert route.grade_id == grade.id
       assert route.set_on == from_unix(1_515_802_726_000)
       assert route.setter_id == setter.id
     end

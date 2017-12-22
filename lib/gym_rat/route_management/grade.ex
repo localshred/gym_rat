@@ -9,10 +9,11 @@ defmodule GymRat.RouteManagement.Grade do
   @whitelist_params [:system, :major, :minor, :difficulty]
 
   schema "grades" do
-    field :difficulty, :string
-    field :major, :string, null: false
-    field :minor, :string
-    field :system, :string, null: false
+    has_many(:routes, GymRat.RouteManagement.Route)
+    field(:difficulty, :string)
+    field(:major, :string, null: false)
+    field(:minor, :string)
+    field(:system, :string, null: false)
 
     timestamps()
   end
