@@ -75,16 +75,14 @@ defmodule GymRat.RouteManagementTest do
       grid_coordinate_y: 43,
       hold_id: nil,
       is_finish: false,
-      is_start: false,
-      route_id: nil
+      is_start: false
     }
     @invalid_attrs %{
       grid_coordinate_x: nil,
       grid_coordinate_y: nil,
       hold_id: nil,
       is_finish: nil,
-      is_start: nil,
-      route_id: nil
+      is_start: nil
     }
 
     test "list_hold_placements/0 returns all hold_placements" do
@@ -101,7 +99,6 @@ defmodule GymRat.RouteManagementTest do
       assert hold_placement.hold_id == expected_hold_placement.hold_id
       assert hold_placement.is_finish == expected_hold_placement.is_finish
       assert hold_placement.is_start == expected_hold_placement.is_start
-      assert hold_placement.route_id == expected_hold_placement.route_id
     end
 
     test "create_hold_placement/1 with valid data creates a hold_placement" do
@@ -115,7 +112,6 @@ defmodule GymRat.RouteManagementTest do
       assert hold_placement.hold_id == expected_hold_placement.hold_id
       assert hold_placement.is_finish == expected_hold_placement.is_finish
       assert hold_placement.is_start == expected_hold_placement.is_start
-      assert hold_placement.route_id == expected_hold_placement.route_id
     end
 
     test "create_hold_placement/1 with invalid data returns error changeset" do
@@ -124,9 +120,8 @@ defmodule GymRat.RouteManagementTest do
 
     test "update_hold_placement/2 with valid data updates the hold_placement" do
       hold = insert(:hold)
-      route = insert(:route)
       hold_placement = insert(:hold_placement)
-      attributes = %{@update_attrs | hold_id: hold.id, route_id: route.id}
+      attributes = %{@update_attrs | hold_id: hold.id}
 
       assert {:ok, hold_placement} =
                RouteManagement.update_hold_placement(hold_placement, attributes)
@@ -137,7 +132,6 @@ defmodule GymRat.RouteManagementTest do
       assert hold_placement.hold_id == hold.id
       assert hold_placement.is_finish == false
       assert hold_placement.is_start == false
-      assert hold_placement.route_id == route.id
     end
 
     test "update_hold_placement/2 with invalid data returns error changeset" do

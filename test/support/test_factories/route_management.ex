@@ -16,8 +16,7 @@ defmodule GymRat.TestFactories.RouteManagement do
           grid_coordinate_y: 14,
           hold: build(:hold),
           is_finish: false,
-          is_start: true,
-          route: build(:route)
+          is_start: true
         }
       end
 

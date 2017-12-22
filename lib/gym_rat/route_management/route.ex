@@ -13,7 +13,6 @@ defmodule GymRat.RouteManagement.Route do
     belongs_to(:grade, GymRat.RouteManagement.Grade)
     belongs_to(:setter, GymRat.Accounts.User)
     has_many(:ticks, GymRat.Climbing.Tick)
-    has_many(:hold_placements, GymRat.RouteManagement.HoldPlacement)
 
     field(:name, :string)
     field(:color, :string)
