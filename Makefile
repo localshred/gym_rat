@@ -10,4 +10,4 @@ server:
 .PHONY: console deps server
 
 format:
-	/code/src/languages/elixir/bin/mix format {lib,test,priv,config}/**/*.{ex,exs}
+	mix16 format
