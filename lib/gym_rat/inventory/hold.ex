@@ -3,6 +3,10 @@ defmodule GymRat.Inventory.Hold do
   import Ecto.Changeset
   alias GymRat.Inventory.Hold
 
+  @whitelist_params [:maker, :color, :size, :count, :material, :features, :primary_use]
+
+  @required_params [:maker, :color, :size, :count, :material, :features, :primary_use]
+
   schema "holds" do
     has_many(:hold_placements, GymRat.RouteManagement.HoldPlacement)
 
@@ -20,7 +24,7 @@ defmodule GymRat.Inventory.Hold do
   @doc false
   def changeset(%Hold{} = hold, attrs) do
     hold
-    |> cast(attrs, [:maker, :color, :size, :count, :material, :features, :primary_use])
-    |> validate_required([:maker, :color, :size, :count, :material, :features, :primary_use])
+    |> cast(attrs, @whitelist_params)
+    |> validate_required(@required_params)
   end
 end

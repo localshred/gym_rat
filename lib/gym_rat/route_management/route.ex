@@ -4,6 +4,10 @@ defmodule GymRat.RouteManagement.Route do
 
   alias GymRat.RouteManagement.Route
 
+  @whitelist_params [:area_id, :setter_id, :name, :color, :grade_id, :set_on, :expires_on]
+
+  @required_params [:area_id, :setter_id, :color, :set_on, :expires_on]
+
   schema "routes" do
     belongs_to(:area, GymRat.Facilities.Area)
     belongs_to(:setter, GymRat.Accounts.User)
@@ -23,9 +27,9 @@ defmodule GymRat.RouteManagement.Route do
   @doc false
   def changeset(%Route{} = route, attrs) do
     route
-    |> cast(attrs, [:area_id, :setter_id, :name, :color, :grade_id, :set_on, :expires_on])
+    |> cast(attrs, @whitelist_params)
     |> foreign_key_constraint(:area_id)
     |> foreign_key_constraint(:setter_id)
-    |> validate_required([:area_id, :setter_id, :color, :set_on, :expires_on])
+    |> validate_required(@required_params)
   end
 end

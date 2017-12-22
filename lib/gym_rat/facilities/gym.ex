@@ -4,6 +4,9 @@ defmodule GymRat.Facilities.Gym do
 
   alias GymRat.Facilities.Gym
 
+  @whitelist_params [:name, :website, :address]
+  @required_params [:name, :website]
+
   schema "gyms" do
     has_many(:areas, GymRat.Facilities.Area)
 
@@ -17,7 +20,7 @@ defmodule GymRat.Facilities.Gym do
   @doc false
   def changeset(%Gym{} = gym, attrs) do
     gym
-    |> cast(attrs, [:name, :website, :address])
-    |> validate_required([:name, :website])
+    |> cast(attrs, @whitelist_params)
+    |> validate_required(@required_params)
   end
 end
