@@ -5,7 +5,6 @@ defmodule GymRatWeb.Graphql.Routes.Types do
   @desc "Breakdown of grades that may be assigned or derived for a route"
   object :route_grades do
     field(:initial_grade, non_null(:grade))
-    field(:consensus_grade, non_null(:grade))
   end
 
   @desc "A route that has been set for climbers"
