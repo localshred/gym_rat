@@ -5,22 +5,22 @@ defmodule GymRatWeb.Graphql.Holds.Queries do
   alias GymRat.Lore
 
   object :hold_response do
-    field :hold, non_null(:hold)
+    field(:hold, non_null(:hold))
   end
 
   object :holds_response do
-    field :holds, :hold |> non_null |> list_of |> non_null
+    field(:holds, :hold |> non_null |> list_of |> non_null)
   end
 
   object :holds_queries do
     field :hold, non_null(:hold_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &get_hold/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&get_hold/2)
     end
 
     field :holds, non_null(:holds_response) do
-      arg :query, non_null(:get_records_input)
-      resolve &list_holds/2
+      arg(:query, non_null(:get_records_input))
+      resolve(&list_holds/2)
     end
   end
 

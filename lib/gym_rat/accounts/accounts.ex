@@ -36,7 +36,7 @@ defmodule GymRat.Accounts do
   def list_users(ids) when is_list(ids) and length(ids) > 0 do
     User
     |> where([user], user.id in ^ids)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def list_users([]) do

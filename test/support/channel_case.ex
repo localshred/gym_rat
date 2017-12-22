@@ -25,13 +25,13 @@ defmodule GymRatWeb.ChannelCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(GymRat.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(GymRat.Repo, {:shared, self()})
     end
+
     :ok
   end
-
 end

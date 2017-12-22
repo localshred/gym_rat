@@ -3,12 +3,11 @@ defmodule GymRat.Repo.Migrations.CreateGyms do
 
   def change do
     create table(:gyms) do
-      add :name, :string, null: false
-      add :website, :text, null: false
-      add :address, :text
+      add(:name, :string, null: false)
+      add(:website, :text, null: false)
+      add(:address, :text)
 
       timestamps()
     end
-
   end
 end

@@ -5,16 +5,17 @@ defmodule GymRat.RouteManagement.Route do
   alias GymRat.RouteManagement.Route
 
   schema "routes" do
-    belongs_to :area, GymRat.Facilities.Area
-    belongs_to :setter, GymRat.Accounts.User
-    has_many :ticks, GymRat.Climbing.Tick
-    has_many :hold_placements, GymRat.RouteManagement.HoldPlacement
+    belongs_to(:area, GymRat.Facilities.Area)
+    belongs_to(:setter, GymRat.Accounts.User)
+    has_many(:ticks, GymRat.Climbing.Tick)
+    has_many(:hold_placements, GymRat.RouteManagement.HoldPlacement)
 
-    field :grade_id, :integer # TODO
-    field :name, :string
-    field :color, :string
-    field :expires_on, :utc_datetime
-    field :set_on, :utc_datetime
+    # TODO
+    field(:grade_id, :integer)
+    field(:name, :string)
+    field(:color, :string)
+    field(:expires_on, :utc_datetime)
+    field(:set_on, :utc_datetime)
 
     timestamps()
   end

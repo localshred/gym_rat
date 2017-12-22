@@ -5,23 +5,22 @@ defmodule GymRatWeb.Graphql.Gyms.Queries do
   alias GymRat.Lore
 
   object :gym_response do
-    field :gym, :gym
+    field(:gym, :gym)
   end
 
   object :gyms_response do
-    field :gyms, :gym |> non_null |> list_of |> non_null
+    field(:gyms, :gym |> non_null |> list_of |> non_null)
   end
 
   object :gyms_queries do
-
     field :gym, non_null(:gym_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &get_gym/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&get_gym/2)
     end
 
     field :gyms, non_null(:gyms_response) do
-      arg :query, non_null(:get_records_input)
-      resolve &list_gyms/2
+      arg(:query, non_null(:get_records_input))
+      resolve(&list_gyms/2)
     end
   end
 

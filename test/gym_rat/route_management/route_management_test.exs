@@ -44,7 +44,10 @@ defmodule GymRat.RouteManagementTest do
 
     test "create_hold_placement/1 with valid data creates a hold_placement" do
       expected_hold_placement = params_with_assocs(:hold_placement)
-      assert {:ok, %HoldPlacement{} = hold_placement} = RouteManagement.create_hold_placement(expected_hold_placement)
+
+      assert {:ok, %HoldPlacement{} = hold_placement} =
+               RouteManagement.create_hold_placement(expected_hold_placement)
+
       assert hold_placement.grid_coordinate_x == expected_hold_placement.grid_coordinate_x
       assert hold_placement.grid_coordinate_y == expected_hold_placement.grid_coordinate_y
       assert hold_placement.hold_id == expected_hold_placement.hold_id
@@ -61,11 +64,11 @@ defmodule GymRat.RouteManagementTest do
       hold = insert(:hold)
       route = insert(:route)
       hold_placement = insert(:hold_placement)
-      attributes = %{ @update_attrs |
-        hold_id: hold.id,
-        route_id: route.id,
-      }
-      assert {:ok, hold_placement} = RouteManagement.update_hold_placement(hold_placement, attributes)
+      attributes = %{@update_attrs | hold_id: hold.id, route_id: route.id}
+
+      assert {:ok, hold_placement} =
+               RouteManagement.update_hold_placement(hold_placement, attributes)
+
       assert %HoldPlacement{} = hold_placement
       assert hold_placement.grid_coordinate_x == 43
       assert hold_placement.grid_coordinate_y == 43
@@ -78,14 +81,21 @@ defmodule GymRat.RouteManagementTest do
     test "update_hold_placement/2 with invalid data returns error changeset" do
       hold_placement = insert(:hold_placement)
       before_update_hold_placement = RouteManagement.get_hold_placement!(hold_placement.id)
-      assert {:error, %Ecto.Changeset{}} = RouteManagement.update_hold_placement(hold_placement, @invalid_attrs)
-      assert before_update_hold_placement == RouteManagement.get_hold_placement!(hold_placement.id)
+
+      assert {:error, %Ecto.Changeset{}} =
+               RouteManagement.update_hold_placement(hold_placement, @invalid_attrs)
+
+      assert before_update_hold_placement ==
+               RouteManagement.get_hold_placement!(hold_placement.id)
     end
 
     test "delete_hold_placement/1 deletes the hold_placement" do
       hold_placement = insert(:hold_placement)
       assert {:ok, %HoldPlacement{}} = RouteManagement.delete_hold_placement(hold_placement)
-      assert_raise Ecto.NoResultsError, fn -> RouteManagement.get_hold_placement!(hold_placement.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        RouteManagement.get_hold_placement!(hold_placement.id)
+      end
     end
 
     test "change_hold_placement/1 returns a hold_placement changeset" do
@@ -100,9 +110,9 @@ defmodule GymRat.RouteManagementTest do
     @update_attrs %{
       area_id: 43,
       color: "some updated color",
-      expires_on: DateTime.from_unix!(1513802726000, :milliseconds),
+      expires_on: DateTime.from_unix!(1_513_802_726_000, :milliseconds),
       grade_id: 43,
-      set_on: DateTime.from_unix!(1515802726000, :milliseconds),
+      set_on: DateTime.from_unix!(1_515_802_726_000, :milliseconds),
       setter_id: 43
     }
     @invalid_attrs %{
@@ -125,9 +135,15 @@ defmodule GymRat.RouteManagementTest do
       expected_route = RouteManagement.get_route!(route.id)
       assert route.area_id == expected_route.area_id
       assert route.color == expected_route.color
-      assert DateTime.to_unix(route.expires_on, :milliseconds) == DateTime.to_unix(expected_route.expires_on, :milliseconds)
+
+      assert DateTime.to_unix(route.expires_on, :milliseconds) ==
+               DateTime.to_unix(expected_route.expires_on, :milliseconds)
+
       assert route.grade_id == expected_route.grade_id
-      assert DateTime.to_unix(route.set_on, :milliseconds) == DateTime.to_unix(expected_route.set_on, :milliseconds)
+
+      assert DateTime.to_unix(route.set_on, :milliseconds) ==
+               DateTime.to_unix(expected_route.set_on, :milliseconds)
+
       assert route.setter_id == expected_route.setter_id
     end
 
@@ -150,17 +166,14 @@ defmodule GymRat.RouteManagementTest do
       setter = insert(:user)
       area = insert(:area)
       route = insert(:route)
-      attributes = %{ @update_attrs |
-        area_id: area.id,
-        setter_id: setter.id
-      }
+      attributes = %{@update_attrs | area_id: area.id, setter_id: setter.id}
       assert {:ok, route} = RouteManagement.update_route(route, attributes)
       assert %Route{} = route
       assert route.area_id == area.id
       assert route.color == "some updated color"
-      assert route.expires_on == DateTime.from_unix!(1513802726000, :milliseconds)
+      assert route.expires_on == DateTime.from_unix!(1_513_802_726_000, :milliseconds)
       assert route.grade_id == 43
-      assert route.set_on == DateTime.from_unix!(1515802726000, :milliseconds)
+      assert route.set_on == DateTime.from_unix!(1_515_802_726_000, :milliseconds)
       assert route.setter_id == setter.id
     end
 

@@ -1,7 +1,6 @@
 defmodule GymRat.TestFactories.RouteManagement do
   defmacro __using__(_opts) do
     quote do
-
       def hold_placement_factory do
         %GymRat.RouteManagement.HoldPlacement{
           grid_coordinate_x: 35,
@@ -9,7 +8,7 @@ defmodule GymRat.TestFactories.RouteManagement do
           hold: build(:hold),
           is_finish: false,
           is_start: true,
-          route: build(:route),
+          route: build(:route)
         }
       end
 
@@ -18,12 +17,12 @@ defmodule GymRat.TestFactories.RouteManagement do
           setter: build(:user),
           area: build(:area),
           color: "red",
-          set_on: DateTime.from_unix!(1513802726000, :milliseconds),
-          expires_on: DateTime.from_unix!(1515802726000, :milliseconds),
-          grade_id: 42, # TODO make a real association
+          set_on: DateTime.from_unix!(1_513_802_726_000, :milliseconds),
+          expires_on: DateTime.from_unix!(1_515_802_726_000, :milliseconds),
+          # TODO make a real association
+          grade_id: 42
         }
       end
-
     end
   end
 end

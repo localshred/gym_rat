@@ -5,11 +5,11 @@ defmodule GymRat.Facilities.Gym do
   alias GymRat.Facilities.Gym
 
   schema "gyms" do
-    has_many :areas, GymRat.Facilities.Area
+    has_many(:areas, GymRat.Facilities.Area)
 
-    field :address, :string
-    field :name, :string, null: false
-    field :website, :string, null: false
+    field(:address, :string)
+    field(:name, :string, null: false)
+    field(:website, :string, null: false)
 
     timestamps()
   end

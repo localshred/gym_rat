@@ -11,7 +11,7 @@ defmodule GymRat.Application do
       # Start the Ecto repository
       supervisor(GymRat.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(GymRatWeb.Endpoint, []),
+      supervisor(GymRatWeb.Endpoint, [])
       # Start your own worker by calling: GymRat.Worker.start_link(arg1, arg2, arg3)
       # worker(GymRat.Worker, [arg1, arg2, arg3]),
     ]

@@ -5,22 +5,22 @@ defmodule GymRatWeb.Graphql.Users.Queries do
   alias GymRat.Lore
 
   object :user_response do
-    field :user, non_null(:user)
+    field(:user, non_null(:user))
   end
 
   object :users_response do
-    field :users, :user |> non_null |> list_of |> non_null
+    field(:users, :user |> non_null |> list_of |> non_null)
   end
 
   object :users_queries do
     field :user, non_null(:user_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &get_user/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&get_user/2)
     end
 
     field :users, non_null(:users_response) do
-      arg :query, non_null(:get_records_input)
-      resolve &list_users/2
+      arg(:query, non_null(:get_records_input))
+      resolve(&list_users/2)
     end
   end
 

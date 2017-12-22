@@ -5,15 +5,16 @@ defmodule GymRatWeb.Graphql.Scalars.UtcTimestamp do
   alias GymRat.Lore
 
   scalar :utc_timestamp do
-    description "A Unix Timestamp in UTC milliseconds, converting to/from a DateTime"
-    parse &parse_timestamp/1
-    serialize &serialize_datetime/1
+    description("A Unix Timestamp in UTC milliseconds, converting to/from a DateTime")
+    parse(&parse_timestamp/1)
+    serialize(&serialize_datetime/1)
   end
 
   def parse_timestamp(%Input.String{value: epochMilliseconds}) when is_binary(epochMilliseconds) do
-    integer = epochMilliseconds
-    |> Integer.parse(10)
-    |> parse_timestamp()
+    integer =
+      epochMilliseconds
+      |> Integer.parse(10)
+      |> parse_timestamp()
 
     parse_timestamp(%Input.Integer{value: integer})
   end
@@ -42,5 +43,4 @@ defmodule GymRatWeb.Graphql.Scalars.UtcTimestamp do
   def serialize_datetime(dateTime) do
     DateTime.to_unix(dateTime, :milliseconds)
   end
-
 end

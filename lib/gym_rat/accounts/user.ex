@@ -3,11 +3,10 @@ defmodule GymRat.Accounts.User do
   import Ecto.Changeset
   alias GymRat.Accounts.User
 
-
   schema "users" do
-    field :email, :string
-    field :name, :string
-    field :username, :string
+    field(:email, :string)
+    field(:name, :string)
+    field(:username, :string)
 
     timestamps()
   end

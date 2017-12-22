@@ -5,11 +5,11 @@ defmodule GymRat.Facilities.Area do
   alias GymRat.Facilities.Area
 
   schema "areas" do
-    belongs_to :gym, GymRat.Facilities.Gym
-    has_many :routes, GymRat.RouteManagement.Route
+    belongs_to(:gym, GymRat.Facilities.Gym)
+    has_many(:routes, GymRat.RouteManagement.Route)
 
-    field :name, :string, null: false
-    field :order, :integer, null: false, default: 0
+    field(:name, :string, null: false)
+    field(:order, :integer, null: false, default: 0)
 
     timestamps()
   end

@@ -3,7 +3,7 @@ defmodule GymRat.Repo.Migrations.AlterAreas do
 
   def change do
     alter table("areas") do
-      modify :gym_id, references(:gyms)
+      modify(:gym_id, references(:gyms))
     end
   end
 end

@@ -3,8 +3,8 @@ defmodule GymRat.Repo.Migrations.AlterTick do
 
   def change do
     alter table("ticks") do
-      modify :route_id, references(:routes)
-      modify :user_id, references(:users)
+      modify(:route_id, references(:routes))
+      modify(:user_id, references(:users))
     end
   end
 end

@@ -8,7 +8,11 @@ defmodule GymRat.AccountsTest do
   describe "users" do
     alias GymRat.Accounts.User
 
-    @update_attrs %{email: "some updated email", name: "some updated name", username: "some updated username"}
+    @update_attrs %{
+      email: "some updated email",
+      name: "some updated name",
+      username: "some updated username"
+    }
     @invalid_attrs %{email: nil, name: nil, username: nil}
 
     test "list_users/0 returns all users" do

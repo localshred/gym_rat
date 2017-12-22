@@ -5,22 +5,22 @@ defmodule GymRatWeb.Graphql.Ticks.Queries do
   alias GymRat.Lore
 
   object :tick_response do
-    field :tick, non_null(:tick)
+    field(:tick, non_null(:tick))
   end
 
   object :ticks_response do
-    field :ticks, :tick |> non_null |> list_of |> non_null
+    field(:ticks, :tick |> non_null |> list_of |> non_null)
   end
 
   object :ticks_queries do
     field :tick, non_null(:tick_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &get_tick/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&get_tick/2)
     end
 
     field :ticks, non_null(:ticks_response) do
-      arg :query, non_null(:get_records_input)
-      resolve &list_ticks/2
+      arg(:query, non_null(:get_records_input))
+      resolve(&list_ticks/2)
     end
   end
 

@@ -36,7 +36,7 @@ defmodule GymRat.Inventory do
   def list_holds(ids) when is_list(ids) and length(ids) > 0 do
     Hold
     |> where([hold], hold.id in ^ids)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def list_holds([]) do

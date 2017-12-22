@@ -3,8 +3,8 @@ defmodule GymRat.Repo.Migrations.AlterHoldPlacements do
 
   def change do
     alter table(:hold_placements) do
-      modify :hold_id, references(:holds)
-      modify :route_id, references(:routes)
+      modify(:hold_id, references(:holds))
+      modify(:route_id, references(:routes))
     end
   end
 end

@@ -40,7 +40,7 @@ defmodule GymRat.FacilitiesTest do
     test "update_area/2 with valid data updates the area" do
       gym = insert(:gym)
       area = insert(:area)
-      assert {:ok, area} = Facilities.update_area(area, %{ @update_attrs | gym_id: gym.id })
+      assert {:ok, area} = Facilities.update_area(area, %{@update_attrs | gym_id: gym.id})
       assert %Area{} = area
       assert area.gym_id == gym.id
       assert area.name == "some updated name"
@@ -69,7 +69,11 @@ defmodule GymRat.FacilitiesTest do
   describe "gyms" do
     alias GymRat.Facilities.Gym
 
-    @update_attrs %{address: "some updated address", name: "some updated name", website: "some updated website"}
+    @update_attrs %{
+      address: "some updated address",
+      name: "some updated name",
+      website: "some updated website"
+    }
     @invalid_attrs %{address: nil, name: nil, website: nil}
 
     test "list_gyms/0 returns all gyms" do

@@ -3,17 +3,16 @@ defmodule GymRat.Inventory.Hold do
   import Ecto.Changeset
   alias GymRat.Inventory.Hold
 
-
   schema "holds" do
-    has_many :hold_placements, GymRat.RouteManagement.HoldPlacement
+    has_many(:hold_placements, GymRat.RouteManagement.HoldPlacement)
 
-    field :color, :string
-    field :count, :integer
-    field :features, :string
-    field :maker, :string
-    field :material, :string
-    field :primary_use, :string
-    field :size, :string
+    field(:color, :string)
+    field(:count, :integer)
+    field(:features, :string)
+    field(:maker, :string)
+    field(:material, :string)
+    field(:primary_use, :string)
+    field(:size, :string)
 
     timestamps()
   end

@@ -36,7 +36,7 @@ defmodule GymRat.Facilities do
   def list_areas(ids) when is_list(ids) and length(ids) > 0 do
     Area
     |> where([area], area.id in ^ids)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def list_areas([]) do
@@ -168,7 +168,7 @@ defmodule GymRat.Facilities do
   def list_gyms(ids) when is_list(ids) and length(ids) > 0 do
     Gym
     |> where([gym], gym.id in ^ids)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def list_gyms([]) do

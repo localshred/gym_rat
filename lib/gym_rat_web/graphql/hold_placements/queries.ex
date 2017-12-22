@@ -5,22 +5,22 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Queries do
   alias GymRat.RouteManagement
 
   object :hold_placement_response do
-    field :hold_placement, non_null(:hold_placement)
+    field(:hold_placement, non_null(:hold_placement))
   end
 
   object :hold_placements_response do
-    field :hold_placements, :hold_placement |> non_null |> list_of |> non_null
+    field(:hold_placements, :hold_placement |> non_null |> list_of |> non_null)
   end
 
   object :hold_placements_queries do
     field :hold_placement, non_null(:hold_placement_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &get_hold_placement/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&get_hold_placement/2)
     end
 
     field :hold_placements, non_null(:hold_placements_response) do
-      arg :query, non_null(:get_records_input)
-      resolve &list_hold_placements/2
+      arg(:query, non_null(:get_records_input))
+      resolve(&list_hold_placements/2)
     end
   end
 

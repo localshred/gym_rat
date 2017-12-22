@@ -5,22 +5,22 @@ defmodule GymRatWeb.Graphql.Areas.Queries do
   alias GymRat.Lore
 
   object :area_response do
-    field :area, non_null(:area)
+    field(:area, non_null(:area))
   end
 
   object :areas_response do
-    field :areas, :area |> non_null |> list_of |> non_null
+    field(:areas, :area |> non_null |> list_of |> non_null)
   end
 
   object :areas_queries do
     field :area, non_null(:area_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &get_area/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&get_area/2)
     end
 
     field :areas, non_null(:areas_response) do
-      arg :query, non_null(:get_records_input)
-      resolve &list_areas/2
+      arg(:query, non_null(:get_records_input))
+      resolve(&list_areas/2)
     end
   end
 

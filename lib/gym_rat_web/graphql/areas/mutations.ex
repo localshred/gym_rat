@@ -6,39 +6,39 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
   alias GymRat.Lore
 
   input_object :create_area_input do
-    field :gym_id, non_null(:id)
-    field :name, non_null(:string)
-    field :order, :integer
+    field(:gym_id, non_null(:id))
+    field(:name, non_null(:string))
+    field(:order, :integer)
   end
 
   object :create_area_response do
-    field :area, non_null(:area)
+    field(:area, non_null(:area))
   end
 
   input_object :update_area_input do
-    field :name, :string
-    field :order, :integer
+    field(:name, :string)
+    field(:order, :integer)
   end
 
   object :update_area_response do
-    field :area, non_null(:area)
+    field(:area, non_null(:area))
   end
 
   object :areas_mutations do
     field :create_area, non_null(:create_area_response) do
-      arg :area, non_null(:create_area_input)
-      resolve &create_area/2
+      arg(:area, non_null(:create_area_input))
+      resolve(&create_area/2)
     end
 
     field :delete_area, non_null(:delete_record_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &delete_area/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&delete_area/2)
     end
 
     field :update_area, non_null(:update_area_response) do
-      arg :query, non_null(:get_record_input)
-      arg :area, non_null(:update_area_input)
-      resolve &update_area/2
+      arg(:query, non_null(:get_record_input))
+      arg(:area, non_null(:update_area_input))
+      resolve(&update_area/2)
     end
   end
 
@@ -56,16 +56,16 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
     |> Graphql.delete_record(&Facilities.delete_area/1)
   end
 
-  def update_area(args, _context)  do
+  def update_area(args, _context) do
     try do
       args
       |> Lore.path([:query, :id])
       |> Facilities.get_area!()
       |> Facilities.update_area(args.update)
       |> Graphql.db_result_to_response(:area)
-    rescue _exception ->
-      Lore.error("Unable to update area")
+    rescue
+      _exception ->
+        Lore.error("Unable to update area")
     end
   end
 end
-

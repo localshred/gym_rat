@@ -8,8 +8,24 @@ defmodule GymRat.InventoryTest do
   describe "holds" do
     alias GymRat.Inventory.Hold
 
-    @update_attrs %{color: "some updated color", count: 43, features: "some updated features", maker: "some updated maker", material: "some updated material", primary_use: "some updated primary_use", size: "some updated size"}
-    @invalid_attrs %{color: nil, count: nil, features: nil, maker: nil, material: nil, primary_use: nil, size: nil}
+    @update_attrs %{
+      color: "some updated color",
+      count: 43,
+      features: "some updated features",
+      maker: "some updated maker",
+      material: "some updated material",
+      primary_use: "some updated primary_use",
+      size: "some updated size"
+    }
+    @invalid_attrs %{
+      color: nil,
+      count: nil,
+      features: nil,
+      maker: nil,
+      material: nil,
+      primary_use: nil,
+      size: nil
+    }
 
     test "list_holds/0 returns all holds" do
       hold = insert(:hold)
@@ -68,4 +84,3 @@ defmodule GymRat.InventoryTest do
     end
   end
 end
-

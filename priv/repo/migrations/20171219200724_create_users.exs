@@ -3,12 +3,11 @@ defmodule GymRat.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :name, :string
-      add :email, :string
-      add :username, :string
+      add(:name, :string)
+      add(:email, :string)
+      add(:username, :string)
 
       timestamps()
     end
-
   end
 end

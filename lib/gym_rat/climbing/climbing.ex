@@ -36,7 +36,7 @@ defmodule GymRat.Climbing do
   def list_ticks(ids) when is_list(ids) and length(ids) > 0 do
     Tick
     |> where([tick], tick.id in ^ids)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def list_ticks([]) do

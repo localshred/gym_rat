@@ -26,7 +26,7 @@ defmodule GymRat.Lore do
   Returns an :error tuple with the given result in the second position.
   """
   def error(result) do
-    { :error, result }
+    {:error, result}
   end
 
   @doc """
@@ -52,7 +52,7 @@ defmodule GymRat.Lore do
   Returns an :ok tuple with the given result in the second position.
   """
   def ok(result) do
-    { :ok, result }
+    {:ok, result}
   end
 
   @doc """
@@ -68,9 +68,10 @@ defmodule GymRat.Lore do
   def path(%{} = map, key_path) do
     [initial_key | rest] = key_path
     initial = Map.get(map, initial_key)
+
     Enum.reduce(rest, initial, fn
-      (key, %{} = inner) -> Map.get(inner, key)
-      (_key, inner) -> inner
+      key, %{} = inner -> Map.get(inner, key)
+      _key, inner -> inner
     end)
   end
 end

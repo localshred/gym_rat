@@ -5,22 +5,22 @@ defmodule GymRatWeb.Graphql.Routes.Queries do
   alias GymRat.RouteManagement
 
   object :route_response do
-    field :route, non_null(:route)
+    field(:route, non_null(:route))
   end
 
   object :routes_response do
-    field :routes, :route |> non_null |> list_of |> non_null
+    field(:routes, :route |> non_null |> list_of |> non_null)
   end
 
   object :routes_queries do
     field :route, non_null(:route_response) do
-      arg :query, non_null(:get_record_input)
-      resolve &get_route/2
+      arg(:query, non_null(:get_record_input))
+      resolve(&get_route/2)
     end
 
     field :routes, non_null(:routes_response) do
-      arg :query, non_null(:get_records_input)
-      resolve &list_routes/2
+      arg(:query, non_null(:get_records_input))
+      resolve(&list_routes/2)
     end
   end
 

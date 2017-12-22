@@ -36,7 +36,7 @@ defmodule GymRat.RouteManagement do
   def list_hold_placements(ids) when is_list(ids) and length(ids) > 0 do
     HoldPlacement
     |> where([hold_placement], hold_placement.id in ^ids)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def list_hold_placements([]) do
@@ -168,7 +168,7 @@ defmodule GymRat.RouteManagement do
   def list_routes(ids) when is_list(ids) and length(ids) > 0 do
     Route
     |> where([route], route.id in ^ids)
-    |> Repo.all
+    |> Repo.all()
   end
 
   def list_routes([]) do
