@@ -1,6 +1,15 @@
 defmodule GymRat.TestFactories.RouteManagement do
   defmacro __using__(_opts) do
     quote do
+      def grade_factory do
+        %GymRat.RouteManagement.Grade{
+          system: "yds",
+          major: "13",
+          minor: "a",
+          difficulty: "benchmark"
+        }
+      end
+
       def hold_placement_factory do
         %GymRat.RouteManagement.HoldPlacement{
           grid_coordinate_x: 35,
