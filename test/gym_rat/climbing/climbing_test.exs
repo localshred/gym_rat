@@ -13,7 +13,7 @@ defmodule GymRat.ClimbingTest do
       rating: 43,
       route_id: 43,
       send_type: "some updated send_type",
-      ticked_at: DateTime.from_unix!(1_513_806_326_000, :milliseconds),
+      ticked_at: from_unix(1_513_806_326_000),
       user_grade_id: 43,
       user_id: 43
     }
@@ -40,10 +40,7 @@ defmodule GymRat.ClimbingTest do
       assert tick.rating == expected_tick.rating
       assert tick.route_id == expected_tick.route_id
       assert tick.send_type == expected_tick.send_type
-
-      assert DateTime.to_unix(tick.ticked_at, :milliseconds) ==
-               DateTime.to_unix(expected_tick.ticked_at, :milliseconds)
-
+      assert to_unix(tick.ticked_at) == to_unix(expected_tick.ticked_at)
       assert tick.user_grade_id == expected_tick.user_grade_id
       assert tick.user_id == expected_tick.user_id
     end
@@ -55,10 +52,7 @@ defmodule GymRat.ClimbingTest do
       assert tick.rating == expected_tick.rating
       assert tick.route_id == expected_tick.route_id
       assert tick.send_type == expected_tick.send_type
-
-      assert DateTime.to_unix(tick.ticked_at, :milliseconds) ==
-               DateTime.to_unix(expected_tick.ticked_at, :milliseconds)
-
+      assert to_unix(tick.ticked_at) == to_unix(expected_tick.ticked_at)
       assert tick.user_grade_id == expected_tick.user_grade_id
       assert tick.user_id == expected_tick.user_id
     end
@@ -78,7 +72,7 @@ defmodule GymRat.ClimbingTest do
       assert tick.rating == 43
       assert tick.route_id == route.id
       assert tick.send_type == "some updated send_type"
-      assert tick.ticked_at == DateTime.from_unix!(1_513_806_326_000, :milliseconds)
+      assert tick.ticked_at == from_unix(1_513_806_326_000)
       assert tick.user_grade_id == 43
       assert tick.user_id == user.id
     end

@@ -50,4 +50,12 @@ defmodule GymRat.DataCase do
       end)
     end)
   end
+
+  def from_unix(milliseconds) do
+    DateTime.from_unix!(milliseconds, :milliseconds)
+  end
+
+  def to_unix(date_time) do
+    DateTime.to_unix(date_time, :milliseconds)
+  end
 end

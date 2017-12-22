@@ -172,9 +172,9 @@ defmodule GymRat.RouteManagementTest do
     @update_attrs %{
       area_id: 43,
       color: "some updated color",
-      expires_on: DateTime.from_unix!(1_513_802_726_000, :milliseconds),
+      expires_on: from_unix(1_513_802_726_000),
       grade_id: 43,
-      set_on: DateTime.from_unix!(1_515_802_726_000, :milliseconds),
+      set_on: from_unix(1_515_802_726_000),
       setter_id: 43
     }
     @invalid_attrs %{
@@ -197,15 +197,9 @@ defmodule GymRat.RouteManagementTest do
       expected_route = RouteManagement.get_route!(route.id)
       assert route.area_id == expected_route.area_id
       assert route.color == expected_route.color
-
-      assert DateTime.to_unix(route.expires_on, :milliseconds) ==
-               DateTime.to_unix(expected_route.expires_on, :milliseconds)
-
+      assert to_unix(route.expires_on) == to_unix(expected_route.expires_on)
       assert route.grade_id == expected_route.grade_id
-
-      assert DateTime.to_unix(route.set_on, :milliseconds) ==
-               DateTime.to_unix(expected_route.set_on, :milliseconds)
-
+      assert to_unix(route.set_on) == to_unix(expected_route.set_on)
       assert route.setter_id == expected_route.setter_id
     end
 
@@ -233,9 +227,9 @@ defmodule GymRat.RouteManagementTest do
       assert %Route{} = route
       assert route.area_id == area.id
       assert route.color == "some updated color"
-      assert route.expires_on == DateTime.from_unix!(1_513_802_726_000, :milliseconds)
+      assert route.expires_on == from_unix(1_513_802_726_000)
       assert route.grade_id == 43
-      assert route.set_on == DateTime.from_unix!(1_515_802_726_000, :milliseconds)
+      assert route.set_on == from_unix(1_515_802_726_000)
       assert route.setter_id == setter.id
     end
 
