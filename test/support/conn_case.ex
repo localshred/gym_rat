@@ -20,6 +20,7 @@ defmodule GymRatWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import GymRatWeb.Router.Helpers
+      use GymRat.AbsintheHelpers
 
       # The default endpoint for testing
       @endpoint GymRatWeb.Endpoint
@@ -33,6 +34,9 @@ defmodule GymRatWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(GymRat.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    conn = Phoenix.ConnTest.build_conn()
+           |> Plug.Conn.put_req_header("content-type", "application/json")
+
+    {:ok, conn: conn}
   end
 end
