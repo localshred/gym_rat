@@ -1,4 +1,4 @@
-defmodule GymRat.InventoryTest do
+defmodule GymRat.Inventory.Context.HoldTest do
   use GymRat.DataCase
 
   import GymRat.TestFactories
