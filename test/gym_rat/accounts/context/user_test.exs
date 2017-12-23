@@ -1,4 +1,4 @@
-defmodule GymRat.AccountsTest do
+defmodule GymRat.Accounts.Context.UserTest do
   use GymRat.DataCase
 
   import GymRat.TestFactories
