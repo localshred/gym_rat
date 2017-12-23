@@ -8,7 +8,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
   input_object :create_tick_input do
     field(:user_id, non_null(:id))
     field(:route_id, non_null(:id))
-    field(:user_grade, :grade_input)
+    field(:user_grade_id, :id)
     field(:number_tries, :integer)
     field(:rating, :tick_rating)
     field(:send_type, non_null(:send_type))
@@ -22,7 +22,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
   input_object :update_tick_input do
     field(:user_id, :id)
     field(:route_id, :id)
-    field(:user_grade, :grade_input)
+    field(:user_grade_id, :id)
     field(:number_tries, :integer)
     field(:rating, :tick_rating)
     field(:send_type, :send_type)
@@ -70,7 +70,7 @@ defmodule GymRatWeb.Graphql.Ticks.Mutations do
       args
       |> Lore.path([:query, :id])
       |> Climbing.get_tick!()
-      |> Climbing.update_tick(args.update)
+      |> Climbing.update_tick(args.tick)
       |> Graphql.db_result_to_response(:tick)
     rescue
       _exception ->
