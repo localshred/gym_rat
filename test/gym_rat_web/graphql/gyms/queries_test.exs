@@ -1,4 +1,4 @@
-defmodule Graphql.Gyms.QueriesTest do
+defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
   use GymRatWeb.ConnCase
 
   import GymRat.TestFactories
@@ -23,22 +23,16 @@ defmodule Graphql.Gyms.QueriesTest do
         }
       """
 
-      run_options = [
+      [
         query: query,
         query_name: query_name,
         variables: %{
           "id" => to_string(expected_gym.id)
         }
       ]
-
-      actual_gym = run_options
-                   |> graphql_run()
-                   |> Lore.path([:data, "gym", "gym"])
-
-      assert actual_gym["id"] == to_string(expected_gym.id)
-      assert actual_gym["name"] == expected_gym.name
-      assert actual_gym["website"] == expected_gym.website
-      assert actual_gym["address"] == expected_gym.address
+      |> graphql_run()
+      |> Lore.path([:data, "gym", "gym"])
+      |> assert_gym(expected_gym)
     end
   end
 
@@ -69,12 +63,15 @@ defmodule Graphql.Gyms.QueriesTest do
       |> Lore.path([:data, "gyms", "gyms"])
       |> Enum.each(fn actual_gym ->
         expected_gym = List.first(expected_gyms[actual_gym["id"]])
-        assert actual_gym["id"] == to_string(expected_gym.id)
-        assert actual_gym["name"] == expected_gym.name
-        assert actual_gym["website"] == expected_gym.website
-        assert actual_gym["address"] == expected_gym.address
+        assert_gym(actual_gym, expected_gym)
       end)
     end
   end
 
+  def assert_gym(actual, expected) do
+    assert actual["id"] == to_string(expected.id)
+    assert actual["name"] == expected.name
+    assert actual["website"] == expected.website
+    assert actual["address"] == expected.address
+  end
 end
