@@ -1,4 +1,4 @@
-defmodule GymRat.ClimbingTest do
+defmodule GymRat.Climbing.Context.TickTest do
   use GymRat.DataCase
 
   import GymRat.TestFactories
