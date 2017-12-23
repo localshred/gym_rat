@@ -1,0 +1,40 @@
+{
+  "*": {
+    "start": "npm start",
+    "make": "npm test",
+    "dispatch": "npm test"
+  },
+
+  "lib/*.ex": {
+    "alternate": "test/{}_test.exs",
+    "type": "src",
+    "template": [
+      "defmodule {camelcase|capitalize|dot}Test do",
+      "",
+      "end",
+    ]
+  },
+
+  "test/*_test.exs": {
+    "type": "test",
+    "alternate": "lib/{}.ex",
+    "make": "mix test {file}",
+    "dispatch": "mix test {file}",
+    "template": [
+      "defmodule {camelcase|capitalize|dot}Test do",
+      "  use GymRat.DataCase",
+      "",
+      "  import GymRat.TestFactories",
+      "",
+      "  alias {camelcase|capitalize|dot}",
+      "",
+      "  describe \"fn\" do",
+      "    test \"some test\" do",
+      "      assert true == false",
+      "    end",
+      "  end",
+      "",
+      "end",
+    ]
+  }
+}
