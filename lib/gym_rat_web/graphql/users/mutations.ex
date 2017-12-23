@@ -64,7 +64,7 @@ defmodule GymRatWeb.Graphql.Users.Mutations do
       args
       |> Lore.path([:query, :id])
       |> Accounts.get_user!()
-      |> Accounts.update_user(args.update)
+      |> Accounts.update_user(args.user)
       |> Graphql.db_result_to_response(:user)
     rescue
       _exception ->

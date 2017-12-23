@@ -70,7 +70,7 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
       args
       |> Lore.path([:query, :id])
       |> Inventory.get_hold!()
-      |> Inventory.update_hold(args.update)
+      |> Inventory.update_hold(args.hold)
       |> Graphql.db_result_to_response(:hold)
     rescue
       _exception ->

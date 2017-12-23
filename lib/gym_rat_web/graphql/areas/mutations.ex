@@ -61,7 +61,7 @@ defmodule GymRatWeb.Graphql.Areas.Mutations do
       args
       |> Lore.path([:query, :id])
       |> Facilities.get_area!()
-      |> Facilities.update_area(args.update)
+      |> Facilities.update_area(args.area)
       |> Graphql.db_result_to_response(:area)
     rescue
       _exception ->

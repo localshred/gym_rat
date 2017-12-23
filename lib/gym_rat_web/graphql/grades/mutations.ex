@@ -64,7 +64,7 @@ defmodule GymRatWeb.Graphql.Grades.Mutations do
       args
       |> Lore.path([:query, :id])
       |> RouteManagement.get_grade!()
-      |> RouteManagement.update_grade(args.update)
+      |> RouteManagement.update_grade(args.grade)
       |> Graphql.db_result_to_response(:grade)
     rescue
       _exception ->

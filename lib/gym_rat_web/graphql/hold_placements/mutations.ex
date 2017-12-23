@@ -70,7 +70,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
       args
       |> Lore.path([:query, :id])
       |> RouteManagement.get_hold_placement!()
-      |> RouteManagement.update_hold_placement(args.update)
+      |> RouteManagement.update_hold_placement(args.hold_placement)
       |> Graphql.db_result_to_response(:hold_placement)
     rescue
       _exception ->

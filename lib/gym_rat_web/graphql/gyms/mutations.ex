@@ -62,7 +62,7 @@ defmodule GymRatWeb.Graphql.Gyms.Mutations do
       args
       |> Lore.path([:query, :id])
       |> Facilities.get_gym!()
-      |> Facilities.update_gym(args.update)
+      |> Facilities.update_gym(args.gym)
       |> Graphql.db_result_to_response(:gym)
     rescue
       _exception ->
