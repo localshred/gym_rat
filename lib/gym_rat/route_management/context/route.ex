@@ -18,7 +18,9 @@ defmodule GymRat.RouteManagement.Context.Route do
 
   """
   def list_routes do
-    Repo.all(Route)
+    Route
+    |> preload([:area, :grade, :setter])
+    |> Repo.all()
   end
 
   @doc """
@@ -36,11 +38,12 @@ defmodule GymRat.RouteManagement.Context.Route do
   def list_routes(ids) when is_list(ids) and length(ids) > 0 do
     Route
     |> where([route], route.id in ^ids)
+    |> preload([:area, :grade, :setter])
     |> Repo.all()
   end
 
   def list_routes([]) do
-    Repo.all(Route)
+    list_routes()
   end
 
   @doc """
@@ -55,7 +58,11 @@ defmodule GymRat.RouteManagement.Context.Route do
       nil
 
   """
-  def get_route(id), do: Repo.get(Route, id)
+  def get_route(id) do
+    Route
+    |> preload([:area, :grade, :setter])
+    |> Repo.get(id)
+  end
 
   @doc """
   Gets a single route.
@@ -71,7 +78,11 @@ defmodule GymRat.RouteManagement.Context.Route do
       ** (Ecto.NoResultsError)
 
   """
-  def get_route!(id), do: Repo.get!(Route, id)
+  def get_route!(id) do
+    Route
+    |> preload([:area, :grade, :setter])
+    |> Repo.get!(id)
+  end
 
   @doc """
   Creates a route.
