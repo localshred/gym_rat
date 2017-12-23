@@ -9,6 +9,20 @@ defmodule GymRat.Facilities.Context.Gym do
   alias GymRat.Facilities.Gym
 
   @doc """
+  Returns the count of the number of records in the gyms table.
+
+  ## Examples
+
+      iex> count_gyms()
+      42
+
+  """
+  def count_gyms do
+    from(g in "gyms")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of gyms.
 
   ## Examples

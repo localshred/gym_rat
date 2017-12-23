@@ -15,6 +15,7 @@ defmodule GymRat.Facilities do
 
   alias GymRat.Facilities.Context.Gym
   defdelegate change_gym(gym), to: Gym
+  defdelegate count_gyms, to: Gym
   defdelegate create_gym(attrs), to: Gym
   defdelegate delete_gym(gym), to: Gym
   defdelegate get_gym!(id), to: Gym
