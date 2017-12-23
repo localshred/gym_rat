@@ -26,20 +26,20 @@ defmodule GymRat.RouteManagement.Context.Grade do
   ## Examples
 
       iex> list_grades([123, 456])
-      [%HoldPlacement{id: 123}, %HoldPlacement{id: 456}]
+      [%Grade{id: 123}, %Grade{id: 456}]
 
       iex> list_grade([])
       []
 
   """
   def list_grades(ids) when is_list(ids) and length(ids) > 0 do
-    HoldPlacement
+    Grade
     |> where([grade], grade.id in ^ids)
     |> Repo.all()
   end
 
   def list_grades([]) do
-    Repo.all(HoldPlacement)
+    Repo.all(Grade)
   end
 
   @doc """
