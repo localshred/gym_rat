@@ -6,9 +6,10 @@ defmodule GymRatWeb.Graphql.Grades.Mutations do
   alias GymRat.RouteManagement
 
   input_object :create_grade_input do
-    field(:gym_id, non_null(:id))
-    field(:name, non_null(:string))
-    field(:order, :integer)
+    field(:system, non_null(:grade_system))
+    field(:major, non_null(:string))
+    field(:minor, :string)
+    field(:difficulty, :grade_difficulty)
   end
 
   object :create_grade_response do
@@ -16,8 +17,10 @@ defmodule GymRatWeb.Graphql.Grades.Mutations do
   end
 
   input_object :update_grade_input do
-    field(:name, :string)
-    field(:order, :integer)
+    field(:system, :grade_system)
+    field(:major, :string)
+    field(:minor, :string)
+    field(:difficulty, :grade_difficulty)
   end
 
   object :update_grade_response do
