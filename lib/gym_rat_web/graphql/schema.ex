@@ -1,9 +1,11 @@
 defmodule GymRatWeb.Graphql.Schema do
   use Absinthe.Schema
 
+  # Additional types and scalars
   import_types(GymRatWeb.Graphql.Scalars.UtcTimestamp)
   import_types(GymRatWeb.Graphql.Types)
 
+  # All top-level types
   import_types(GymRatWeb.Graphql.Areas.Types)
   import_types(GymRatWeb.Graphql.Grades.Types)
   import_types(GymRatWeb.Graphql.Gyms.Types)
@@ -13,6 +15,7 @@ defmodule GymRatWeb.Graphql.Schema do
   import_types(GymRatWeb.Graphql.Ticks.Types)
   import_types(GymRatWeb.Graphql.Users.Types)
 
+  # All Queries definitions
   import_types(GymRatWeb.Graphql.Areas.Queries)
   import_types(GymRatWeb.Graphql.Grades.Queries)
   import_types(GymRatWeb.Graphql.Gyms.Queries)
@@ -22,6 +25,7 @@ defmodule GymRatWeb.Graphql.Schema do
   import_types(GymRatWeb.Graphql.Ticks.Queries)
   import_types(GymRatWeb.Graphql.Users.Queries)
 
+  # All Mutations definitions
   import_types(GymRatWeb.Graphql.Areas.Mutations)
   import_types(GymRatWeb.Graphql.Grades.Mutations)
   import_types(GymRatWeb.Graphql.Gyms.Mutations)
