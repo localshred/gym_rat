@@ -221,7 +221,7 @@
     "dispatch": "mix test {file}",
     "template": [
       "defmodule {camelcase|capitalize|dot}Test do",
-      "  use GymRat.ConnCase",
+      "  use GymRatWeb.ConnCase",
       "",
       "  import GymRat.TestFactories",
       "",

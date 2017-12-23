@@ -1,4 +1,4 @@
-.PHONY: console db.console deps format server
+.PHONY: console db.console deps format server test test.watch test.debug
 
 console:
 	iex -S mix
@@ -14,3 +14,12 @@ format:
 
 server:
 	iex -S mix phx.server
+
+test:
+	mix test
+
+test.watch:
+	mix test --listen-on-stdin
+
+test.debug:
+	iex -S mix test --trace --listen-on-stdin

@@ -4,7 +4,6 @@ defmodule GymRatWeb.Graphql.Routes.Types do
 
   alias GymRat.Lore
   alias GymRat.RouteManagement
-  alias GymRat.RouteManagement.Grade
 
   @desc "Breakdown of grades that may be assigned or derived for a route"
   object :route_grades do

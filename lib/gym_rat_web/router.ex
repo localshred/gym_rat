@@ -9,14 +9,22 @@ defmodule GymRatWeb.Router do
     plug(:put_secure_browser_headers)
   end
 
+  pipeline :graphql do
+    plug(:accepts, ["json"])
+    # plug(GymRatWeb.Plug.ConnectionInterceptor)
+  end
+
   scope "/", GymRatWeb do
-    # Use the default browser stack
     pipe_through(:browser)
 
     get("/", PageController, :index)
   end
 
-  # Other scopes may use custom stacks.
-  forward("/graphql", Absinthe.Plug, schema: GymRatWeb.Graphql.Schema)
+  scope("/graphql") do
+    pipe_through(:graphql)
+
+    forward("/", Absinthe.Plug, schema: GymRatWeb.Graphql.Schema)
+  end
+
   forward("/graphiql", Absinthe.Plug.GraphiQL, schema: GymRatWeb.Graphql.Schema)
 end
