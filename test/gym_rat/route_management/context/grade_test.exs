@@ -1,4 +1,4 @@
-defmodule GymRat.RouteManagement.GradeTest do
+defmodule GymRat.RouteManagement.Context.GradeTest do
   use GymRat.DataCase
 
   import GymRat.TestFactories
