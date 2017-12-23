@@ -30,4 +30,21 @@ defmodule GymRat.Graphql do
   def db_delete_response({:error, _resource} = error) do
     error
   end
+
+  def enum_value_resolver(field) do
+    fn (parent, _args, _context) ->
+      parent
+      |> Lore.prop(field)
+      |> to_atom()
+      |> Lore.ok()
+    end
+  end
+
+  def to_atom(value) when is_binary(value) do
+    String.to_atom(value)
+  end
+
+  def to_atom(nil) do
+    nil
+  end
 end
