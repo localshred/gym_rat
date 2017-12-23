@@ -5,7 +5,7 @@ defmodule GymRat.AbsintheHelpers do
         query = options[:query]
         run_options = List.delete(options, :query)
         {:ok, response} = Absinthe.run(query, GymRatWeb.Graphql.Schema, run_options)
-        assert response["errors"] == nil
+        assert Map.get(response, :errors, nil) == nil
         response
       end
     end
