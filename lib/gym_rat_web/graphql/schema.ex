@@ -14,6 +14,7 @@ defmodule GymRatWeb.Graphql.Schema do
   import_types(GymRatWeb.Graphql.Users.Types)
 
   import_types(GymRatWeb.Graphql.Areas.Queries)
+  import_types(GymRatWeb.Graphql.Grades.Queries)
   import_types(GymRatWeb.Graphql.Gyms.Queries)
   import_types(GymRatWeb.Graphql.HoldPlacements.Queries)
   import_types(GymRatWeb.Graphql.Holds.Queries)
@@ -22,6 +23,7 @@ defmodule GymRatWeb.Graphql.Schema do
   import_types(GymRatWeb.Graphql.Users.Queries)
 
   import_types(GymRatWeb.Graphql.Areas.Mutations)
+  import_types(GymRatWeb.Graphql.Grades.Mutations)
   import_types(GymRatWeb.Graphql.Gyms.Mutations)
   import_types(GymRatWeb.Graphql.HoldPlacements.Mutations)
   import_types(GymRatWeb.Graphql.Holds.Mutations)
@@ -31,6 +33,7 @@ defmodule GymRatWeb.Graphql.Schema do
 
   query do
     import_fields(:areas_queries)
+    import_fields(:grades_queries)
     import_fields(:gyms_queries)
     import_fields(:hold_placements_queries)
     import_fields(:holds_queries)
@@ -41,6 +44,7 @@ defmodule GymRatWeb.Graphql.Schema do
 
   mutation do
     import_fields(:areas_mutations)
+    import_fields(:grades_mutations)
     import_fields(:gyms_mutations)
     import_fields(:hold_placements_mutations)
     import_fields(:holds_mutations)

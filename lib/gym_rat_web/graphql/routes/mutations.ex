@@ -7,10 +7,10 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
 
   input_object :create_route_input do
     field(:area_id, non_null(:id))
+    field(:grade_id, non_null(:id))
     field(:setter_id, non_null(:id))
     field(:name, :string)
     field(:color, non_null(:string))
-    field(:grade, non_null(:grade_input))
     field(:set_on, non_null(:utc_timestamp))
     field(:expires_on, :utc_timestamp)
   end
@@ -21,10 +21,10 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
 
   input_object :update_route_input do
     field(:area_id, :id)
+    field(:grade_id, :id)
     field(:setter_id, :id)
     field(:name, :string)
     field(:color, :string)
-    field(:grade, :grade_input)
     field(:set_on, :utc_timestamp)
     field(:expires_on, :utc_timestamp)
   end
@@ -70,7 +70,7 @@ defmodule GymRatWeb.Graphql.Routes.Mutations do
       args
       |> Lore.path([:query, :id])
       |> RouteManagement.get_route!()
-      |> RouteManagement.update_route(args.update)
+      |> RouteManagement.update_route(args.route)
       |> Graphql.db_result_to_response(:route)
     rescue
       _exception ->
