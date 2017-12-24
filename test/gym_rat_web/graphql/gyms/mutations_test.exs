@@ -214,16 +214,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
 
       run_options
       |> graphql_run(:expect_errors)
-      |> Lore.prop(:errors)
-      |> Enum.map(Lore.prop(:message))
-      |> (fn error_messages ->
-            assert(
-              Enum.any?(error_messages, fn error_message ->
-                error_message == "Unable to update gym"
-              end),
-              "Didn't find any failed update messages"
-            )
-          end).()
+      |> assert_contains_error("Unable to update gym")
 
       assert GymRat.Facilities.count_gyms() == 0
     end

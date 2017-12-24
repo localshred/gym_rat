@@ -21,6 +21,19 @@ defmodule GymRat.AbsintheHelpers do
         response
       end
 
+      def assert_contains_error(%{ errors: errors }, expected_message) do
+        errors
+        |> Enum.map(Lore.prop(:message))
+        |> (fn error_messages ->
+              assert(
+                Enum.any?(error_messages, fn error_message ->
+                  error_message == expected_message
+                end),
+                "Didn't find the specified error message"
+              )
+            end).()
+      end
+
       def assert_timestamp(actualTimestamp, %NaiveDateTime{} = expectedDateTime)
           when is_integer(actualTimestamp) do
         {:ok, actual} = UtcTimestamp.parse_timestamp(%Input.Integer{value: actualTimestamp})
