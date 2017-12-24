@@ -18,6 +18,8 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
               name
               website
               address
+              insertedAt
+              updatedAt
             }
           }
         }
@@ -83,6 +85,8 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
               name
               website
               address
+              insertedAt
+              updatedAt
             }
           }
         }
@@ -125,6 +129,8 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
               name
               website
               address
+              insertedAt
+              updatedAt
             }
           }
         }
@@ -153,9 +159,6 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
           gyms(query: {}) {
             gyms {
               id
-              name
-              website
-              address
             }
           }
         }
@@ -180,5 +183,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
     assert actual["name"] == expected.name
     assert actual["website"] == expected.website
     assert actual["address"] == expected.address
+    assert_timestamp(actual["insertedAt"], expected.inserted_at)
+    assert_timestamp(actual["updatedAt"], expected.updated_at)
   end
 end
