@@ -15,6 +15,10 @@ defmodule GymRat.Lore do
     |> Map.put(key, value)
   end
 
+  def append(initial, to_append) when is_binary(initial) and is_binary(to_append) do
+    initial <> to_append
+  end
+
   @doc """
   Returns the given value, or the default if the value is not falsey.
   """
