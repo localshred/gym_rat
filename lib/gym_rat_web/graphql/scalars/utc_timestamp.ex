@@ -40,7 +40,23 @@ defmodule GymRatWeb.Graphql.Scalars.UtcTimestamp do
     |> serialize_datetime()
   end
 
-  def serialize_datetime(dateTime) do
+  def serialize_datetime(%NaiveDateTime{} = dateTime) do
+    dateTime
+    |> NaiveDateTime.to_iso8601()
+    |> Lore.append("Z")
+    |> serialize_datetime()
+  end
+
+  def serialize_datetime({:ok, %DateTime{} = dateTime, _offset}) do
+    dateTime
+    |> serialize_datetime()
+  end
+
+  def serialize_datetime(%DateTime{} = dateTime) do
     DateTime.to_unix(dateTime, :milliseconds)
+  end
+
+  def serialize_datetime(_) do
+    nil
   end
 end
