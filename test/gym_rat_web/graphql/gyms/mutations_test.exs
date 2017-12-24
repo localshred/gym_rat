@@ -1,12 +1,12 @@
 defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
   use GymRatWeb.ConnCase
 
-  # import GymRat.TestFactories
+  import GymRat.TestFactories
 
   alias GymRat.Lore
 
   describe "create_gym" do
-    test "gets a gym by ID" do
+    test "creates a gym with the given parameters" do
       query_name = "createGym"
       query = """
         mutation #{query_name}(
@@ -48,6 +48,41 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
 
       after_count = GymRat.Facilities.count_gyms()
       assert before_count + 1 == after_count
+    end
+  end
+
+  describe "delete_gym" do
+    test "deletes a gym by ID" do
+      gym = insert(:gym)
+      query_name = "deleteGym"
+      query = """
+        mutation #{query_name}(
+          $id: ID!
+        ) {
+          deleteGym(query: { id: $id }) {
+            success
+            deletedCount
+          }
+        }
+      """
+
+      run_options = [
+        query: query,
+        query_name: query_name,
+        variables: %{ "id" => to_string(gym.id) }
+      ]
+
+      before_count = GymRat.Facilities.count_gyms()
+
+      delete_result = run_options
+                      |> graphql_run()
+                      |> Lore.path([:data, "deleteGym"])
+
+      assert delete_result["success"] == true
+      assert delete_result["deletedCount"] == 1
+
+      after_count = GymRat.Facilities.count_gyms()
+      assert before_count - 1 == after_count
     end
   end
 
