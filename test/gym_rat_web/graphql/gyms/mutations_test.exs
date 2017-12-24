@@ -84,6 +84,38 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       after_count = GymRat.Facilities.count_gyms()
       assert before_count - 1 == after_count
     end
+
+    test "returns false success and 0 deletedCount when given gym ID doesn't exist" do
+      gym_id = -1
+
+      assert GymRat.Facilities.count_gyms() == 0
+
+      query_name = "deleteGym"
+      query = """
+        mutation #{query_name}(
+          $id: ID!
+        ) {
+          deleteGym(query: { id: $id }) {
+            success
+            deletedCount
+          }
+        }
+      """
+
+      run_options = [
+        query: query,
+        query_name: query_name,
+        variables: %{ "id" => to_string(gym_id) }
+      ]
+
+      delete_result = run_options
+                      |> graphql_run()
+                      |> Lore.path([:data, "deleteGym"])
+
+      assert delete_result["success"] == false
+      assert delete_result["deletedCount"] == 0
+      assert GymRat.Facilities.count_gyms() == 0
+    end
   end
 
   def assert_gym(actual, expected) do
