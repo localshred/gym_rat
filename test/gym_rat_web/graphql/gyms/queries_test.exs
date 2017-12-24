@@ -42,7 +42,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
 
       assert GymRat.Facilities.count_gyms() == 0
 
-      query_name = "gymRat"
+      query_name = "getGym"
       query = """
         query #{query_name}($id: ID!) {
           gym(query: { id: $id }) {
@@ -67,6 +67,44 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       |> Lore.path([:data, "gym", "gym"])
       |> (fn gym ->
         assert gym == nil
+      end).()
+    end
+
+    test "fetches associated areas" do
+      expected_gym = insert(:gym)
+      insert_list(3, :area, gym: expected_gym)
+
+      query_name = "getGymAreas"
+      query = """
+        query #{query_name}($id: ID!) {
+          gym(query: { id: $id }) {
+            gym {
+              id
+              areas {
+                id
+                name
+              }
+            }
+          }
+        }
+      """
+
+      [
+        query: query,
+        query_name: query_name,
+        variables: %{
+          "id" => to_string(expected_gym.id)
+        }
+      ]
+      |> graphql_run()
+      |> Lore.path([:data, "gym", "gym"])
+      |> (fn (%{"id" => gym_id, "areas" => areas}) ->
+        assert gym_id == to_string(expected_gym.id)
+        assert length(areas) == 3
+        Enum.each(areas, fn (area) ->
+          assert area["id"] != nil
+          assert area["name"] != nil
+        end)
       end).()
     end
   end
