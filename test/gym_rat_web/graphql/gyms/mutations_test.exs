@@ -8,6 +8,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
   describe "create_gym" do
     test "creates a gym with the given parameters" do
       query_name = "createGym"
+
       query = """
         mutation #{query_name}(
           $name: String!,
@@ -55,6 +56,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
     test "deletes a gym by ID" do
       gym = insert(:gym)
       query_name = "deleteGym"
+
       query = """
         mutation #{query_name}(
           $id: ID!
@@ -69,14 +71,15 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       run_options = [
         query: query,
         query_name: query_name,
-        variables: %{ "id" => to_string(gym.id) }
+        variables: %{"id" => to_string(gym.id)}
       ]
 
       before_count = GymRat.Facilities.count_gyms()
 
-      delete_result = run_options
-                      |> graphql_run()
-                      |> Lore.path([:data, "deleteGym"])
+      delete_result =
+        run_options
+        |> graphql_run()
+        |> Lore.path([:data, "deleteGym"])
 
       assert delete_result["success"] == true
       assert delete_result["deletedCount"] == 1
@@ -91,6 +94,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       assert GymRat.Facilities.count_gyms() == 0
 
       query_name = "deleteGym"
+
       query = """
         mutation #{query_name}(
           $id: ID!
@@ -105,12 +109,13 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       run_options = [
         query: query,
         query_name: query_name,
-        variables: %{ "id" => to_string(gym_id) }
+        variables: %{"id" => to_string(gym_id)}
       ]
 
-      delete_result = run_options
-                      |> graphql_run()
-                      |> Lore.path([:data, "deleteGym"])
+      delete_result =
+        run_options
+        |> graphql_run()
+        |> Lore.path([:data, "deleteGym"])
 
       assert delete_result["success"] == false
       assert delete_result["deletedCount"] == 0
@@ -122,6 +127,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
     test "updates an existing gym with the given parameters" do
       existing_gym = insert(:gym)
       query_name = "updateGym"
+
       query = """
         mutation #{query_name}(
           $id: ID!,
@@ -172,6 +178,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       assert GymRat.Facilities.count_gyms() == 0
 
       query_name = "updateGym"
+
       query = """
         mutation #{query_name}(
           $id: ID!,
@@ -210,13 +217,13 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       |> Lore.prop(:errors)
       |> Enum.map(Lore.prop(:message))
       |> (fn error_messages ->
-        assert(
-          Enum.any?(error_messages, fn error_message ->
-            error_message == "Unable to update gym"
-          end),
-          "Didn't find any failed update messages"
-        )
-      end).()
+            assert(
+              Enum.any?(error_messages, fn error_message ->
+                error_message == "Unable to update gym"
+              end),
+              "Didn't find any failed update messages"
+            )
+          end).()
 
       assert GymRat.Facilities.count_gyms() == 0
     end

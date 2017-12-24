@@ -22,9 +22,22 @@ defmodule GymRatWeb.Graphql.Grades.Types do
   @desc "A grade that may be assigned to a route or boulder problem"
   object :grade do
     field(:id, non_null(:id), description: "The database ID of the grade")
-    field(:system, non_null(:grade_system), resolve: Graphql.enum_value_resolver(:system), description: "The grading system (e.g. YDS, Font, etc)")
+
+    field(
+      :system,
+      non_null(:grade_system),
+      resolve: Graphql.enum_value_resolver(:system),
+      description: "The grading system (e.g. YDS, Font, etc)"
+    )
+
     field(:major, non_null(:string), description: "The primary grade (e.g. the '10' in 5.10a)")
     field(:minor, :string, description: "The secondary grade (e.g. the 'a' in 5.10a)")
-    field(:difficulty, :grade_difficulty, resolve: Graphql.enum_value_resolver(:difficulty), description: "A difficulty modifier for the grade")
+
+    field(
+      :difficulty,
+      :grade_difficulty,
+      resolve: Graphql.enum_value_resolver(:difficulty),
+      description: "A difficulty modifier for the grade"
+    )
   end
 end

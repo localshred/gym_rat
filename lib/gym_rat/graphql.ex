@@ -32,7 +32,7 @@ defmodule GymRat.Graphql do
   end
 
   def enum_value_resolver(field) do
-    fn (parent, _args, _context) ->
+    fn parent, _args, _context ->
       parent
       |> Lore.prop(field)
       |> to_atom()

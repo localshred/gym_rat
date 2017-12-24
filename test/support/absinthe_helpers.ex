@@ -21,7 +21,8 @@ defmodule GymRat.AbsintheHelpers do
         response
       end
 
-      def assert_timestamp(actualTimestamp, %NaiveDateTime{} = expectedDateTime) when is_integer(actualTimestamp) do
+      def assert_timestamp(actualTimestamp, %NaiveDateTime{} = expectedDateTime)
+          when is_integer(actualTimestamp) do
         {:ok, actual} = UtcTimestamp.parse_timestamp(%Input.Integer{value: actualTimestamp})
         assert NaiveDateTime.diff(expectedDateTime, actual, :millisecond) == 0
       end

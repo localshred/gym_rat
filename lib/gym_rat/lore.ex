@@ -79,7 +79,7 @@ defmodule GymRat.Lore do
   is the specified property value.
   """
   def prop(key) do
-    fn (%{} = map) ->
+    fn %{} = map ->
       prop(map, key)
     end
   end

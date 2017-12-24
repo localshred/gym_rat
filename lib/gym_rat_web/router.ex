@@ -20,7 +20,7 @@ defmodule GymRatWeb.Router do
     get("/", PageController, :index)
   end
 
-  scope("/graphql") do
+  scope "/graphql" do
     pipe_through(:graphql)
 
     forward("/", Absinthe.Plug, schema: GymRatWeb.Graphql.Schema)

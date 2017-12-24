@@ -3,7 +3,7 @@ defmodule GymRatWeb.Plug.ConnectionInterceptor do
 
   def call(conn, _default) do
     require IEx
-    IEx.pry
+    IEx.pry()
     conn
   end
 end

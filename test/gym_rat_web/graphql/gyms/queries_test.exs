@@ -10,6 +10,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       expected_gym = insert(:gym)
 
       query_name = "gymRat"
+
       query = """
         query #{query_name}($id: ID!) {
           gym(query: { id: $id }) {
@@ -43,6 +44,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       assert GymRat.Facilities.count_gyms() == 0
 
       query_name = "getGym"
+
       query = """
         query #{query_name}($id: ID!) {
           gym(query: { id: $id }) {
@@ -66,8 +68,8 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       |> graphql_run()
       |> Lore.path([:data, "gym", "gym"])
       |> (fn gym ->
-        assert gym == nil
-      end).()
+            assert gym == nil
+          end).()
     end
 
     test "fetches associated areas" do
@@ -75,6 +77,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       insert_list(3, :area, gym: expected_gym)
 
       query_name = "getGymAreas"
+
       query = """
         query #{query_name}($id: ID!) {
           gym(query: { id: $id }) {
@@ -98,23 +101,26 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       ]
       |> graphql_run()
       |> Lore.path([:data, "gym", "gym"])
-      |> (fn (%{"id" => gym_id, "areas" => areas}) ->
-        assert gym_id == to_string(expected_gym.id)
-        assert length(areas) == 3
-        Enum.each(areas, fn (area) ->
-          assert area["id"] != nil
-          assert area["name"] != nil
-        end)
-      end).()
+      |> (fn %{"id" => gym_id, "areas" => areas} ->
+            assert gym_id == to_string(expected_gym.id)
+            assert length(areas) == 3
+
+            Enum.each(areas, fn area ->
+              assert area["id"] != nil
+              assert area["name"] != nil
+            end)
+          end).()
     end
   end
 
   describe "gyms" do
     test "gets all gyms when no IDs are given" do
-      expected_gyms = insert_list(3, :gym)
-                      |> Enum.group_by(fn gym -> gym |> Lore.prop(:id) |> to_string() end)
+      expected_gyms =
+        insert_list(3, :gym)
+        |> Enum.group_by(fn gym -> gym |> Lore.prop(:id) |> to_string() end)
 
       query_name = "getGyms"
+
       query = """
         query #{query_name} {
           gyms(query: {}) {
@@ -146,15 +152,19 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       gyms_picked_count = 2
       gyms_total_count = 4
       gyms = insert_list(gyms_total_count, :gym)
-      gym_ids = gyms
-                |> Enum.take(gyms_picked_count)
-                |> Enum.map(Lore.prop(:id))
-                |> Enum.map(&to_string/1)
 
-      expected_gyms = gyms
-                      |> Enum.group_by(fn gym -> gym |> Lore.prop(:id) |> to_string() end)
+      gym_ids =
+        gyms
+        |> Enum.take(gyms_picked_count)
+        |> Enum.map(Lore.prop(:id))
+        |> Enum.map(&to_string/1)
+
+      expected_gyms =
+        gyms
+        |> Enum.group_by(fn gym -> gym |> Lore.prop(:id) |> to_string() end)
 
       query_name = "getGyms"
+
       query = """
         query #{query_name}(
           $ids: [String!]!
@@ -177,7 +187,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       [
         query: query,
         query_name: query_name,
-        variables: %{ "ids" => gym_ids }
+        variables: %{"ids" => gym_ids}
       ]
       |> graphql_run()
       |> Lore.path([:data, "gyms", "gyms"])
@@ -186,12 +196,13 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
         assert_gym(actual_gym, expected_gym)
       end)
       |> (fn gyms ->
-        assert length(gyms) == gyms_picked_count
-      end).()
+            assert length(gyms) == gyms_picked_count
+          end).()
     end
 
     test "retrieves empty list when no gyms found for given args" do
       query_name = "getGyms"
+
       query = """
         query #{query_name} {
           gyms(query: {}) {
@@ -211,8 +222,8 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       |> graphql_run()
       |> Lore.path([:data, "gyms", "gyms"])
       |> (fn gyms ->
-        assert length(gyms) == 0
-      end).()
+            assert length(gyms) == 0
+          end).()
     end
   end
 

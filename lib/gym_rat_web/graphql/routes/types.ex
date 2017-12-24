@@ -25,11 +25,11 @@ defmodule GymRatWeb.Graphql.Routes.Types do
     field(:updated_at, non_null(:utc_timestamp))
   end
 
-  def extract_grade(%{ grade_id: grade_id, grade: grade }, _args, _context) do
+  def extract_grade(%{grade_id: grade_id, grade: grade}, _args, _context) do
     grade
     |> fetch_grade_if_missing(grade_id)
     |> Lore.assoc_prop(:initial_grade)
-    |> Lore.ok
+    |> Lore.ok()
   end
 
   def fetch_grade_if_missing(nil, grade_id) do

@@ -34,8 +34,9 @@ defmodule GymRatWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(GymRat.Repo, {:shared, self()})
     end
 
-    conn = Phoenix.ConnTest.build_conn()
-           |> Plug.Conn.put_req_header("content-type", "application/json")
+    conn =
+      Phoenix.ConnTest.build_conn()
+      |> Plug.Conn.put_req_header("content-type", "application/json")
 
     {:ok, conn: conn}
   end
