@@ -34,6 +34,39 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
       |> Lore.path([:data, "gym", "gym"])
       |> assert_gym(expected_gym)
     end
+
+    test "gets a null gym when given ID that doesn't exist in DB" do
+      gym_id = -1
+
+      assert GymRat.Facilities.count_gyms() == 0
+
+      query_name = "gymRat"
+      query = """
+        query #{query_name}($id: ID!) {
+          gym(query: { id: $id }) {
+            gym {
+              id
+              name
+              website
+              address
+            }
+          }
+        }
+      """
+
+      [
+        query: query,
+        query_name: query_name,
+        variables: %{
+          "id" => to_string(gym_id)
+        }
+      ]
+      |> graphql_run()
+      |> Lore.path([:data, "gym", "gym"])
+      |> (fn gym ->
+        assert gym == nil
+      end).()
+    end
   end
 
   describe "gyms" do
