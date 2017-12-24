@@ -23,6 +23,14 @@ defmodule GymRat.Lore do
   end
 
   @doc """
+  Iterates through the given list with the given function, and then returns the list.
+  """
+  def each(list, fun) do
+    Enum.each(list, fun)
+    list
+  end
+
+  @doc """
   Returns an :error tuple with the given result in the second position.
   """
   def error(result) do
@@ -60,6 +68,16 @@ defmodule GymRat.Lore do
   """
   def prop(%{} = map, key) do
     Map.get(map, key)
+  end
+
+  @doc """
+  Curried version of prop, accepts the key and returns a function that takes the map, whose result
+  is the specified property value.
+  """
+  def prop(key) do
+    fn (%{} = map) ->
+      prop(map, key)
+    end
   end
 
   @doc """
