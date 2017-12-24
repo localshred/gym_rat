@@ -66,6 +66,80 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
         assert_gym(actual_gym, expected_gym)
       end)
     end
+
+    test "gets only gyms with given IDs" do
+      gyms_picked_count = 2
+      gyms_total_count = 4
+      gyms = insert_list(gyms_total_count, :gym)
+      gym_ids = gyms
+                |> Enum.take(gyms_picked_count)
+                |> Enum.map(Lore.prop(:id))
+                |> Enum.map(&to_string/1)
+
+      expected_gyms = gyms
+                      |> Enum.group_by(fn gym -> gym |> Lore.prop(:id) |> to_string() end)
+
+      query_name = "getGyms"
+      query = """
+        query #{query_name}(
+          $ids: [String!]!
+        ){
+          gyms(query: {
+            ids: $ids
+          }) {
+            gyms {
+              id
+              name
+              website
+              address
+            }
+          }
+        }
+      """
+
+      [
+        query: query,
+        query_name: query_name,
+        variables: %{ "ids" => gym_ids }
+      ]
+      |> graphql_run()
+      |> Lore.path([:data, "gyms", "gyms"])
+      |> Lore.each(fn actual_gym ->
+        expected_gym = List.first(expected_gyms[actual_gym["id"]])
+        assert_gym(actual_gym, expected_gym)
+      end)
+      |> (fn gyms ->
+        assert length(gyms) == gyms_picked_count
+      end).()
+    end
+
+    test "retrieves empty list when no gyms found for given args" do
+      query_name = "getGyms"
+      query = """
+        query #{query_name} {
+          gyms(query: {}) {
+            gyms {
+              id
+              name
+              website
+              address
+            }
+          }
+        }
+      """
+
+      assert GymRat.Facilities.count_gyms() == 0
+
+      [
+        query: query,
+        query_name: query_name
+      ]
+      |> graphql_run()
+      |> Lore.path([:data, "gyms", "gyms"])
+      |> (fn gyms ->
+        assert length(gyms) == 0
+      end).()
+    end
   end
 
   def assert_gym(actual, expected) do
