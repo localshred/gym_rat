@@ -9,6 +9,20 @@ defmodule GymRat.Climbing.Context.Tick do
   alias GymRat.Climbing.Tick
 
   @doc """
+  Returns the count of the number of records in the ticks table.
+
+  ## Examples
+
+      iex> count_ticks()
+      42
+
+  """
+  def count_ticks do
+    from(g in "ticks")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of ticks.
 
   ## Examples

@@ -5,6 +5,7 @@ defmodule GymRat.Climbing do
 
   alias GymRat.Climbing.Context.Tick
   defdelegate change_tick(tick), to: Tick
+  defdelegate count_ticks, to: Tick
   defdelegate create_tick(attrs), to: Tick
   defdelegate delete_tick(tick), to: Tick
   defdelegate get_tick!(id), to: Tick
