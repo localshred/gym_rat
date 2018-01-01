@@ -6,12 +6,8 @@ defmodule GymRatWeb.Graphql.Users.Types do
     field(:id, non_null(:id))
     field(:name, :string)
     field(:username, non_null(:string))
+    field :avatar, non_null(:avatar), resolve: &Graphql.identity_resolver/3
     field(:email, non_null(:string))
-
-    field :avatar, non_null(:avatar) do
-      resolve(fn parent, _args, _info -> {:ok, parent} end)
-    end
-
     field(:ticks, :tick |> non_null |> list_of, resolve: assoc(:ticks))
   end
 

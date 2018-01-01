@@ -40,6 +40,11 @@ defmodule GymRat.Graphql do
     end
   end
 
+  def identity_resolver(parent, _args, _info) do
+    parent
+    |> Lore.ok()
+  end
+
   def to_atom(value) when is_binary(value) do
     String.to_atom(value)
   end
