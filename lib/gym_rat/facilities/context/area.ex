@@ -9,6 +9,20 @@ defmodule GymRat.Facilities.Context.Area do
   alias GymRat.Facilities.Area
 
   @doc """
+  Returns the count of the number of records in the areas table.
+
+  ## Examples
+
+      iex> count_areas()
+      42
+
+  """
+  def count_areas do
+    from(g in "areas")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of areas.
 
   ## Examples

@@ -5,6 +5,7 @@ defmodule GymRat.Facilities do
 
   alias GymRat.Facilities.Context.Area
   defdelegate change_area(area), to: Area
+  defdelegate count_areas, to: Area
   defdelegate create_area(attrs), to: Area
   defdelegate delete_area(area), to: Area
   defdelegate get_area!(id), to: Area
