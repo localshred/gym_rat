@@ -3,6 +3,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
 
   import GymRat.TestFactories
 
+  alias GymRat.Facilities
   alias GymRat.Lore
 
   describe "create_gym" do
@@ -40,14 +41,14 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
         }
       ]
 
-      before_count = GymRat.Facilities.count_gyms()
+      before_count = Facilities.count_gyms()
 
       run_options
       |> graphql_run()
       |> Lore.path([:data, "createGym", "gym"])
       |> assert_gym(run_options[:variables])
 
-      after_count = GymRat.Facilities.count_gyms()
+      after_count = Facilities.count_gyms()
       assert before_count + 1 == after_count
     end
   end
@@ -74,7 +75,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
         variables: %{"id" => to_string(gym.id)}
       ]
 
-      before_count = GymRat.Facilities.count_gyms()
+      before_count = Facilities.count_gyms()
 
       delete_result =
         run_options
@@ -84,14 +85,14 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       assert delete_result["success"] == true
       assert delete_result["deletedCount"] == 1
 
-      after_count = GymRat.Facilities.count_gyms()
+      after_count = Facilities.count_gyms()
       assert before_count - 1 == after_count
     end
 
     test "returns false success and 0 deletedCount when given gym ID doesn't exist" do
       gym_id = -1
 
-      assert GymRat.Facilities.count_gyms() == 0
+      assert Facilities.count_gyms() == 0
 
       query_name = "deleteGym"
 
@@ -119,7 +120,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
 
       assert delete_result["success"] == false
       assert delete_result["deletedCount"] == 0
-      assert GymRat.Facilities.count_gyms() == 0
+      assert Facilities.count_gyms() == 0
     end
   end
 
@@ -161,21 +162,21 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
         }
       ]
 
-      before_count = GymRat.Facilities.count_gyms()
+      before_count = Facilities.count_gyms()
 
       run_options
       |> graphql_run()
       |> Lore.path([:data, "updateGym", "gym"])
       |> assert_gym(run_options[:variables])
 
-      after_count = GymRat.Facilities.count_gyms()
+      after_count = Facilities.count_gyms()
       assert before_count == after_count
     end
 
     test "returns null when the gym doesn't exist with the given ID" do
       gym_id = -1
 
-      assert GymRat.Facilities.count_gyms() == 0
+      assert Facilities.count_gyms() == 0
 
       query_name = "updateGym"
 
@@ -216,7 +217,7 @@ defmodule GymRatWeb.Graphql.Gyms.MutationsTest do
       |> graphql_run(:expect_errors)
       |> assert_contains_error("Unable to update gym")
 
-      assert GymRat.Facilities.count_gyms() == 0
+      assert Facilities.count_gyms() == 0
     end
   end
 

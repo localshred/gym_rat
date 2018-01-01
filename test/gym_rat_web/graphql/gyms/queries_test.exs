@@ -3,6 +3,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
 
   import GymRat.TestFactories
 
+  alias GymRat.Facilities
   alias GymRat.Lore
 
   describe "gym" do
@@ -41,7 +42,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
     test "gets a null gym when given ID that doesn't exist in DB" do
       gym_id = -1
 
-      assert GymRat.Facilities.count_gyms() == 0
+      assert Facilities.count_gyms() == 0
 
       query_name = "getGym"
 
@@ -213,7 +214,7 @@ defmodule GymRatWeb.Graphql.Gyms.QueriesTest do
         }
       """
 
-      assert GymRat.Facilities.count_gyms() == 0
+      assert Facilities.count_gyms() == 0
 
       [
         query: query,
