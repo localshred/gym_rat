@@ -5,7 +5,7 @@ defmodule GymRatWeb.Graphql.Holds.Queries do
   alias GymRat.Lore
 
   object :hold_response do
-    field(:hold, non_null(:hold))
+    field(:hold, :hold)
   end
 
   object :holds_response do

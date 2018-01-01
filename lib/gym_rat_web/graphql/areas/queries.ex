@@ -5,7 +5,7 @@ defmodule GymRatWeb.Graphql.Areas.Queries do
   alias GymRat.Lore
 
   object :area_response do
-    field(:area, non_null(:area))
+    field(:area, :area)
   end
 
   object :areas_response do

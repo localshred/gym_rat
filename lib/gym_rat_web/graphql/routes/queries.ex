@@ -5,7 +5,7 @@ defmodule GymRatWeb.Graphql.Routes.Queries do
   alias GymRat.RouteManagement
 
   object :route_response do
-    field(:route, non_null(:route))
+    field(:route, :route)
   end
 
   object :routes_response do

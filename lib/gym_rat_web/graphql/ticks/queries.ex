@@ -5,7 +5,7 @@ defmodule GymRatWeb.Graphql.Ticks.Queries do
   alias GymRat.Lore
 
   object :tick_response do
-    field(:tick, non_null(:tick))
+    field(:tick, :tick)
   end
 
   object :ticks_response do

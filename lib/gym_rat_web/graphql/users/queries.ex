@@ -5,7 +5,7 @@ defmodule GymRatWeb.Graphql.Users.Queries do
   alias GymRat.Lore
 
   object :user_response do
-    field(:user, non_null(:user))
+    field(:user, :user)
   end
 
   object :users_response do

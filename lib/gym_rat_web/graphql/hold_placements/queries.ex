@@ -5,7 +5,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Queries do
   alias GymRat.RouteManagement
 
   object :hold_placement_response do
-    field(:hold_placement, non_null(:hold_placement))
+    field(:hold_placement, :hold_placement)
   end
 
   object :hold_placements_response do
