@@ -21,7 +21,7 @@ defmodule GymRat.AbsintheHelpers do
         response
       end
 
-      def assert_contains_error(%{ errors: errors }, expected_message) do
+      def assert_contains_error(%{errors: errors}, expected_message) do
         errors
         |> Enum.map(Lore.prop(:message))
         |> (fn error_messages ->
@@ -29,7 +29,9 @@ defmodule GymRat.AbsintheHelpers do
                 Enum.any?(error_messages, fn error_message ->
                   error_message == expected_message
                 end),
-                "Didn't find the specified error message in the following messages:\n#{Enum.join(error_messages, "\n")}"
+                "Didn't find the specified error message in the following messages:\n#{
+                  Enum.join(error_messages, "\n")
+                }"
               )
             end).()
       end

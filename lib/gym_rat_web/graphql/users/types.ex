@@ -6,7 +6,7 @@ defmodule GymRatWeb.Graphql.Users.Types do
 
   object :user do
     field(:id, non_null(:id))
-    field :avatar, non_null(:avatar), resolve: &Graphql.identity_resolver/3
+    field(:avatar, non_null(:avatar), resolve: &Graphql.identity_resolver/3)
     field(:email, non_null(:string))
     field(:inserted_at, non_null(:utc_timestamp))
     field(:name, :string)
