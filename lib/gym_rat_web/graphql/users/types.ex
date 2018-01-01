@@ -2,19 +2,22 @@ defmodule GymRatWeb.Graphql.Users.Types do
   use Absinthe.Schema.Notation
   use Absinthe.Ecto, repo: GymRat.Repo
 
+  alias GymRat.Graphql
+
   object :user do
     field(:id, non_null(:id))
-    field(:name, :string)
-    field(:username, non_null(:string))
     field :avatar, non_null(:avatar), resolve: &Graphql.identity_resolver/3
     field(:email, non_null(:string))
+    field(:inserted_at, non_null(:utc_timestamp))
+    field(:name, :string)
     field(:ticks, :tick |> non_null |> list_of, resolve: assoc(:ticks))
+    field(:updated_at, non_null(:utc_timestamp))
+    field(:username, non_null(:string))
   end
 
   object :avatar do
-    field :url, non_null(:string) do
+    field :url, non_null(:string), resolve: &resolve_avatar_url/3 do
       arg(:size, :integer)
-      resolve(&resolve_avatar_url/3)
     end
   end
 
