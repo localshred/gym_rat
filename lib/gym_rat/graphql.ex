@@ -45,6 +45,11 @@ defmodule GymRat.Graphql do
     |> Lore.ok()
   end
 
+  def enum_no_value_to_nil(:__no_value), do: nil
+  def enum_no_value_to_nil("__no_value"), do: nil
+  def enum_no_value_to_nil("__NO_VALUE"), do: nil
+  def enum_no_value_to_nil(value), do: value
+
   def stringify_enums(%{} = resource, fields) when is_list(fields) and length(fields) > 0 do
     Enum.reduce(fields, resource, fn field, accumulator ->
       if !Map.has_key?(resource, field) do
@@ -53,6 +58,8 @@ defmodule GymRat.Graphql do
         string_value = accumulator
                        |> Map.get(field)
                        |> to_string()
+                       |> enum_no_value_to_nil()
+
         accumulator
         |> Map.put(field, string_value)
       end

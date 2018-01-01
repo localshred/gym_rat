@@ -277,6 +277,49 @@ defmodule GymRatWeb.Graphql.Grades.MutationsTest do
 
       assert RouteManagement.count_grades() == 0
     end
+
+    test "allows removing a grade difficulty (instead of replacing it)" do
+      existing_grade = insert(:grade, difficulty: "HARD")
+      query_name = "updateGrade"
+
+      query = """
+        mutation #{query_name}(
+          $id: ID!,
+          $difficulty: GradeDifficulty!
+        ) {
+        updateGrade(
+          query: { id: $id },
+          grade: { difficulty: $difficulty }
+        ) {
+            grade {
+              id
+              difficulty
+            }
+          }
+        }
+      """
+
+      run_options = [
+        query: query,
+        query_name: query_name,
+        variables: %{
+          "id" => to_string(existing_grade.id),
+          "difficulty" => "__NO_VALUE"
+        }
+      ]
+
+      before_count = RouteManagement.count_grades()
+
+      run_options
+      |> graphql_run()
+      |> Lore.path([:data, "updateGrade", "grade"])
+      |> (fn actual ->
+        assert actual["difficulty"] == nil
+      end).()
+
+      after_count = RouteManagement.count_grades()
+      assert before_count == after_count
+    end
   end
 
   def assert_grade(actual, expected) do

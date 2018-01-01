@@ -14,6 +14,7 @@ defmodule GymRatWeb.Graphql.Grades.Types do
 
   @desc "Modifies the associated grade's difficulty (e.g. 5.12- would be a 'soft' 5.12)"
   enum :grade_difficulty do
+    value(:__no_value, description: "Used to indicate that no value should be stored")
     value(:benchmark, description: "Benchmark for the grade")
     value(:soft, description: "Soft for the grade")
     value(:hard, description: "Hard for the grade")
