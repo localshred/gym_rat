@@ -55,6 +55,52 @@ defmodule GymRatWeb.Graphql.Grades.MutationsTest do
       after_count = RouteManagement.count_grades()
       assert before_count + 1 == after_count
     end
+
+    test "does not require a grade difficulty" do
+      query_name = "createGrade"
+
+      query = """
+        mutation #{query_name}(
+          $system: GradeSystem!,
+          $major: String!,
+          $minor: String!
+        ) {
+          createGrade(grade: {
+            system: $system,
+            major: $major,
+            minor: $minor
+          }) {
+            grade {
+              id
+              system
+              major
+              minor
+              difficulty
+            }
+          }
+        }
+      """
+
+      run_options = [
+        query: query,
+        query_name: query_name,
+        variables: %{
+          "system" => "YDS",
+          "major" => "11",
+          "minor" => "c"
+        }
+      ]
+
+      before_count = RouteManagement.count_grades()
+
+      run_options
+      |> graphql_run()
+      |> Lore.path([:data, "createGrade", "grade"])
+      |> assert_grade(run_options[:variables])
+
+      after_count = RouteManagement.count_grades()
+      assert before_count + 1 == after_count
+    end
   end
 
   describe "delete_grade" do
@@ -238,6 +284,11 @@ defmodule GymRatWeb.Graphql.Grades.MutationsTest do
     assert actual["system"] == String.upcase(expected["system"])
     assert actual["major"] == expected["major"]
     assert actual["minor"] == expected["minor"]
-    assert actual["difficulty"] == String.upcase(expected["difficulty"])
+    if Map.has_key?(expected, "difficulty") do
+      assert actual["difficulty"] == String.upcase(expected["difficulty"])
+    else
+      assert actual["difficulty"] == nil
+    end
+    actual
   end
 end
