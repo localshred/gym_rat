@@ -4,6 +4,7 @@ defmodule GymRat.Accounts do
   """
 
   alias GymRat.Accounts.Context.User
+  defdelegate count_users, to: User
   defdelegate change_user(user), to: User
   defdelegate create_user(attrs), to: User
   defdelegate delete_user(user), to: User

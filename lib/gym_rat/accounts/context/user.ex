@@ -9,6 +9,20 @@ defmodule GymRat.Accounts.Context.User do
   alias GymRat.Accounts.User
 
   @doc """
+  Returns the count of the number of records in the users table.
+
+  ## Examples
+
+      iex> count_users()
+      42
+
+  """
+  def count_users do
+    from(g in "users")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of users.
 
   ## Examples
