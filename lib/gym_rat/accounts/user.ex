@@ -8,6 +8,7 @@ defmodule GymRat.Accounts.User do
   @whitelist_params [:name, :email, :username]
 
   schema "users" do
+    has_many(:ticks, GymRat.Climbing.Tick)
     field(:email, :string)
     field(:name, :string)
     field(:username, :string)
