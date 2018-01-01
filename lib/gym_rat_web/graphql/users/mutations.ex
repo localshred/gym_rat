@@ -9,8 +9,6 @@ defmodule GymRatWeb.Graphql.Users.Mutations do
     field(:name, :string)
     field(:username, non_null(:string))
     field(:email, non_null(:string))
-    field(:password, non_null(:string))
-    field(:password_confirmation, non_null(:string))
   end
 
   object :create_user_response do
