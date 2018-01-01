@@ -48,6 +48,7 @@ defmodule GymRatWeb.Graphql.Grades.Mutations do
   def create_grade(args, _context) do
     args
     |> Lore.prop(:grade)
+    |> Graphql.stringify_enums([:system, :difficulty])
     |> RouteManagement.create_grade()
     |> Graphql.db_result_to_response(:grade)
   end
@@ -61,10 +62,14 @@ defmodule GymRatWeb.Graphql.Grades.Mutations do
 
   def update_grade(args, _context) do
     try do
+      grade_update_args = args
+                          |> Lore.prop(:grade)
+                          |> Graphql.stringify_enums([:system, :difficulty])
+
       args
       |> Lore.path([:query, :id])
       |> RouteManagement.get_grade!()
-      |> RouteManagement.update_grade(args.grade)
+      |> RouteManagement.update_grade(grade_update_args)
       |> Graphql.db_result_to_response(:grade)
     rescue
       _exception ->
