@@ -5,6 +5,7 @@ defmodule GymRatWeb.Graphql.Areas.Types do
   object :area do
     field(:id, non_null(:id))
     field(:gym, non_null(:gym), resolve: assoc(:gym))
+    field(:routes, :route |> non_null |> list_of |> non_null, resolve: assoc(:routes))
     field(:name, non_null(:string))
     field(:order, :integer)
     field(:inserted_at, non_null(:utc_timestamp))

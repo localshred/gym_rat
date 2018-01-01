@@ -75,46 +75,46 @@ defmodule GymRatWeb.Graphql.Areas.QueriesTest do
           end).()
     end
 
-    # test "fetches associated areas" do
-    #   expected_gym = insert(:gym)
-    #   insert_list(3, :area, gym: expected_gym)
+    test "fetches associated routes" do
+      expected_area = insert(:area)
+      insert_list(3, :route, area: expected_area)
 
-    #   query_name = "getGymAreas"
+      query_name = "getAreaRoutes"
 
-    #   query = """
-    #     query #{query_name}($id: ID!) {
-    #       gym(query: { id: $id }) {
-    #         gym {
-    #           id
-    #           areas {
-    #             id
-    #             name
-    #             order
-    #           }
-    #         }
-    #       }
-    #     }
-    #   """
+      query = """
+        query #{query_name}($id: ID!) {
+          area(query: { id: $id }) {
+            area {
+              id
+              routes {
+                id
+                name
+                color
+              }
+            }
+          }
+        }
+      """
 
-    #   [
-    #     query: query,
-    #     query_name: query_name,
-    #     variables: %{
-    #       "id" => to_string(expected_gym.id)
-    #     }
-    #   ]
-    #   |> graphql_run()
-    #   |> Lore.path([:data, "gym", "gym"])
-    #   |> (fn %{"id" => gym_id, "areas" => areas} ->
-    #         assert gym_id == to_string(expected_gym.id)
-    #         assert length(areas) == 3
+      [
+        query: query,
+        query_name: query_name,
+        variables: %{
+          "id" => to_string(expected_area.id)
+        }
+      ]
+      |> graphql_run()
+      |> Lore.path([:data, "area", "area"])
+      |> (fn %{"id" => area_id, "routes" => routes} ->
+            assert area_id == to_string(expected_area.id)
+            assert length(routes) == 3
 
-    #         Enum.each(areas, fn area ->
-    #           assert area["id"] != nil
-    #           assert area["name"] != nil
-    #         end)
-    #       end).()
-    # end
+            Enum.each(routes, fn route ->
+              assert route["id"] != nil
+              assert route["name"] != nil
+            end)
+          end).()
+    end
   end
 
   describe "areas" do

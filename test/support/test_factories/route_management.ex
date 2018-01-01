@@ -23,6 +23,7 @@ defmodule GymRat.TestFactories.RouteManagement do
       def route_factory do
         %GymRat.RouteManagement.Route{
           area: build(:area),
+          name: "Big Joe",
           color: "red",
           expires_on: DateTime.from_unix!(1_515_802_726_000, :milliseconds),
           grade: build(:grade),
