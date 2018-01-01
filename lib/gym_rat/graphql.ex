@@ -45,6 +45,20 @@ defmodule GymRat.Graphql do
     |> Lore.ok()
   end
 
+  def stringify_enums(%{} = resource, fields) when is_list(fields) and length(fields) > 0 do
+    Enum.reduce(fields, resource, fn field, accumulator ->
+      if !Map.has_key?(resource, field) do
+        accumulator
+      else
+        string_value = accumulator
+                       |> Map.get(field)
+                       |> to_string()
+        accumulator
+        |> Map.put(field, string_value)
+      end
+    end)
+  end
+
   def to_atom(value) when is_binary(value) do
     String.to_atom(value)
   end
