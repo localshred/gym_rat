@@ -5,6 +5,7 @@ defmodule GymRat.RouteManagement do
 
   alias GymRat.RouteManagement.Context.Grade
   defdelegate change_grade(grade), to: Grade
+  defdelegate count_grades, to: Grade
   defdelegate create_grade(attrs), to: Grade
   defdelegate delete_grade(grade), to: Grade
   defdelegate get_grade!(id), to: Grade

@@ -8,6 +8,20 @@ defmodule GymRat.RouteManagement.Context.Grade do
   alias GymRat.RouteManagement.Grade
 
   @doc """
+  Returns the count of the number of records in the grades table.
+
+  ## Examples
+
+      iex> count_grades()
+      42
+
+  """
+  def count_grades do
+    from(g in "grades")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of grades.
 
   ## Examples
