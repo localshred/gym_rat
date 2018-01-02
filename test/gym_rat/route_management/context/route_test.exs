@@ -46,11 +46,11 @@ defmodule GymRat.RouteManagement.Context.RouteTest do
       expected_route = params_with_assocs(:route)
       assert {:ok, %Route{} = route} = RouteManagement.create_route(expected_route)
       assert route.area_id == expected_route.area_id
-      assert route.color == expected_route.color
-      assert route.expires_on == expected_route.expires_on
       assert route.grade_id == expected_route.grade_id
-      assert route.set_on == expected_route.set_on
       assert route.setter_id == expected_route.setter_id
+      assert route.color == expected_route.color
+      assert DateTime.diff(route.expires_on, expected_route.expires_on, :milliseconds) == 0
+      assert DateTime.diff(route.set_on, expected_route.set_on, :milliseconds) == 0
     end
 
     test "create_route/1 with invalid data returns error changeset" do
@@ -66,11 +66,11 @@ defmodule GymRat.RouteManagement.Context.RouteTest do
       assert {:ok, route} = RouteManagement.update_route(route, attributes)
       assert %Route{} = route
       assert route.area_id == area.id
-      assert route.color == "some updated color"
-      assert route.expires_on == from_unix(1_513_802_726_000)
       assert route.grade_id == grade.id
-      assert route.set_on == from_unix(1_515_802_726_000)
       assert route.setter_id == setter.id
+      assert route.color == "some updated color"
+      assert DateTime.diff(route.expires_on, from_unix(1_513_802_726_000), :milliseconds) == 0
+      assert DateTime.diff(route.set_on, from_unix(1_515_802_726_000), :milliseconds) == 0
     end
 
     test "update_route/2 with invalid data returns error changeset" do
