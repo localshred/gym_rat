@@ -3,6 +3,8 @@ defmodule GymRat.RouteManagement.Context.Route do
   The RouteManagement context.
   """
 
+  alias GymRat.Lore
+
   import Ecto.Query, warn: false
   alias GymRat.Repo
 
@@ -114,6 +116,7 @@ defmodule GymRat.RouteManagement.Context.Route do
     %Route{}
     |> Route.changeset(attrs)
     |> Repo.insert()
+    |> refetch_with_associations()
   end
 
   @doc """
@@ -132,7 +135,19 @@ defmodule GymRat.RouteManagement.Context.Route do
     route
     |> Route.changeset(attrs)
     |> Repo.update()
+    |> refetch_with_associations()
   end
+
+  def refetch_with_associations({:ok, %Route{id: id}}) do
+    id
+    |> get_route!()
+    |> Lore.ok()
+  end
+
+  def refetch_with_associations({:error, _changeset} = error_tuple) do
+    error_tuple
+  end
+
 
   @doc """
   Deletes a Route.
