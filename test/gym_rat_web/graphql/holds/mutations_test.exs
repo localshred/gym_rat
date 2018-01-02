@@ -328,49 +328,6 @@ defmodule GymRatWeb.Graphql.Holds.MutationsTest do
 
       assert Inventory.count_holds() == 0
     end
-
-    # test "allows removing a hold difficulty (instead of replacing it)" do
-    #   existing_hold = insert(:hold, difficulty: "HARD")
-    #   query_name = "updateHold"
-
-    #   query = """
-    #     mutation #{query_name}(
-    #       $id: ID!,
-    #       $difficulty: HoldDifficulty!
-    #     ) {
-    #     updateHold(
-    #       query: { id: $id },
-    #       hold: { difficulty: $difficulty }
-    #     ) {
-    #         hold {
-    #           id
-    #           difficulty
-    #         }
-    #       }
-    #     }
-    #   """
-
-    #   run_options = [
-    #     query: query,
-    #     query_name: query_name,
-    #     variables: %{
-    #       "id" => to_string(existing_hold.id),
-    #       "difficulty" => "__NO_VALUE"
-    #     }
-    #   ]
-
-    #   before_count = Inventory.count_holds()
-
-    #   run_options
-    #   |> graphql_run()
-    #   |> Lore.path([:data, "updateHold", "hold"])
-    #   |> (fn actual ->
-    #     assert actual["difficulty"] == nil
-    #   end).()
-
-    #   after_count = Inventory.count_holds()
-    #   assert before_count == after_count
-    # end
   end
 
   def assert_hold(actual, expected) do
