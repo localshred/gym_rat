@@ -9,6 +9,20 @@ defmodule GymRat.RouteManagement.Context.Route do
   alias GymRat.RouteManagement.Route
 
   @doc """
+  Returns the count of the number of records in the routes table.
+
+  ## Examples
+
+      iex> count_routes()
+      42
+
+  """
+  def count_routes do
+    from(g in "routes")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of routes.
 
   ## Examples

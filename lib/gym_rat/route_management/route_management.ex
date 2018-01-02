@@ -26,6 +26,7 @@ defmodule GymRat.RouteManagement do
 
   alias GymRat.RouteManagement.Context.Route
   defdelegate change_route(route), to: Route
+  defdelegate count_routes, to: Route
   defdelegate create_route(attrs), to: Route
   defdelegate delete_route(route), to: Route
   defdelegate get_route!(id), to: Route
