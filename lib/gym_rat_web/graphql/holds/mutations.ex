@@ -10,9 +10,9 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
     field(:color, non_null(:string))
     field(:size, non_null(:string))
     field(:count, :integer)
-    field(:material, :material)
+    field(:material, non_null(:material), resolve: Graphql.enum_value_resolver(:material))
     field(:features, :string)
-    field(:primary_use, :hold_type)
+    field(:primary_use, non_null(:hold_type), resolve: Graphql.enum_value_resolver(:hold_type))
   end
 
   object :create_hold_response do
@@ -24,9 +24,9 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
     field(:color, :string)
     field(:count, :integer)
     field(:size, :string)
-    field(:material, :material)
+    field(:material, :material, resolve: Graphql.enum_value_resolver(:material))
     field(:features, :string)
-    field(:primary_use, :hold_type)
+    field(:primary_use, :hold_type, resolve: Graphql.enum_value_resolver(:hold_type))
   end
 
   object :update_hold_response do
@@ -54,6 +54,7 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
   def create_hold(args, _context) do
     args
     |> Lore.prop(:hold)
+    |> Graphql.stringify_enums([:material, :primary_use])
     |> Inventory.create_hold()
     |> Graphql.db_result_to_response(:hold)
   end
@@ -67,10 +68,14 @@ defmodule GymRatWeb.Graphql.Holds.Mutations do
 
   def update_hold(args, _context) do
     try do
+      update_args = args
+                    |> Lore.prop(:hold)
+                    |> Graphql.stringify_enums([:material, :primary_use])
+
       args
       |> Lore.path([:query, :id])
       |> Inventory.get_hold!()
-      |> Inventory.update_hold(args.hold)
+      |> Inventory.update_hold(update_args)
       |> Graphql.db_result_to_response(:hold)
     rescue
       _exception ->
