@@ -25,7 +25,7 @@ defmodule GymRatWeb.Graphql.Ticks.Types do
     field(:user, non_null(:user), resolve: assoc(:user))
     field(:route, non_null(:route), resolve: assoc(:route))
     field(:user_grade, :grade)
-    field(:number_tries, :integer)
+    field(:number_tries, :integer) # TODO rename attempts
     field(:rating, :tick_rating, resolve: Graphql.enum_value_resolver(:tick_rating))
     field(:send_type, non_null(:send_type), resolve: Graphql.enum_value_resolver(:send_type))
     field(:ticked_at, non_null(:utc_timestamp))

@@ -4,9 +4,9 @@ defmodule GymRat.RouteManagement.Route do
 
   alias GymRat.RouteManagement.Route
 
-  @whitelist_params [:area_id, :setter_id, :name, :color, :grade_id, :set_on, :expires_on]
+  @whitelist_params [:area_id, :grade_id, :setter_id, :name, :color, :set_on, :expires_on]
 
-  @required_params [:area_id, :setter_id, :grade_id, :color, :set_on, :expires_on]
+  @required_params [:area_id, :grade_id, :setter_id, :color, :set_on, :expires_on]
 
   schema "routes" do
     belongs_to(:area, GymRat.Facilities.Area)
