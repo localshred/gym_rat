@@ -31,6 +31,15 @@ defmodule GymRat.Graphql do
     error
   end
 
+  def default_value_resolver(field, default_value) do
+    fn parent, _args, _context ->
+      parent
+      |> Lore.prop(field)
+      |> Lore.default_to(default_value)
+      |> Lore.ok()
+    end
+  end
+
   def enum_value_resolver(field) do
     fn parent, _args, _context ->
       parent

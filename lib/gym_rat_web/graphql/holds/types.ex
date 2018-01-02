@@ -1,6 +1,8 @@
 defmodule GymRatWeb.Graphql.Holds.Types do
   use Absinthe.Schema.Notation
 
+  alias GymRat.Graphql
+
   enum :material do
     value(:plastic, description: "Plastic injection-molded holds")
     value(:wood, description: "Wood-shaped holds")
@@ -23,8 +25,8 @@ defmodule GymRatWeb.Graphql.Holds.Types do
     field(:maker, non_null(:string))
     field(:color, non_null(:string))
     field(:size, non_null(:string))
-    field(:count, :integer)
     field(:material, :material)
+    field(:count, :integer, resolve: Graphql.default_value_resolver(:count, 1))
     field(:features, :string)
     field(:primary_use, :hold_type)
     field(:inserted_at, non_null(:utc_timestamp))
