@@ -8,7 +8,7 @@ defmodule GymRat.TestFactories.Inventory do
           features: "crimpy",
           maker: "metolius",
           material: "wood",
-          primary_use: "hand",
+          primary_use: "handhold",
           size: "small"
         }
       end
