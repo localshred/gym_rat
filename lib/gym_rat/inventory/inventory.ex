@@ -5,6 +5,7 @@ defmodule GymRat.Inventory do
 
   alias GymRat.Inventory.Context.Hold
   defdelegate change_hold(hold), to: Hold
+  defdelegate count_holds, to: Hold
   defdelegate create_hold(attrs), to: Hold
   defdelegate delete_hold(hold), to: Hold
   defdelegate get_hold!(id), to: Hold

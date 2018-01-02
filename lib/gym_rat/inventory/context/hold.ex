@@ -9,6 +9,20 @@ defmodule GymRat.Inventory.Context.Hold do
   alias GymRat.Inventory.Hold
 
   @doc """
+  Returns the count of the number of records in the holds table.
+
+  ## Examples
+
+      iex> count_holds()
+      42
+
+  """
+  def count_holds do
+    from(g in "holds")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of holds.
 
   ## Examples
