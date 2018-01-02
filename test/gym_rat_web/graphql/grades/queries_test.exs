@@ -74,47 +74,6 @@ defmodule GymRatWeb.Graphql.Grades.QueriesTest do
             assert grade == nil
           end).()
     end
-
-    # test "fetches associated routes" do
-    #   expected_grade = insert(:grade)
-    #   insert_list(3, :route, grade: expected_grade)
-
-    #   query_name = "getgradeRoutes"
-
-    #   query = """
-    #     query #{query_name}($id: ID!) {
-    #       grade(query: { id: $id }) {
-    #         grade {
-    #           id
-    #           routes {
-    #             id
-    #             name
-    #             color
-    #           }
-    #         }
-    #       }
-    #     }
-    #   """
-
-    #   [
-    #     query: query,
-    #     query_name: query_name,
-    #     variables: %{
-    #       "id" => to_string(expected_grade.id)
-    #     }
-    #   ]
-    #   |> graphql_run()
-    #   |> Lore.path([:data, "grade", "grade"])
-    #   |> (fn %{"id" => grade_id, "routes" => routes} ->
-    #         assert grade_id == to_string(expected_grade.id)
-    #         assert length(routes) == 3
-
-    #         Enum.each(routes, fn route ->
-    #           assert route["id"] != nil
-    #           assert route["name"] != nil
-    #         end)
-    #       end).()
-    # end
   end
 
   describe "grades" do
