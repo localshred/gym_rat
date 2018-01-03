@@ -72,7 +72,7 @@ defmodule GymRat.Climbing.Context.TickTest do
       assert tick.rating == 43
       assert tick.route_id == route.id
       assert tick.send_type == "some updated send_type"
-      assert tick.ticked_at == from_unix(1_513_806_326_000)
+      DateTime.diff(tick.ticked_at, from_unix(1_513_806_326_000), :milliseconds)
       assert tick.user_grade_id == 43
       assert tick.user_id == user.id
     end

@@ -4,9 +4,10 @@ defmodule GymRat.Climbing.Context.Tick do
   """
 
   import Ecto.Query, warn: false
-  alias GymRat.Repo
 
   alias GymRat.Climbing.Tick
+  alias GymRat.Lore
+  alias GymRat.Repo
 
   @doc """
   Returns the count of the number of records in the ticks table.
@@ -103,6 +104,7 @@ defmodule GymRat.Climbing.Context.Tick do
     %Tick{}
     |> Tick.changeset(attrs)
     |> Repo.insert()
+    |> refetch_with_associations()
   end
 
   @doc """
@@ -121,6 +123,7 @@ defmodule GymRat.Climbing.Context.Tick do
     tick
     |> Tick.changeset(attrs)
     |> Repo.update()
+    |> refetch_with_associations()
   end
 
   @doc """
@@ -150,5 +153,15 @@ defmodule GymRat.Climbing.Context.Tick do
   """
   def change_tick(%Tick{} = tick) do
     Tick.changeset(tick, %{})
+  end
+
+  defp refetch_with_associations({:ok, %Tick{id: id}}) do
+    id
+    |> get_tick!()
+    |> Lore.ok()
+  end
+
+  defp refetch_with_associations({:error, _changeset} = error_tuple) do
+    error_tuple
   end
 end
