@@ -4,9 +4,10 @@ defmodule GymRat.Facilities.Context.Area do
   """
 
   import Ecto.Query, warn: false
-  alias GymRat.Repo
 
   alias GymRat.Facilities.Area
+  alias GymRat.Lore
+  alias GymRat.Repo
 
   @doc """
   Returns the count of the number of records in the areas table.
@@ -103,6 +104,7 @@ defmodule GymRat.Facilities.Context.Area do
     %Area{}
     |> Area.changeset(attrs)
     |> Repo.insert()
+    |> refetch_with_associations()
   end
 
   @doc """
@@ -121,6 +123,7 @@ defmodule GymRat.Facilities.Context.Area do
     area
     |> Area.changeset(attrs)
     |> Repo.update()
+    |> refetch_with_associations()
   end
 
   @doc """
@@ -150,5 +153,15 @@ defmodule GymRat.Facilities.Context.Area do
   """
   def change_area(%Area{} = area) do
     Area.changeset(area, %{})
+  end
+
+  defp refetch_with_associations({:ok, %Area{id: id}}) do
+    id
+    |> get_area!()
+    |> Lore.ok()
+  end
+
+  defp refetch_with_associations({:error, _changeset} = error_tuple) do
+    error_tuple
   end
 end

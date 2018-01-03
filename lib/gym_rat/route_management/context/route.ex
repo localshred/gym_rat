@@ -138,16 +138,6 @@ defmodule GymRat.RouteManagement.Context.Route do
     |> refetch_with_associations()
   end
 
-  def refetch_with_associations({:ok, %Route{id: id}}) do
-    id
-    |> get_route!()
-    |> Lore.ok()
-  end
-
-  def refetch_with_associations({:error, _changeset} = error_tuple) do
-    error_tuple
-  end
-
 
   @doc """
   Deletes a Route.
@@ -176,5 +166,15 @@ defmodule GymRat.RouteManagement.Context.Route do
   """
   def change_route(%Route{} = route) do
     Route.changeset(route, %{})
+  end
+
+  defp refetch_with_associations({:ok, %Route{id: id}}) do
+    id
+    |> get_route!()
+    |> Lore.ok()
+  end
+
+  defp refetch_with_associations({:error, _changeset} = error_tuple) do
+    error_tuple
   end
 end
