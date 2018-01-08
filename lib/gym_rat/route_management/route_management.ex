@@ -16,6 +16,7 @@ defmodule GymRat.RouteManagement do
 
   alias GymRat.RouteManagement.Context.HoldPlacement
   defdelegate change_hold_placement(hold_placement), to: HoldPlacement
+  defdelegate count_hold_placements, to: HoldPlacement
   defdelegate create_hold_placement(attrs), to: HoldPlacement
   defdelegate delete_hold_placement(hold_placement), to: HoldPlacement
   defdelegate get_hold_placement!(id), to: HoldPlacement

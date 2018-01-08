@@ -9,6 +9,20 @@ defmodule GymRat.RouteManagement.Context.HoldPlacement do
   alias GymRat.RouteManagement.HoldPlacement
 
   @doc """
+  Returns the count of the number of records in the hold_placements table.
+
+  ## Examples
+
+      iex> count_hold_placements()
+      42
+
+  """
+  def count_hold_placements do
+    from(g in "hold_placements")
+    |> Repo.aggregate(:count, :id)
+  end
+
+  @doc """
   Returns the list of hold_placements.
 
   ## Examples

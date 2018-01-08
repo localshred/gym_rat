@@ -54,6 +54,14 @@ defmodule GymRat.Graphql do
     |> Lore.ok()
   end
 
+  def prop_resolver(field) do
+    fn parent, _args, _context ->
+      parent
+      |> Lore.prop(field)
+      |> Lore.ok()
+    end
+  end
+
   def enum_no_value_to_nil(:__no_value), do: nil
   def enum_no_value_to_nil("__no_value"), do: nil
   def enum_no_value_to_nil("__NO_VALUE"), do: nil

@@ -5,28 +5,25 @@ defmodule GymRat.RouteManagement.HoldPlacement do
   alias GymRat.RouteManagement.HoldPlacement
 
   @whitelist_params [
+    :area_id,
     :hold_id,
     :grid_coordinate_x,
-    :grid_coordinate_y,
-    :is_start,
-    :is_finish
+    :grid_coordinate_y
   ]
 
   @required_params [
+    :area_id,
     :hold_id,
     :grid_coordinate_x,
-    :grid_coordinate_y,
-    :is_start,
-    :is_finish
+    :grid_coordinate_y
   ]
 
   schema "hold_placements" do
+    belongs_to(:area, GymRat.Facilities.Area)
     belongs_to(:hold, GymRat.Inventory.Hold)
 
-    field(:grid_coordinate_x, :integer)
-    field(:grid_coordinate_y, :integer)
-    field(:is_finish, :boolean, default: false)
-    field(:is_start, :boolean, default: false)
+    field(:grid_coordinate_x, :float, null: false)
+    field(:grid_coordinate_y, :float, null: false)
 
     timestamps()
   end
@@ -35,6 +32,7 @@ defmodule GymRat.RouteManagement.HoldPlacement do
   def changeset(%HoldPlacement{} = hold_placement, attrs) do
     hold_placement
     |> cast(attrs, @whitelist_params)
+    |> foreign_key_constraint(:area_id)
     |> foreign_key_constraint(:hold_id)
     |> validate_required(@required_params)
   end

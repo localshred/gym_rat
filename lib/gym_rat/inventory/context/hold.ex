@@ -151,4 +151,30 @@ defmodule GymRat.Inventory.Context.Hold do
   def change_hold(%Hold{} = hold) do
     Hold.changeset(hold, %{})
   end
+
+  def find_or_create_hold!(%{} = hold) do
+    query = Hold
+            |> where([h], h.color == ^hold.color)
+            |> where([h], h.maker == ^hold.maker)
+            |> where([h], h.material == ^to_string(hold.material))
+            |> where([h], h.primary_use == ^to_string(hold.primary_use))
+            |> where([h], h.size == ^hold.size)
+    query
+    |> Repo.one()
+    |> create_hold_if_missing(hold)
+  end
+
+  defp create_hold_if_missing(%Hold{} = hold, _input_hold) do
+    hold
+  end
+
+  defp create_hold_if_missing(nil, input_hold) do
+    hold = input_hold
+           |> Map.replace(:material, to_string(input_hold.material))
+           |> Map.replace(:primary_use, to_string(input_hold.primary_use))
+
+    %Hold{}
+    |> Ecto.Changeset.change(hold)
+    |> Repo.insert!()
+  end
 end

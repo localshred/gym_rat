@@ -9,18 +9,16 @@ defmodule GymRat.RouteManagement.Context.HoldPlacementTest do
     alias GymRat.RouteManagement.HoldPlacement
 
     @update_attrs %{
-      grid_coordinate_x: 43,
-      grid_coordinate_y: 43,
-      hold_id: nil,
-      is_finish: false,
-      is_start: false
+      area_id: nil,
+      grid_coordinate_x: 43.0,
+      grid_coordinate_y: 43.0,
+      hold_id: nil
     }
     @invalid_attrs %{
+      area_id: nil,
       grid_coordinate_x: nil,
       grid_coordinate_y: nil,
-      hold_id: nil,
-      is_finish: nil,
-      is_start: nil
+      hold_id: nil
     }
 
     test "list_hold_placements/0 returns all hold_placements" do
@@ -34,9 +32,8 @@ defmodule GymRat.RouteManagement.Context.HoldPlacementTest do
       expected_hold_placement = RouteManagement.get_hold_placement!(hold_placement.id)
       assert hold_placement.grid_coordinate_x == expected_hold_placement.grid_coordinate_x
       assert hold_placement.grid_coordinate_y == expected_hold_placement.grid_coordinate_y
+      assert hold_placement.area_id == expected_hold_placement.area_id
       assert hold_placement.hold_id == expected_hold_placement.hold_id
-      assert hold_placement.is_finish == expected_hold_placement.is_finish
-      assert hold_placement.is_start == expected_hold_placement.is_start
     end
 
     test "create_hold_placement/1 with valid data creates a hold_placement" do
@@ -47,9 +44,8 @@ defmodule GymRat.RouteManagement.Context.HoldPlacementTest do
 
       assert hold_placement.grid_coordinate_x == expected_hold_placement.grid_coordinate_x
       assert hold_placement.grid_coordinate_y == expected_hold_placement.grid_coordinate_y
+      assert hold_placement.area_id == expected_hold_placement.area_id
       assert hold_placement.hold_id == expected_hold_placement.hold_id
-      assert hold_placement.is_finish == expected_hold_placement.is_finish
-      assert hold_placement.is_start == expected_hold_placement.is_start
     end
 
     test "create_hold_placement/1 with invalid data returns error changeset" do
@@ -57,9 +53,10 @@ defmodule GymRat.RouteManagement.Context.HoldPlacementTest do
     end
 
     test "update_hold_placement/2 with valid data updates the hold_placement" do
+      area = insert(:area)
       hold = insert(:hold)
       hold_placement = insert(:hold_placement)
-      attributes = %{@update_attrs | hold_id: hold.id}
+      attributes = %{@update_attrs | area_id: area.id, hold_id: hold.id}
 
       assert {:ok, hold_placement} =
                RouteManagement.update_hold_placement(hold_placement, attributes)
@@ -68,8 +65,7 @@ defmodule GymRat.RouteManagement.Context.HoldPlacementTest do
       assert hold_placement.grid_coordinate_x == 43
       assert hold_placement.grid_coordinate_y == 43
       assert hold_placement.hold_id == hold.id
-      assert hold_placement.is_finish == false
-      assert hold_placement.is_start == false
+      assert hold_placement.area_id == area.id
     end
 
     test "update_hold_placement/2 with invalid data returns error changeset" do

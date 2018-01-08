@@ -29,8 +29,8 @@ defmodule GymRat.AbsintheHelpers do
                 Enum.any?(error_messages, fn error_message ->
                   error_message == expected_message
                 end),
-                "Didn't find the specified error message in the following messages:\n#{
-                  Enum.join(error_messages, "\n")
+                "Didn't find the specified error message in the following error result:\n#{
+                  Poison.encode!(errors)
                 }"
               )
             end).()

@@ -2,33 +2,18 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Types do
   use Absinthe.Schema.Notation
   use Absinthe.Ecto, repo: GymRat.Repo
 
-  object :grid_coordinate do
-    field :x, non_null(:string) do
-      resolve(fn hold_placement, _args, _context ->
-        hold_placement.grid_coordinate_x
-      end)
-    end
+  alias GymRat.Graphql
 
-    field :y, non_null(:string) do
-      resolve(fn hold_placement, _args, _context ->
-        hold_placement.grid_coordinate_x
-      end)
-    end
+  object :grid_coordinate do
+    field(:x, non_null(:float), resolve: Graphql.prop_resolver(:grid_coordinate_x))
+    field(:y, non_null(:float), resolve: Graphql.prop_resolver(:grid_coordinate_y))
   end
 
   object :hold_placement do
     field(:id, non_null(:id))
-    field(:route, non_null(:route), resolve: assoc(:route))
+    field(:area, non_null(:area), resolve: assoc(:area))
+    field(:grid_coordinate, :grid_coordinate, resolve: &Graphql.identity_resolver/3)
     field(:hold, non_null(:hold), resolve: assoc(:hold))
-
-    field :grid_coordinate, :grid_coordinate do
-      resolve(fn hold_placement, _args, _context ->
-        hold_placement
-      end)
-    end
-
-    field(:is_start, non_null(:boolean))
-    field(:is_finish, non_null(:boolean))
     field(:inserted_at, non_null(:utc_timestamp))
     field(:updated_at, non_null(:utc_timestamp))
   end

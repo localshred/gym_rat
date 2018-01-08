@@ -2,20 +2,19 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   use Absinthe.Schema.Notation
 
   alias GymRat.Graphql
+  alias GymRat.Inventory
   alias GymRat.Lore
   alias GymRat.RouteManagement
 
   input_object :grid_coordinate_input do
-    field(:x, non_null(:integer))
-    field(:y, non_null(:integer))
+    field(:x, non_null(:float))
+    field(:y, non_null(:float))
   end
 
   input_object :create_hold_placement_input do
-    field(:route_id, non_null(:id))
-    field(:hold_id, non_null(:id))
+    field(:area_id, non_null(:id))
+    field(:hold, non_null(:create_hold_input))
     field(:grid_coordinate, non_null(:grid_coordinate_input))
-    field(:is_start, :boolean)
-    field(:is_finish, :boolean)
   end
 
   object :create_hold_placement_response do
@@ -23,10 +22,9 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   end
 
   input_object :update_hold_placement_input do
+    field(:area_id, :id)
     field(:hold_id, :id)
     field(:grid_coordinate, :grid_coordinate_input)
-    field(:is_start, :boolean)
-    field(:is_finish, :boolean)
   end
 
   object :update_hold_placement_response do
@@ -54,6 +52,8 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
   def create_hold_placement(args, _context) do
     args
     |> Lore.prop(:hold_placement)
+    |> convert_coordinates()
+    |> find_or_create_associated_hold!()
     |> RouteManagement.create_hold_placement()
     |> Graphql.db_result_to_response(:hold_placement)
   end
@@ -67,14 +67,32 @@ defmodule GymRatWeb.Graphql.HoldPlacements.Mutations do
 
   def update_hold_placement(args, _context) do
     try do
+      update_args = args
+                    |> Lore.prop(:hold_placement)
+                    |> convert_coordinates()
+
       args
       |> Lore.path([:query, :id])
       |> RouteManagement.get_hold_placement!()
-      |> RouteManagement.update_hold_placement(args.hold_placement)
+      |> RouteManagement.update_hold_placement(update_args)
       |> Graphql.db_result_to_response(:hold_placement)
     rescue
       _exception ->
         Lore.error("Unable to update hold placement")
     end
+  end
+
+  def convert_coordinates(%{grid_coordinate: %{x: x, y: y}} = hold_placement) do
+    hold_placement
+    |> Map.delete(:grid_coordinate)
+    |> Map.put(:grid_coordinate_x, x)
+    |> Map.put(:grid_coordinate_y, y)
+  end
+
+  def find_or_create_associated_hold!(%{ hold: hold } = hold_placement) do
+    hold = Inventory.find_or_create_hold!(hold)
+    hold_placement
+    |> Map.delete(:hold)
+    |> Map.put(:hold_id, hold.id)
   end
 end
