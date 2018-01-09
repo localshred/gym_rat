@@ -6,4 +6,5 @@ defmodule GymRat.TestFactories do
   use GymRat.TestFactories.Facilities
   use GymRat.TestFactories.Inventory
   use GymRat.TestFactories.RouteManagement
+  use GymRat.TestFactories.WallManagement
 end

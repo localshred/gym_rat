@@ -1,6 +1,6 @@
 defmodule GymRat.RouteManagement do
   @moduledoc """
-  The RouteManagement context for working with Grades, HoldPlacements, and Routes.
+  The RouteManagement context for working with Grades and Routes.
   """
 
   alias GymRat.RouteManagement.Context.Grade
@@ -13,17 +13,6 @@ defmodule GymRat.RouteManagement do
   defdelegate list_grades(ids), to: Grade
   defdelegate list_grades, to: Grade
   defdelegate update_grade(grade, attrs), to: Grade
-
-  alias GymRat.RouteManagement.Context.HoldPlacement
-  defdelegate change_hold_placement(hold_placement), to: HoldPlacement
-  defdelegate count_hold_placements, to: HoldPlacement
-  defdelegate create_hold_placement(attrs), to: HoldPlacement
-  defdelegate delete_hold_placement(hold_placement), to: HoldPlacement
-  defdelegate get_hold_placement!(id), to: HoldPlacement
-  defdelegate get_hold_placement(id), to: HoldPlacement
-  defdelegate list_hold_placements(ids), to: HoldPlacement
-  defdelegate list_hold_placements, to: HoldPlacement
-  defdelegate update_hold_placement(hold_placement, attrs), to: HoldPlacement
 
   alias GymRat.RouteManagement.Context.Route
   defdelegate change_route(route), to: Route

@@ -8,7 +8,7 @@ defmodule GymRat.Inventory.Hold do
   @required_params [:maker, :color, :size, :count, :material, :features, :primary_use]
 
   schema "holds" do
-    has_many(:hold_placements, GymRat.RouteManagement.HoldPlacement)
+    has_many(:grid_holds, GymRat.WallManagement.GridHold)
 
     field(:color, :string)
     field(:count, :integer)

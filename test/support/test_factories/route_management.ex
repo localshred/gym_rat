@@ -10,15 +10,6 @@ defmodule GymRat.TestFactories.RouteManagement do
         }
       end
 
-      def hold_placement_factory do
-        %GymRat.RouteManagement.HoldPlacement{
-          area: build(:area),
-          grid_coordinate_x: 35.0,
-          grid_coordinate_y: 14.0,
-          hold: build(:hold)
-        }
-      end
-
       def route_factory do
         %GymRat.RouteManagement.Route{
           area: build(:area),

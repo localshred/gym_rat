@@ -1,8 +1,8 @@
-defmodule GymRat.RouteManagement.HoldPlacement do
+defmodule GymRat.WallManagement.GridHold do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias GymRat.RouteManagement.HoldPlacement
+  alias GymRat.WallManagement.GridHold
 
   @whitelist_params [
     :area_id,
@@ -18,7 +18,7 @@ defmodule GymRat.RouteManagement.HoldPlacement do
     :grid_coordinate_y
   ]
 
-  schema "hold_placements" do
+  schema "grid_holds" do
     belongs_to(:area, GymRat.Facilities.Area)
     belongs_to(:hold, GymRat.Inventory.Hold)
 
@@ -29,8 +29,8 @@ defmodule GymRat.RouteManagement.HoldPlacement do
   end
 
   @doc false
-  def changeset(%HoldPlacement{} = hold_placement, attrs) do
-    hold_placement
+  def changeset(%GridHold{} = grid_hold, attrs) do
+    grid_hold
     |> cast(attrs, @whitelist_params)
     |> foreign_key_constraint(:area_id)
     |> foreign_key_constraint(:hold_id)

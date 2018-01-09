@@ -1,11 +1,11 @@
-defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
+defmodule GymRatWeb.Graphql.GridHolds.MutationsTest do
   use GymRatWeb.ConnCase
 
   import GymRat.TestFactories
 
   alias GymRat.Inventory
   alias GymRat.Lore
-  alias GymRat.RouteManagement
+  alias GymRat.WallManagement
 
   @fields """
   id
@@ -23,11 +23,11 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
   }
   """
 
-  describe "create_hold_placement" do
-    test "creates a hold_placement with the given parameters" do
+  describe "create_grid_hold" do
+    test "creates a grid_hold with the given parameters" do
       area = insert(:area)
       hold = insert(:hold)
-      query_name = "createHoldPlacement"
+      query_name = "createGridHold"
 
       query = """
         mutation #{query_name}(
@@ -36,7 +36,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
           $x: Float!,
           $y: Float!
         ) {
-          createHoldPlacement(hold_placement: {
+          createGridHold(grid_hold: {
             areaId: $areaId,
             hold: $hold,
             gridCoordinate: {
@@ -44,7 +44,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
               y: $y
             }
           }) {
-            hold_placement {
+            grid_hold {
               #{@fields}
             }
           }
@@ -62,21 +62,21 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
         }
       ]
 
-      before_count = RouteManagement.count_hold_placements()
+      before_count = WallManagement.count_grid_holds()
 
       run_options
       |> graphql_run()
-      |> Lore.path([:data, "createHoldPlacement", "hold_placement"])
-      |> assert_hold_placement(run_options[:variables], area, hold)
+      |> Lore.path([:data, "createGridHold", "grid_hold"])
+      |> assert_grid_hold(run_options[:variables], area, hold)
 
-      after_count = RouteManagement.count_hold_placements()
+      after_count = WallManagement.count_grid_holds()
       assert before_count + 1 == after_count
     end
 
     test "creates a new hold since the associated hold is not in the DB" do
       area = insert(:area)
       hold = build(:hold)
-      query_name = "createHoldPlacement"
+      query_name = "createGridHold"
 
       query = """
         mutation #{query_name}(
@@ -85,7 +85,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
           $x: Float!,
           $y: Float!
         ) {
-          createHoldPlacement(hold_placement: {
+          createGridHold(grid_hold: {
             areaId: $areaId,
             hold: $hold,
             gridCoordinate: {
@@ -93,7 +93,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
               y: $y
             }
           }) {
-            hold_placement {
+            grid_hold {
               #{@fields}
             }
           }
@@ -115,8 +115,8 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
 
       run_options
       |> graphql_run()
-      |> Lore.path([:data, "createHoldPlacement", "hold_placement"])
-      |> assert_hold_placement(run_options[:variables], area, hold)
+      |> Lore.path([:data, "createGridHold", "grid_hold"])
+      |> assert_grid_hold(run_options[:variables], area, hold)
 
       after_count = Inventory.count_holds()
       assert before_count + 1 == after_count
@@ -125,7 +125,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
     test "uses the existing hold that matches the given hold params" do
       area = insert(:area)
       hold = insert(:hold)
-      query_name = "createHoldPlacement"
+      query_name = "createGridHold"
 
       query = """
         mutation #{query_name}(
@@ -134,7 +134,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
           $x: Float!,
           $y: Float!
         ) {
-          createHoldPlacement(hold_placement: {
+          createGridHold(grid_hold: {
             areaId: $areaId,
             hold: $hold,
             gridCoordinate: {
@@ -142,7 +142,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
               y: $y
             }
           }) {
-            hold_placement {
+            grid_hold {
               #{@fields}
             }
           }
@@ -164,24 +164,24 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
 
       run_options
       |> graphql_run()
-      |> Lore.path([:data, "createHoldPlacement", "hold_placement"])
-      |> assert_hold_placement(run_options[:variables], area, hold)
+      |> Lore.path([:data, "createGridHold", "grid_hold"])
+      |> assert_grid_hold(run_options[:variables], area, hold)
 
       after_count = Inventory.count_holds()
       assert before_count == after_count
     end
   end
 
-  describe "delete_hold_placement" do
-    test "deletes a hold_placement by ID" do
-      hold_placement = insert(:hold_placement)
-      query_name = "deleteHoldPlacement"
+  describe "delete_grid_hold" do
+    test "deletes a grid_hold by ID" do
+      grid_hold = insert(:grid_hold)
+      query_name = "deleteGridHold"
 
       query = """
         mutation #{query_name}(
           $id: ID!
         ) {
-          deleteHoldPlacement(query: { id: $id }) {
+          deleteGridHold(query: { id: $id }) {
             success
             deletedCount
           }
@@ -191,35 +191,35 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
       run_options = [
         query: query,
         query_name: query_name,
-        variables: %{"id" => to_string(hold_placement.id)}
+        variables: %{"id" => to_string(grid_hold.id)}
       ]
 
-      before_count = RouteManagement.count_hold_placements()
+      before_count = WallManagement.count_grid_holds()
 
       delete_result =
         run_options
         |> graphql_run()
-        |> Lore.path([:data, "deleteHoldPlacement"])
+        |> Lore.path([:data, "deleteGridHold"])
 
       assert delete_result["success"] == true
       assert delete_result["deletedCount"] == 1
 
-      after_count = RouteManagement.count_hold_placements()
+      after_count = WallManagement.count_grid_holds()
       assert before_count - 1 == after_count
     end
 
-    test "returns false success and 0 deletedCount when given hold_placement ID doesn't exist" do
-      hold_placement_id = -1
+    test "returns false success and 0 deletedCount when given grid_hold ID doesn't exist" do
+      grid_hold_id = -1
 
-      assert RouteManagement.count_hold_placements() == 0
+      assert WallManagement.count_grid_holds() == 0
 
-      query_name = "deleteHoldPlacement"
+      query_name = "deleteGridHold"
 
       query = """
         mutation #{query_name}(
           $id: ID!
         ) {
-          deleteHoldPlacement(query: { id: $id }) {
+          deleteGridHold(query: { id: $id }) {
             success
             deletedCount
           }
@@ -229,26 +229,26 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
       run_options = [
         query: query,
         query_name: query_name,
-        variables: %{"id" => to_string(hold_placement_id)}
+        variables: %{"id" => to_string(grid_hold_id)}
       ]
 
       delete_result =
         run_options
         |> graphql_run()
-        |> Lore.path([:data, "deleteHoldPlacement"])
+        |> Lore.path([:data, "deleteGridHold"])
 
       assert delete_result["success"] == false
       assert delete_result["deletedCount"] == 0
-      assert RouteManagement.count_hold_placements() == 0
+      assert WallManagement.count_grid_holds() == 0
     end
   end
 
-  describe "update_hold_placement" do
-    test "updates an existing hold_placement with the given parameters" do
+  describe "update_grid_hold" do
+    test "updates an existing grid_hold with the given parameters" do
       area = insert(:area)
       hold = insert(:hold)
-      existing_hold_placement = insert(:hold_placement)
-      query_name = "updateHoldPlacement"
+      existing_grid_hold = insert(:grid_hold)
+      query_name = "updateGridHold"
 
       query = """
         mutation #{query_name}(
@@ -258,9 +258,9 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
           $x: Float!,
           $y: Float!
         ) {
-          updateHoldPlacement(
+          updateGridHold(
             query: { id: $id },
-            hold_placement: {
+            grid_hold: {
               areaId: $areaId,
               holdId: $holdId,
               gridCoordinate: {
@@ -269,7 +269,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
               }
             }
           ) {
-            hold_placement {
+            grid_hold {
               #{@fields}
             }
           }
@@ -280,7 +280,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
         query: query,
         query_name: query_name,
         variables: %{
-          "id" => to_string(existing_hold_placement.id),
+          "id" => to_string(existing_grid_hold.id),
           "areaId" => to_string(area.id),
           "holdId" => to_string(hold.id),
           "x" => 32.5,
@@ -288,23 +288,23 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
         }
       ]
 
-      before_count = RouteManagement.count_hold_placements()
+      before_count = WallManagement.count_grid_holds()
 
       run_options
       |> graphql_run()
-      |> Lore.path([:data, "updateHoldPlacement", "hold_placement"])
-      |> assert_hold_placement(run_options[:variables], area, hold)
+      |> Lore.path([:data, "updateGridHold", "grid_hold"])
+      |> assert_grid_hold(run_options[:variables], area, hold)
 
-      after_count = RouteManagement.count_hold_placements()
+      after_count = WallManagement.count_grid_holds()
       assert before_count == after_count
     end
 
-    test "returns null when the hold_placement doesn't exist with the given ID" do
-      hold_placement_id = -1
+    test "returns null when the grid_hold doesn't exist with the given ID" do
+      grid_hold_id = -1
 
-      assert RouteManagement.count_hold_placements() == 0
+      assert WallManagement.count_grid_holds() == 0
 
-      query_name = "updateHoldPlacement"
+      query_name = "updateGridHold"
 
       query = """
         mutation #{query_name}(
@@ -312,13 +312,13 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
           $x: Float!
           $y: Float!
         ) {
-          updateHoldPlacement(
+          updateGridHold(
             query: { id: $id },
-            hold_placement: {
+            grid_hold: {
               gridCoordinate: { x: $x, y: $y }
             }
           ) {
-            hold_placement {
+            grid_hold {
               #{@fields}
             }
           }
@@ -329,7 +329,7 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
         query: query,
         query_name: query_name,
         variables: %{
-          "id" => to_string(hold_placement_id),
+          "id" => to_string(grid_hold_id),
           "x" => 32.5,
           "y" => 45.0
         }
@@ -337,13 +337,13 @@ defmodule GymRatWeb.Graphql.HoldPlacements.MutationsTest do
 
       run_options
       |> graphql_run(:expect_errors)
-      |> assert_contains_error("Unable to update hold placement")
+      |> assert_contains_error("Unable to update grid hold")
 
-      assert RouteManagement.count_hold_placements() == 0
+      assert WallManagement.count_grid_holds() == 0
     end
   end
 
-  def assert_hold_placement(actual, expected, area, hold) do
+  def assert_grid_hold(actual, expected, area, hold) do
     assert actual["id"] != nil
     assert actual["area"]["id"] == to_string(area.id)
     assert actual["area"]["name"] == area.name
