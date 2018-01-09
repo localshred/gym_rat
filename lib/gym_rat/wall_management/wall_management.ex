@@ -13,4 +13,15 @@ defmodule GymRat.WallManagement do
   defdelegate list_grid_holds(ids), to: GridHold
   defdelegate list_grid_holds, to: GridHold
   defdelegate update_grid_hold(grid_hold, attrs), to: GridHold
+
+  alias GymRat.WallManagement.Context.GridWall
+  defdelegate change_grid_wall(grid_wall), to: GridWall
+  defdelegate count_grid_walls, to: GridWall
+  defdelegate create_grid_wall(attrs), to: GridWall
+  defdelegate delete_grid_wall(grid_wall), to: GridWall
+  defdelegate get_grid_wall!(id), to: GridWall
+  defdelegate get_grid_wall(id), to: GridWall
+  defdelegate list_grid_walls(ids), to: GridWall
+  defdelegate list_grid_walls, to: GridWall
+  defdelegate update_grid_wall(grid_wall, attrs), to: GridWall
 end
